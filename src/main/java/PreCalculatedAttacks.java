@@ -9,7 +9,7 @@ public class PreCalculatedAttacks {
             pawn_attacks[1][i] = black_pawn_attacks(1L << i);
         }
     }
-    static long[] knight_attacks = new long[64];
+    static long[] knight_attacks = new long[64];  // test
     static {
         for (int i = 0; i < 64; i++) {
             knight_attacks[i] = knight_attacks(1L << i);
