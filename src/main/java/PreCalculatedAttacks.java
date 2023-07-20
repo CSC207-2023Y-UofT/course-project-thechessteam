@@ -22,29 +22,6 @@ public class PreCalculatedAttacks {
         }
     }
 
-    // Could be implemented in different ways, choose how you want to calculate
-    /* Sliding Pieces
-    static long[][] rook_attacks = new long[64][2];
-    static {
-        for (int i = 0; i < 64; i++) {
-            rook_attacks[i][0] = 1L << (i % 8); // horizontal slider value
-            rook_attacks[i][1] = 1L << (i / 8); // vertical slider value
-        }
-    }
-    static long[] bishop_attacks = new long[64];
-    static {
-        for (int i = 0; i < 64; i++) {
-            bishop_attacks[i] = 1L << (i / 8); // diagonal slider value
-        }
-    }
-    static long[][] queen_attacks = new long[64][3];
-    static {
-        for (int i = 0; i < 64; i++) {
-            queen_attacks[i][0] = 1L << (i % 8); // horizontal slider value
-            queen_attacks[i][1] = 1L << (i / 8); // vertical slider value
-            queen_attacks[i][2] = 1L << (i / 8); // diagonal slider value
-        }
-    }*/
     private static long white_pawn_attacks(long from) {
         long attacks_right = (from & ~FileAndRank.RANK_8 & ~FileAndRank.FILE_A)<<7; // capture right
         long attacks_left = (from & ~FileAndRank.RANK_8 & ~FileAndRank.FILE_H)<<9; // capture left
@@ -67,7 +44,7 @@ public class PreCalculatedAttacks {
             attacks = FileAndRank.KNIGHT_SPAN << (bit_location - 18);
         }
         else {
-            attacks = FileAndRank.KNIGHT_SPAN >> (18 - bit_location);
+            attacks = FileAndRank.KNIGHT_SPAN >>> (18 - bit_location);
         }
 
         // Cut off "wrappings" of moves
@@ -88,7 +65,7 @@ public class PreCalculatedAttacks {
             attacks = FileAndRank.KING_SPAN << (bit_location - 9);
         }
         else {
-            attacks = FileAndRank.KING_SPAN >> (9 - bit_location);
+            attacks = FileAndRank.KING_SPAN >>> (9 - bit_location);
         }
 
         // Cut off "wrappings" of moves

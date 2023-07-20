@@ -20,7 +20,7 @@ public class TestForBitboards {
         int[][] board = new int[8][8];
         for (int i = 0; i < 64; i++) {
             // Evaluate the value of i-th bit
-            board[7 - i / 8][i % 8] = (int) ((bitboard >> i) & 1);
+            board[7 - i / 8][i % 8] = (int) ((bitboard >>> i) & 1);
         }
         return board;
     }
