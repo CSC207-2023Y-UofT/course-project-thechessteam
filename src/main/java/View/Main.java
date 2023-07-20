@@ -1,7 +1,9 @@
+package View;
+
 import Entities.ChessBoard;
 
 public class Main {
-    // Main method for testing
+    // View.Main method for testing
     public static void main(String[] args) {
         String[][] chessBoard = {
                 {"r", "n", "b", "q", "k", "b", "n", "r"},
