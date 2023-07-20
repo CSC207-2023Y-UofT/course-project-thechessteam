@@ -1,3 +1,5 @@
+package Entities;
+
 public interface Calculator {
     // side = 0 to represent White
     // side = 1 to represent Black
@@ -7,20 +9,20 @@ public interface Calculator {
     // Returns a bitboard with 1s at valid moves and 0s for the rest.
     long valid_moves(long from, int side, LocationBitboard board);
 
-    // Calculates the attack coverage of the piece type inheriting Calculator interface.
+    // Calculates the attack coverage of the piece type inheriting Entities.Calculator interface.
     // Note: It is attack coverage so only diagonal moves of pawns are attacks.
     // Used to check for check.
     // For example, for Pawn class, it could use the bit "or" operation to combine bitboards in pawn_attacks
     // Returns a bitboard with 1s at "can attack" locations and 0s for the rest.
     long attack_coverage(int side, LocationBitboard board);
 
-    // TODO Create Pawn, Rook, Knight, Bishop, Queen, and King Class and have them implement Calculator.
+    // TODO Create Pawn, Rook, Knight, Bishop, Queen, and King Class and have them implement Entities.Calculator.
     // TODO Implement the methods accordingly.
-    // TODO Use PreCalculatedAttacks accordingly.
+    // TODO Use Entities.PreCalculatedAttacks accordingly.
 
     public class King implements Calculator {
 
-        // Create this King class for each king and update LocationBitboard when the king moves.
+        // Create this King class for each king and update Entities.LocationBitboard when the king moves.
 
         private final LocationBitboard board;
 

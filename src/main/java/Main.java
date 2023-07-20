@@ -1,3 +1,5 @@
+import Entities.ChessBoard;
+
 public class Main {
     // Main method for testing
     public static void main(String[] args) {
@@ -12,9 +14,9 @@ public class Main {
                 {"R", "N", "B", "Q", "K", "B", "N", "R"}
         };
 
-        // Create a ChessBoard object with the initial board setup
+        // Create a Entities.ChessBoard object with the initial board setup
         ChessBoard cb = new ChessBoard(chessBoard);
-        // Print the ChessBoard object
+        // Print the Entities.ChessBoard object
         System.out.println(cb);
     }
 }

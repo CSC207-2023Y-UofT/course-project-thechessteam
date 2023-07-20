@@ -1,3 +1,5 @@
+package Entities;
+
 import java.util.Arrays;
 
 // A class representing a chess board using bitboards

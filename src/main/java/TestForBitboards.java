@@ -1,3 +1,7 @@
+import Entities.FileAndRank;
+import Entities.LocationBitboard;
+import Entities.PreCalculatedAttacks;
+
 public class TestForBitboards {
     public static void main(String[] args){
         print_board_state();
