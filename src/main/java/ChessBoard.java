@@ -1,9 +1,13 @@
 import java.util.Arrays;
 
-// A class representing a chess board using bitboards
+/**
+ * Represents a chess board using bitboards, where each type of piece (and color) is associated with a separate bitboard.
+ */
 public class ChessBoard {
 
-    // An enumeration of the different pieces and their colors
+    /**
+     * An enumeration of the different pieces and their colors.
+     */
     public enum Piece {
         EMPTY, WP, WN, WB, WR, WQ, WK, BP, BN, BB, BR, BQ, BK
     }
@@ -11,7 +15,11 @@ public class ChessBoard {
     // An array of bitboards, one for each piece
     private long[] bitboards = new long[Piece.values().length];
 
-    // Constructor that takes a 2D array of strings representing the initial board setup
+    /**
+     * Constructs a new ChessBoard from a given 2D string array.
+     *
+     * @param board The initial configuration of the board, represented as a 2D string array.
+     */
     public ChessBoard(String[][] board) {
         for (int i = 0; i < 64; i++) {
             String piece = board[i / 8][i % 8];
@@ -24,7 +32,11 @@ public class ChessBoard {
         }
     }
 
-    // Method that converts the bitboards back into a 2D array of strings
+    /**
+     * Converts the current bitboards to a 2D string array representation of the board.
+     *
+     * @return A 2D string array representing the current state of the chess board.
+     */
     private String[][] bitboardsToArray() {
         String[][] board = new String[8][8];
         for (int i = 0; i < 64; i++) {
@@ -51,7 +63,11 @@ public class ChessBoard {
         return board;
     }
 
-    // Method that returns a string representation of the board
+    /**
+     * Returns a string representation of the chess board.
+     *
+     * @return A string that visually represents the current state of the chess board.
+     */
     @Override
     public String toString() {
         String[][] board = bitboardsToArray();
