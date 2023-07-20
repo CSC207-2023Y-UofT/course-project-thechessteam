@@ -1,7 +1,22 @@
+/**
+ * This class provides constants for initializing a new chess game.
+ * Each constant represents the initial position of the corresponding piece on a chessboard, with the white pieces at the bottom and the black pieces at the top.
+ * The constants are long values that represent bitboards, with each bit corresponding to a square on the chessboard.
+ * The bitboards are read from right to left and top to bottom, so the top right square is the least significant bit.
+ */
 public class InitialPositions {
     // Constants for initializing a new chess game.
+    // viewing the board as white pieces at the bottom, black pieces at the top.
+
+    /**
+     * The initial position of the white pawns.
+     */
     static long WHITE_PAWN =
             0b0000000000000000000000000000000000000000000000001111111100000000L;
+
+    /**
+     * The initial position of the white rooks.
+     */
     static long WHITE_ROOK =
             0b0000000000000000000000000000000000000000000000000000000010000001L;
     static long WHITE_KNIGHT =
@@ -12,6 +27,10 @@ public class InitialPositions {
             0b0000000000000000000000000000000000000000000000000000000000001000L;
     static long WHITE_KING =
             0b0000000000000000000000000000000000000000000000000000000000010000L;
+
+    /**
+     * The initial position of the black pawns.
+     */
     static long BLACK_PAWN =
             0b0000000011111111000000000000000000000000000000000000000000000000L;
     static long BLACK_ROOK =
