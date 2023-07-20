@@ -7,7 +7,7 @@ public final class Pawn extends Piece implements Calculator{
             long wpawn_default_move_tiles = from >>> 8;
 
             // pawn's 2 tile ahead move, only first move
-            if from in RANK_7 {
+            if from in RANK_7 { //pseudocode
                 long wpawn_first_move_tiles = from >>> 16;
             }
             // get curent attacks and compare it to game state to find which positions
@@ -20,7 +20,9 @@ public final class Pawn extends Piece implements Calculator{
             long bpawn_default_move_tiles = from <<< 8;
 
             // pawn's 2 tile ahead move, only first move
-            long bpawn_first_move_tiles = from >>> 16;
+            if from in RANK_2 { //pseudocode
+                long bpawn_first_move_tiles = from <<< 16;
+            }
 
             // get curent attacks and compare it to game state to find which positions
             // are not occupied by other white pieces, and which tiles are occupied
