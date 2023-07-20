@@ -14,7 +14,7 @@ public interface Calculator {
     // Returns a bitboard with 1s at "can attack" locations and 0s for the rest.
     long attack_coverage(int side);
 
-    // TODO Create Pawn, Rook, Knight, Bishop, Queen, and King Class and have them implement Calculator.
+    // TODO Create Pawn, Rook, Knight, Pieces.Bishop, Queen, and King Class and have them implement Calculator.
     // TODO Implement the methods accordingly.
     // TODO Use PreCalculatedAttacks accordingly.
 }
