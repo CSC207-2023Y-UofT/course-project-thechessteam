@@ -1,5 +1,6 @@
 public class InitialPositions {
     // Constants for initializing a new chess game.
+    // white is towards our side
     static long WHITE_PAWN =
             0b0000000000000000000000000000000000000000000000001111111100000000L;
     static long WHITE_ROOK =
