@@ -14,6 +14,7 @@ public class Bishop implements Calculator {
     public long valid_moves(long from, int side, LocationBitboard board) {
         // due to occupied being duplicate code, may want to make it reusable.
         // occupied provides occupied places on the board. (recall, OR | operator)
+        // also recommended that whiteBishop shouldn't be a long array, just keep it as long.
         long occupied = board.whiteBishop[0] | board.whiteKing[0] | board.whiteRook[0] | board.whiteKnight[0] | board.whitePawn[0] | board.whiteQueen[0] |
                 board.blackBishop[0] | board.blackKing[0] | board.blackRook[0] | board.blackKnight[0] | board.blackPawn[0] | board.blackQueen[0] ;
 
