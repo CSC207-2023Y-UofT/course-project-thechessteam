@@ -1,4 +1,7 @@
 public class Rook implements Calculator {
+
+    private long sameColoredPieces;
+
     public Rook() {}
 
     @Override
@@ -12,7 +15,21 @@ public class Rook implements Calculator {
         int s = Long.numberOfTrailingZeros(from);
         long possibleHorizontalMoves = (occupied - 2 * from) ^ Long.reverse(Long.reverse(occupied) - 2 * Long.reverse(from));
         long possibilitiesVertical = ((occupied&FileAndRank.FileMasks8[s % 8]) - (2 * from)) ^ Long.reverse(Long.reverse(occupied&FileAndRank.FileMasks8[s % 8]) - (2 * Long.reverse(from)));
-        return (possibleHorizontalMoves&FileAndRank.RankMasks8[s / 8]) | (possibilitiesVertical&FileAndRank.FileMasks8[s % 8]);
+
+        // depending on whether you are black or white side (white == 0), generates the pieces that are the same color as the piece in question (i.e., can't step on your own pieces).
+        this.sameColoredPieces = (side == 0) ?
+                board.whitePawn[0] | board.whiteRook[0] | board.whiteKnight[0]
+                        | board.whiteBishop[0] | board.whiteQueen[0] | board.whiteKing[0] :
+                board.blackPawn[0] | board.blackRook[0] | board.blackKnight[0]
+                        | board.blackBishop[0] | board.blackQueen[0] | board.blackKing[0];
+
+        // return long, of the valid moves this specific Rook may take
+        return calculateFinalPosition(possibleHorizontalMoves&FileAndRank.RankMasks8[s / 8]) | calculateFinalPosition(possibilitiesVertical&FileAndRank.FileMasks8[s % 8]);
+    }
+
+    // worry about refactoring later
+    public long calculateFinalPosition(long candidate) {
+        return candidate & ~this.sameColoredPieces;
     }
 
     @Override

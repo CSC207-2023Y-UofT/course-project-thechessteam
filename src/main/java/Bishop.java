@@ -1,5 +1,8 @@
 public class Bishop implements Calculator {
+
     private long sameColoredPieces;
+
+    public Bishop(){}
 
     /**
      * @param from current location, long
@@ -26,11 +29,11 @@ public class Bishop implements Calculator {
                 board.blackPawn[0] | board.blackRook[0] | board.blackKnight[0]
                         | board.blackBishop[0] | board.blackQueen[0] | board.blackKing[0];
 
-        // return long, of the valid moves this specific Rook may take
+        // return long, of the valid moves this specific Bishop may take
         return calculateFinalPosition((possibilitiesDiagonal&FileAndRank.DiagonalMasks8[(s / 8) + (s % 8)])) | calculateFinalPosition(possibilitiesAntiDiagonal&FileAndRank.AntiDiagonalMasks8[(s / 8) + 7 - (s % 8)]);
     }
 
-    // helper method, to calculate the final position (makes sure piece in question can't step on their own colored pieces)
+    // helper, to calculate the final position (makes sure piece in question can't step on their own colored pieces)
     public long calculateFinalPosition(long candidate) {
         return candidate & ~this.sameColoredPieces;
     }
