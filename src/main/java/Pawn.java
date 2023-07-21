@@ -2,33 +2,44 @@
 public final class Pawn extends Piece implements Calculator{
     // TODO add attributes
     public long valid_moves(long from, int side, LocationBitboard board){
+        // Precondition: side must be 0 or 1;
+
+        // Get piece positions for black and white pieces separately
+//        long black_board = TODO
+//        long white_board = TODO
+
+        //white pawn
         if side == 0 {
-            // pawn's 1 tile ahead move
-            long wpawn_default_move_tiles = from >>> 8;
+            // Pawn's curent position is a valid move
+            long wpawn_valid_moves = from;
+            // pawn's 1 tile ahead move, if there's no ally piece there already
+            wpawn_valid_moves &= from >>> 8 ^ white_board;
 
-            // pawn's 2 tile ahead move, only first move
-            if from in RANK_7 { //pseudocode
-                long wpawn_first_move_tiles = from >>> 16;
+            // pawn's 2 tile ahead move, only first move and if there's no ally piece there already
+            if (from & FileAndRank.RANK_7) {
+                wpawn_valid_moves &= from >>> 16 ^ white_board;
             }
-            // get curent attacks and compare it to game state to find which positions
-            // are not occupied by other white pieces, and which positions are occupied
-            // by black pieces
-            long wpawn_attack_tiles = white_pawn_attacks( long from);
+            // get curent attacks and take intersection with opponent pieces to find valid attack tiles.
+            wpawn_valid_moves &= white_pawn_attacks( long from) &black_board;
 
-        } else {
-            // pawn's 1 tile ahead move
-            long bpawn_default_move_tiles = from <<< 8;
+            return wpwan_valid_moves;
+        }
+        // black pawn
+        else  {
+            // Pawn's curent position is a valid move
+            long bpawn_valid_moves = from;
+            // pawn's 1 tile ahead move, if there's no ally piece there already
+            bpawn_valid_moves &= from <<< 8 ^ black_board;
 
-            // pawn's 2 tile ahead move, only first move
-            if from in RANK_2 { //pseudocode
-                long bpawn_first_move_tiles = from <<< 16;
+            // pawn's 2 tile ahead move, only first move and if there's no ally piece there already
+            if (from & FileAndRank.RANK_2) {
+                bpawn_valid_moves &= from <<< 16 ^ black_board;
             }
 
-            // get curent attacks and compare it to game state to find which positions
-            // are not occupied by other white pieces, and which tiles are occupied
-            // by white pieces
-            long bpawn_attack_tiles = black_pawn_attacks(long from);
+            // get curent attacks and take intersection with opponent pieces to find valid attack tiles.
+            bpawn_valid_moves &= black_pawn_attacks(long from) & white_board;
 
+            return bpwan_valid_moves;
         }
     }
 }
