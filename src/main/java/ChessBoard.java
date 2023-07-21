@@ -15,7 +15,7 @@ public class ChessBoard {
     public ChessBoard(String[][] board) {
         for (int i = 0; i < 64; i++) {
             String piece = board[i / 8][i % 8];
-            if (!piece.equals(" ")) {
+            if (!piece.equals(" ")) {  // if piece on the current square is not empty
                 // Append "W" for white pieces and "B" for black pieces
                 String pieceEnumName = (piece.equals(piece.toUpperCase()) ? "W" : "B") + piece.toUpperCase();
                 Piece pieceEnum = Piece. valueOf(pieceEnumName);
