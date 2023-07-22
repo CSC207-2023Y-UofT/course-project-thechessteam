@@ -4,7 +4,6 @@ public class Rook implements Calculator {
 
     public Rook() {}
 
-    @Override
     public long valid_moves(long from, int side, LocationBitboard board) {
         // due to occupied being duplicate code, may want to make it reusable.
         // occupied provides occupied places on the board. (recall, OR | operator)
@@ -32,7 +31,6 @@ public class Rook implements Calculator {
         return candidate & ~this.sameColoredPieces;
     }
 
-    @Override
     public long attack_coverage(int side, LocationBitboard board) {
         long attacked = 0L;  // bits where rook is attacking
         long rook_locations;  // rook locations based on side/color
