@@ -6,7 +6,7 @@
  *
  * Chessboard for reference:
  *   Most significant bit (left-most bit) represents h8. Least significant bit (right-most bit) represents a1.
- *   e.g., Black King on square e8 (file 'e', rank '7')
+ *   e.g., Black King on square e8 (file 'e', rank '8')
  *   e.g., White King on square e1 (file 'e', rank '1')
  *
  *      [a8 b8 c8 d8 e8 f8 g8 h8]
