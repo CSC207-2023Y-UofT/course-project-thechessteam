@@ -2,7 +2,7 @@
  * This interface is used to calculate valid moves and attack coverage for a chess piece on a chess board.
  * Used in classes that represent specific types of chess pieces (Pawn, Rook, Knight, Bishop, Queen, King)
  * The group should be implementing this interface and provide appropriate implementations for the methods.
- * Note: the Calculator assumes that the player is not in Check. (CheckmateCalculator will be responsible for that.)
+ * Note: the Calculator assumes that the player is not in Check.
  * Note: The King class that implements this does not use the attack coverage for opponents pieces.
  *
  */
