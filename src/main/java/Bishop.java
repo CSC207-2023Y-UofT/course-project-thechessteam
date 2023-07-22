@@ -39,13 +39,28 @@ public class Bishop implements Calculator {
         return candidate & ~this.sameColoredPieces;
     }
 
-    /**
-     * @param side
-     * @param board
-     * @return
-     */
     @Override
     public long attack_coverage(int side, LocationBitboard board) {
-        return 0;
+        long attacked = 0L;  // bits where bishop is attacking
+        long rook_locations;  // bishop locations based on side/color
+
+        // get the locations of the rook based on the input side
+        if (side == 0) {  // white
+            rook_locations = board.whiteRook[0];
+        } else {  // black
+            rook_locations = board.blackRook[0];
+        }
+
+        // Loop through all possible bishop positions
+        for (int i = 0; i < 64; i++) {
+            // If a rook is at the current position, get its valid moves and add it to coverage
+            // shift rook locations i bits to the right, if it == 1, means rook is in the ith position
+            // if rook is in the ith position, add that to the attacked bits
+            if ((int) ((rook_locations >>> i) & 1) == 1) {
+                attacked |= valid_moves(1L << i, side, board);
+            }
+        }
+        // Return all squares attacked by the rooks of the given side
+        return attacked;
     }
 }
