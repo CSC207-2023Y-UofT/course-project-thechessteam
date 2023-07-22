@@ -35,7 +35,7 @@ public class Bishop implements Calculator {
     }
 
     // helper, to calculate the final position (makes sure piece in question can't step on their own colored pieces)
-    public long calculateFinalPosition(long candidate) {
+    private long calculateFinalPosition(long candidate) {
         return candidate & ~this.sameColoredPieces;
     }
 

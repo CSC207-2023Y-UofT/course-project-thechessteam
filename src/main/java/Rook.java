@@ -28,7 +28,7 @@ public class Rook implements Calculator {
     }
 
     // worry about refactoring later
-    public long calculateFinalPosition(long candidate) {
+    private long calculateFinalPosition(long candidate) {
         return candidate & ~this.sameColoredPieces;
     }
 
