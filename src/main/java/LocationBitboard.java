@@ -1,7 +1,11 @@
+/**
+ * This class represents a chessboard using bitboards for each pieces location
+ * A new instance of this class should be created at the beginning of each game
+ * Each type of piece (for both white and black) is represented by a long array, where each element
+ * is a bitboard that represents the locations of pieces of that type.
+ * Array of longs for flexibility. (long[])
+ */
 public class LocationBitboard {
-    // Create this class each time a new game starts; holds location of pieces.
-    // long[] to use as container for updates.
-    // Public variables for readability and to avoid too many getters and setters.
     public long[] whitePawn = new long[]{InitialPositions.WHITE_PAWN};
     public long[] whiteRook = new long[]{InitialPositions.WHITE_ROOK};
     public long[] whiteKnight = new long[]{InitialPositions.WHITE_KNIGHT};
@@ -15,6 +19,9 @@ public class LocationBitboard {
     public long[] blackQueen = new long[]{InitialPositions.BLACK_QUEEN};
     public long[] blackKing = new long[]{InitialPositions.BLACK_KING};
 
+    /**
+     * Constructor for creating an instance of LocationBitboard.
+     * Initializes all the bitboards to the starting positions of the pieces
+     */
     public LocationBitboard(){}
-
 }
