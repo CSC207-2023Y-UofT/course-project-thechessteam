@@ -5,7 +5,7 @@ public class BishopTest {
         board.whiteBishop[0] = 0L;
         board.whiteBishop[0] = 1L << 28;
         long validMoves = bishop.valid_moves(board.whiteBishop[0], 0, board);
-        System.out.println("Bishop's valid moves in bits:\n" + Long.toBinaryString(validMoves));
-        System.out.println("Expected bishop's valid moves in bits:\n" + "10000010010001000010100000000000001010000000000000000000");
+        System.out.println("Bishop's valid moves:\n" + Long.toBinaryString(validMoves));
+        System.out.println("Expected bishop's valid moves:\n" + "10000010010001000010100000000000001010000000000000000000");
     }
 }
