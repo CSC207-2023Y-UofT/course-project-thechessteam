@@ -31,4 +31,7 @@ public interface Calculator {
     // TODO Create Pawn, Rook, Knight, Bishop, Queen, and King Class and have them implement Calculator.
     // TODO Implement the methods accordingly.
     // TODO Use PreCalculatedAttacks accordingly.
+
+
+
 }
