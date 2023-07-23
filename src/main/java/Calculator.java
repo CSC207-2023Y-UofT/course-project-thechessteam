@@ -29,7 +29,7 @@ public interface Calculator {
         }
 
         @Override
-        public long valid_moves(long from, int side, LocationBitboard board) {
+        public long valid_moves(long from, int side) {
             int square = Long.numberOfTrailingZeros(from);
 
             // Calculate possible king attacks from the current square
@@ -50,7 +50,7 @@ public interface Calculator {
         }
 
         @Override
-        public long attack_coverage(int side, LocationBitboard board) {
+        public long attack_coverage(int side) {
             long kings = (side == 0) ? board.whiteKing[0] : board.blackKing[0];
             long attackBoard = 0L;
 
