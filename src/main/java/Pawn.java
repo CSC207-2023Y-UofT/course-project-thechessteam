@@ -26,7 +26,7 @@ public class Pawn implements Calculator{
                 pawn_valid_moves |= (from << 16) & ~white_board;
             }
             // get curent attacks and take intersection with opponent pieces to find valid attack tiles
-            pawn_valid_moves |= white_pawn_attacks(long from) &black_board;
+            pawn_valid_moves |= white_pawn_attacks(long from) & black_board;
         }
         // black pawn
         else  {
@@ -62,7 +62,7 @@ public class Pawn implements Calculator{
 
         // white
         if (side == 0) {
-            for (int i = 0: i < 64: i++){
+            for (int i = 0; i < 64; i++){
                 // bit shift the 1 in 1L right by i times, i going from 0 to 63
                 position = position_checker >>> i;
                 // if the position being checked exists in white pawn locations, and has an opponent piece to attack,
@@ -74,7 +74,7 @@ public class Pawn implements Calculator{
         //black
         } else {
             // bit shift the 1 in 1L right by i times, i going from 0 to 63
-            for (int i = 0: i < 64: i++){
+            for (int i = 0; i < 64; i++){
                 position = position_checker >>> i;
                 // if the position being checked exists in black pawn locations, and has an opponent piece to attack,
                 // append it to attacks
