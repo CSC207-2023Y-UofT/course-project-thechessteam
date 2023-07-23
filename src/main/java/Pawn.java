@@ -15,15 +15,15 @@ public class Pawn implements Calculator{
         long pawn_valid_move = 0L;
 
         //white pawn
-        if side == 0 {
-            // pawn's 1 tile ahead move, if there's no ally piece there already
+        if (side == 0) {
+            // pawn's 1 tile ahead move, if there's no piece there already
             if (from & FileAndRank.RANK_1 == 0L) {
-                pawn_valid_moves |= from << 8 ^ white_board;
+                pawn_valid_moves |= (from << 8) & ~white_board & ~black_board;
             }
 
             // pawn's 2 tile ahead move, only first move and if there's no ally piece there already
             if (from & FileAndRank.RANK_7 != 0L) {
-                pawn_valid_moves |= from << 16 ^ white_board;
+                pawn_valid_moves |= (from << 16) & ~white_board;
             }
             // get curent attacks and take intersection with opponent pieces to find valid attack tiles
             pawn_valid_moves |= white_pawn_attacks(long from) &black_board;
@@ -32,12 +32,12 @@ public class Pawn implements Calculator{
         else  {
             // pawn's 1 tile ahead move, if there's no ally piece there already
             if (from & FileAndRank.RANK_8 == 0L) {
-                pawn_valid_moves |= from >>> 8 ^ black_board;
+                pawn_valid_moves |= (from >>> 8) & ~black_board & ~white_board;
             }
 
             // pawn's 2 tile ahead move, only first move and if there's no ally piece there already
             if (from & FileAndRank.RANK_2 != 0L) {
-                pawn_valid_moves |= from >>> 16 ^ black_board;
+                pawn_valid_moves |= (from >>> 16) & ~black_board;
             }
 
             // get curent attacks and take intersection with opponent pieces to find valid attack tiles
@@ -61,7 +61,7 @@ public class Pawn implements Calculator{
         position_checker = 1L;
 
         // white
-        if side == 0 {
+        if (side == 0) {
             for (int i = 0: i < 64: i++){
                 // bit shift the 1 in 1L right by i times, i going from 0 to 63
                 position = position_checker >>> i;
