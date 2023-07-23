@@ -4,7 +4,6 @@ public class Knight implements Calculator {
 
     public Knight() {}
 
-    @Override
     // method that calculates valid moves for knight
     public long valid_moves(long from, int side, LocationBitboard board) {
 
@@ -26,7 +25,6 @@ public class Knight implements Calculator {
         return candidate & ~this.sameColoredPieces;
     }
 
-    @Override
     public long attack_coverage(int side, LocationBitboard board) {
         long attacked = 0L;  // bits where knight is attacking
         long knights_location;  // knights location based on team
