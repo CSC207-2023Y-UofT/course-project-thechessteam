@@ -12,7 +12,7 @@ public class Pawn implements Calculator{
                     | board.blackBishop[0] | board.blackQueen[0] | board.blackKing[0];
 
         //curent position is a valid move
-        long pawn_valid_move = 0L;
+        long pawn_valid_moves = 0L;
 
         //white pawn
         if (side == 0) {
@@ -56,9 +56,9 @@ public class Pawn implements Calculator{
                 | board.blackBishop[0] | board.blackQueen[0] | board.blackKing[0];
 
         // start with no attack positions
-        pawn_attacks = 0L;
+        long pawn_attacks = 0L;
         // We will use 1L and shift the 1 right once each time to check all board positions
-        position_checker = 1L;
+        long position_checker = 1L;
 
         // white
         if (side == 0) {
