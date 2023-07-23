@@ -18,30 +18,30 @@ public class Pawn implements Calculator{
         if (side == 0) {
             // pawn's 1 tile ahead move, if there's no piece there already
             if (from & FileAndRank.RANK_1 == 0L) {
-                pawn_valid_moves |= (from << 8) & ~white_board & ~black_board;
+                pawn_valid_moves |= ((from << 8) & ~white_board & ~black_board);
             }
 
             // pawn's 2 tile ahead move, only first move and if there's no ally piece there already
             if (from & FileAndRank.RANK_7 != 0L) {
-                pawn_valid_moves |= (from << 16) & ~white_board;
+                pawn_valid_moves |= ((from << 16) & ~white_board);
             }
             // get curent attacks and take intersection with opponent pieces to find valid attack tiles
-            pawn_valid_moves |= white_pawn_attacks(long from) & black_board;
+            pawn_valid_moves |= (white_pawn_attacks(long from) & black_board);
         }
         // black pawn
         else  {
             // pawn's 1 tile ahead move, if there's no ally piece there already
             if (from & FileAndRank.RANK_8 == 0L) {
-                pawn_valid_moves |= (from >>> 8) & ~black_board & ~white_board;
+                pawn_valid_moves |= ((from >>> 8) & ~black_board & ~white_board);
             }
 
             // pawn's 2 tile ahead move, only first move and if there's no ally piece there already
             if (from & FileAndRank.RANK_2 != 0L) {
-                pawn_valid_moves |= (from >>> 16) & ~black_board;
+                pawn_valid_moves |= ((from >>> 16) & ~black_board);
             }
 
             // get curent attacks and take intersection with opponent pieces to find valid attack tiles
-            pawn_valid_moves |= black_pawn_attacks(long from) & white_board;
+            pawn_valid_moves |= (black_pawn_attacks(long from) & white_board);
         }
 
         // return all possible valid moves
@@ -68,7 +68,7 @@ public class Pawn implements Calculator{
                 // if the position being checked exists in white pawn locations, and has an opponent piece to attack,
                 // append it to attacks
                 if (position & board.whitePawn != 0L){
-                    pawn_attacks |= white_pawn_attacks(long position) & black_board;
+                    pawn_attacks |= (white_pawn_attacks(long position) & black_board);
                 }
             }
         //black
@@ -79,7 +79,7 @@ public class Pawn implements Calculator{
                 // if the position being checked exists in black pawn locations, and has an opponent piece to attack,
                 // append it to attacks
                 if (position & board.blackPawn != 0L){
-                    pawn_attacks |= black_pawn_attacks(long position) & white_board;
+                    pawn_attacks |= (black_pawn_attacks(long position) & white_board);
                 }
             }
         }
