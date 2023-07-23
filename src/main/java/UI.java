@@ -50,7 +50,7 @@ public class UI extends JPanel {
 
     public void drawPieces(Graphics g) {
         Image chessPieceImage;
-        chessPieceImage = new ImageIcon("C:\\Users\\harri\\CSCC207Summer\\ChessGame\\src\\main\\projectimages\\ChessPieces.png").getImage();
+        chessPieceImage = new ImageIcon(getClass().getResource("/projectimages/ChessPieces.png")).getImage();
         for (int i=0;i<64;i++) {
             int j=-1,k=-1;
             if (((WP>>i)&1)==1) {j=5; k=1-humanIsWhite;}
