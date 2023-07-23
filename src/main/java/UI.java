@@ -25,12 +25,11 @@ public class UI extends JPanel {
         javaF.repaint();
     }
 
-    @Override
+    // Paints the boarder for the board, the pieces, and the board itself.
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         this.setBackground(new Color(43, 45, 48));
         this.addComponentListener(new ComponentAdapter() {
-            @Override
             public void componentResized(ComponentEvent e) {
                 squareSize=(double)(Math.min(getHeight(), getWidth()-200-border)-2*border)/8;
             }
