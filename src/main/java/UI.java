@@ -25,7 +25,7 @@ public class UI extends JPanel {
         javaF.repaint();
     }
 
-    // Paints the boarder for the board, the pieces, and the board itself.
+    // Paints the boarder for the board, the pieces, and the board itself
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         this.setBackground(new Color(43, 45, 48));
