@@ -13,7 +13,7 @@ public class ChessBoard {
     }
 
     // An array of bitboards, one for each piece
-    private static long[] bitboards = new long[Piece.values().length];
+    private static final long[] bitboards = new long[Piece.values().length];
 
     /**
      * Constructs a new ChessBoard from a given 2D string array.
