@@ -66,7 +66,7 @@ public class Pawn implements Calculator{
             if ((pawn_pos & board.whitePawn[0]) != 0L) {
                 white_pawn_attacks |= pawn_pos << 7;
                 white_pawn_attacks |= pawn_pos << 9;
-            } elif ((pawn_pos & board.blackPawn[0]) != 0L) {
+            } else if ((pawn_pos & board.blackPawn[0]) != 0L) {
                 black_pawn_attacks |= pawn_pos >>> 7;
                 black_pawn_attacks |= pawn_pos >>> 9;
             }
