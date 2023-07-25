@@ -30,7 +30,7 @@ public class LeaderBoard{
             }
             player_output.close(); //close file
         } catch (IOException e) {
-            System.out.println("Could not write to file 'players'")
+            System.out.println("Could not write to file 'players'");
         }
     }
 
@@ -44,7 +44,7 @@ public class LeaderBoard{
             }
             players_read.close();
         } catch (IOException e) {
-            System.out.println("No Players in leaderboard yet")
+            System.out.println("No Players in leaderboard yet");
         }
         return leaderboard;
     }
