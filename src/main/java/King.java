@@ -21,12 +21,12 @@ public class King implements Calculator {
         long coverage = 0L;
         long kingPositions = side == 0 ? board.whiteKing[0] : board.blackKing[0];
 
-        while (kingPositions != 0) {
-            int position = Long.numberOfTrailingZeros(kingPositions);
-            coverage |= PreCalculatedAttacks.king_attacks[position];
-            kingPositions &= kingPositions - 1; // Clear the least significant bit
+        for (int i = 0; i < 64; i++) {
+            // Check if the bit at the i-th position is set
+            if ((kingPositions & (1L << i)) != 0) {
+                coverage |= PreCalculatedAttacks.king_attacks[i];
+            }
         }
-
         return coverage;
     }
 
