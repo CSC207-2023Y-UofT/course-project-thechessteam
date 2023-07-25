@@ -26,7 +26,9 @@ public class Pawn implements Calculator{
                 pawn_valid_moves |= ((from << 16) & ~white_board);
             }
             // get curent attacks and take intersection with opponent pieces to find valid attack tiles
-            pawn_valid_moves |= (white_pawn_attacks(from) & black_board);
+            long attacks_right = (from & ~FileAndRank.RANK_8 & ~FileAndRank.FILE_A)<<7; // capture right
+            long attacks_left = (from & ~FileAndRank.RANK_8 & ~FileAndRank.FILE_H)<<9; // capture left
+            pawn_valid_moves |= ((attacks_right|attacks_left) & black_board);
         }
         // black pawn
         else  {
@@ -41,7 +43,9 @@ public class Pawn implements Calculator{
             }
 
             // get curent attacks and take intersection with opponent pieces to find valid attack tiles
-            pawn_valid_moves |= (black_pawn_attacks(from) & white_board);
+            long attacks_left = (from & ~FileAndRank.RANK_1 & ~FileAndRank.FILE_H)>>>7; // capture left
+            long attacks_right = (from & ~FileAndRank.RANK_1 & ~FileAndRank.FILE_A)>>>9; // capture right
+            pawn_valid_moves |= ((attacks_left|attacks_right) & white_board);
         }
 
         // return all possible valid moves
@@ -57,31 +61,12 @@ public class Pawn implements Calculator{
 
         // start with no attack positions
         long pawn_attacks = 0L;
-        // We will use 1L and shift the 1 right once each time to check all board positions
-        long position_checker = 1L;
-
         // white
         if (side == 0) {
-            for (int i = 0; i < 64; i++){
-                // bit shift the 1 in 1L right by i times, i going from 0 to 63
-                position = position_checker >>> i;
-                // if the position being checked exists in white pawn locations, and has an opponent piece to attack,
-                // append it to attacks
-                if (position & board.whitePawn != 0L){
-                    pawn_attacks |= (white_pawn_attacks(position) & black_board);
-                }
-            }
+            pawn_attacks |= (pawn_attacks[0] & black_board);
         //black
         } else {
-            // bit shift the 1 in 1L right by i times, i going from 0 to 63
-            for (int i = 0; i < 64; i++){
-                position = position_checker >>> i;
-                // if the position being checked exists in black pawn locations, and has an opponent piece to attack,
-                // append it to attacks
-                if (position & board.blackPawn != 0L){
-                    pawn_attacks |= (black_pawn_attacks(position) & white_board);
-                }
-            }
+            pawn_attacks |= (pawn_attacks[1] & white_board);
         }
         return pawn_attacks;
     }
