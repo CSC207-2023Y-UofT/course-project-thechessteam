@@ -3,9 +3,6 @@ public class Pawn implements Calculator{
     public Pawn(){}
     // TODO add attributes
 
-    // Creating instance of class PreCalculatedAttacks to access variable pawn_attacks
-    PreCalculatedAttacks attack_holder = new PreCalculatedAttacks();
-
     public long valid_moves(long from, int side, LocationBitboard board){
         // Precondition: side must be 0 or 1;
 
@@ -62,15 +59,27 @@ public class Pawn implements Calculator{
                 | board.whiteBishop[0] | board.whiteQueen[0] | board.whiteKing[0];
         long white_board = board.blackPawn[0] | board.blackRook[0] | board.blackKnight[0]
                 | board.blackBishop[0] | board.blackQueen[0] | board.blackKing[0];
+        long white_pawn_attacks = 0L;
+        long black_pawn_attacks = 0L;
+        for (int i = 0; i < 64; i++) {
+            pawn_pos = 1L >>> i;
+            if ((pawn_pos & board.whitePawn[0]) != 0L) {
+                white_pawn_attacks |= pawn_pos << 7;
+                white_pawn_attacks |= pawn_pos << 9;
+            } elif ((pawn_pos & board.blackPawn[0]) != 0L) {
+                black_pawn_attacks |= pawn_pos >>> 7;
+                black_pawn_attacks |= pawn_pos >>> 9;
+            }
+        }
 
         // start with no attack positions
         long valid_pawn_attacks = 0L;
         // white
         if (side == 0) {
-            valid_pawn_attacks |= (attack_holder.pawn_attacks[0] & black_board);
+            valid_pawn_attacks |= (white_pawn_attacks & black_board);
         //black
         } else {
-            valid_pawn_attacks |= (attack_holder.pawn_attacks[1] & white_board);
+            valid_pawn_attacks |= (black_pawn_attacks & white_board);
         }
         return valid_pawn_attacks;
     }
