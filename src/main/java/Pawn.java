@@ -2,6 +2,10 @@
 public class Pawn implements Calculator{
     public Pawn(){}
     // TODO add attributes
+
+    // Creating instance of class PreCalculatedAttacks to access variable pawn_attacks
+    PreCalculatedAttacks attack_holder = new PreCalculatedAttacks();
+
     public long valid_moves(long from, int side, LocationBitboard board){
         // Precondition: side must be 0 or 1;
 
@@ -63,10 +67,10 @@ public class Pawn implements Calculator{
         long valid_pawn_attacks = 0L;
         // white
         if (side == 0) {
-            valid_pawn_attacks |= (pawn_attacks[0] & black_board);
+            valid_pawn_attacks |= (attack_holder.pawn_attacks[0] & black_board);
         //black
         } else {
-            valid_pawn_attacks |= (pawn_attacks[1] & white_board);
+            valid_pawn_attacks |= (attack_holder.pawn_attacks[1] & white_board);
         }
         return valid_pawn_attacks;
     }
