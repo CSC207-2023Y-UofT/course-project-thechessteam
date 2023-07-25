@@ -13,7 +13,7 @@ public class ChessBoard {
     }
 
     // An array of bitboards, one for each piece
-    private static final long[] bitboards = new long[Piece.values().length];
+    private static long[] bitboards = new long[Piece.values().length];
 
     /**
      * Constructs a new ChessBoard from a given 2D string array.
@@ -47,11 +47,49 @@ public class ChessBoard {
         };
 
         // need to convert this 2d string array into bitboards, we are initializing it that way
-        //arrayToBitboards(chessBoard,WP,WN,WB,WR,WQ,WK,BP,BN,BB,BR,BQ,BK);
-        //System.out.println(Arrays.toString(bitboards));
+        arrayToBitboards(chessBoard,WP,WN,WB,WR,WQ,WK,BP,BN,BB,BR,BQ,BK);
+//        System.out.println(Arrays.toString(bitboards));
     }
 
     // converts the 2DStringArray
+    public static void arrayToBitboards(String[][] chessBoard,long WP,long WN,long WB,long WR,long WQ,long WK,long BP,long BN,long BB,long BR,long BQ,long BK) {
+        String Binary;
+        for (int i=0;i<64;i++) {
+            Binary="0000000000000000000000000000000000000000000000000000000000000000";
+            Binary=Binary.substring(i+1)+"1"+Binary.substring(0, i);
+            switch (chessBoard[i/8][i%8]) {
+                case "P": WP+=convertStringToBitboard(Binary);
+                    break;
+                case "N": WN+=convertStringToBitboard(Binary);
+                    break;
+                case "B": WB+=convertStringToBitboard(Binary);
+                    break;
+                case "R": WR+=convertStringToBitboard(Binary);
+                    break;
+                case "Q": WQ+=convertStringToBitboard(Binary);
+                    break;
+                case "K": WK+=convertStringToBitboard(Binary);
+                    break;
+                case "p": BP+=convertStringToBitboard(Binary);
+                    break;
+                case "n": BN+=convertStringToBitboard(Binary);
+                    break;
+                case "b": BB+=convertStringToBitboard(Binary);
+                    break;
+                case "r": BR+=convertStringToBitboard(Binary);
+                    break;
+                case "q": BQ+=convertStringToBitboard(Binary);
+                    break;
+                case "k": BK+=convertStringToBitboard(Binary);
+                    break;
+            }
+        }
+        drawArray(WP,WN,WB,WR,WQ,WK,BP,BN,BB,BR,BQ,BK);
+        UI.WP=WP; UI.WN=WN; UI.WB=WB;
+        UI.WR=WR; UI.WQ=WQ; UI.WK=WK;
+        UI.BP=BP; UI.BN=BN; UI.BB=BB;
+        UI.BR=BR; UI.BQ=BQ; UI.BK=BK;
+    }
 
     public static long convertStringToBitboard(String Binary) {
         if (Binary.charAt(0)=='0') {//not going to be a negative number
@@ -117,6 +155,7 @@ public class ChessBoard {
      *
      * @return A string that visually represents the current state of the chess board.
      */
+    @Override
     public String toString() {
         String[][] board = bitboardsToArray();
         StringBuilder sb = new StringBuilder();
