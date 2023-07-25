@@ -35,7 +35,7 @@ public class ChessBoard {
     public static void initiateStandardChess() {
         long WP=0L,WN=0L,WB=0L,WR=0L,WQ=0L,WK=0L,BP=0L,BN=0L,BB=0L,BR=0L,BQ=0L,BK=0L;  // initializes every piece to 000000...0
 
-        String chessBoard[][]={
+        String[][] chessBoard ={
                 {"r","n","b","q","k","b","n","r"},
                 {"p","p","p","p","p","p","p","p"},
                 {" "," "," "," "," "," "," "," "},
@@ -100,7 +100,7 @@ public class ChessBoard {
     }
 
     public static void drawArray(long WP,long WN,long WB,long WR,long WQ,long WK,long BP,long BN,long BB,long BR,long BQ,long BK) {
-        String chessBoard[][]=new String[8][8];
+        String[][] chessBoard =new String[8][8];
         for (int i=0;i<64;i++) {
             chessBoard[i/8][i%8]=" ";
         }
