@@ -1,6 +1,5 @@
 public class King implements Calculator {
 
-    @Override
     public long valid_moves(long from, int side, LocationBitboard board) {
         int position = Long.numberOfTrailingZeros(from);
         long kingCoverage = PreCalculatedAttacks.king_attacks[position];
@@ -11,12 +10,12 @@ public class King implements Calculator {
         // The king can move to a square if it is not already occupied by a piece of the same color
         kingCoverage &= ~allPieces;
 
-        // TODO: Check if the king would be put in check by making the move, if so, remove that move
+        // The ActualValidMove use case class will check if the king would be put in check by making the move,
+        // if so, remove that move
 
         return kingCoverage;
     }
 
-    @Override
     public long attack_coverage(int side, LocationBitboard board) {
         long coverage = 0L;
         long kingPositions = side == 0 ? board.whiteKing[0] : board.blackKing[0];
