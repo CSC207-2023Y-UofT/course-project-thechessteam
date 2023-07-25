@@ -49,4 +49,36 @@ public class Images {
         blackQueen = img.getSubimage(OPW, OPH, OPW, OPH);
         blackKing = img.getSubimage(0, OPH, OPW, OPH);
     }
+
+    // new
+    public static Image getPieceImage(String pieceType) {
+        switch (pieceType) {
+            case "whitePawn":
+                return Images.whitePawn;
+            case "whiteRook":
+                return Images.whiteRook;
+            case "whiteKnight":
+                return Images.whiteKnight;
+            case "whiteBishop":
+                return Images.whiteBishop;
+            case "whiteQueen":
+                return Images.whiteQueen;
+            case "whiteKing":
+                return Images.whiteKing;
+            case "blackPawn":
+                return Images.blackPawn;
+            case "blackRook":
+                return Images.blackRook;
+            case "blackKnight":
+                return Images.blackKnight;
+            case "blackBishop":
+                return Images.blackBishop;
+            case "blackQueen":
+                return Images.blackQueen;
+            case "blackKing":
+                return Images.blackKing;
+            default:
+                return null;
+        }
+    }
 }

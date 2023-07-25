@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.util.AbstractMap;
 import java.util.Map;
 
@@ -9,9 +10,11 @@ public class ChessBoardUI extends JPanel {
     private LocationBitboard locationBitboard;
     public int SQUARE_SIZE = 85;
     private Map.Entry<String, Long> draggedPiece = null;
+    private long highlightSquares = 0L;  // holds bitboard of the highlighted squares
+    private Point mousePoint = null; // for mouse dragging
 
     public ChessBoardUI() {
-        this.locationBitboard = new LocationBitboard();
+        this.locationBitboard = new LocationBitboard();  // initialize
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -22,17 +25,31 @@ public class ChessBoardUI extends JPanel {
 
                 // Iterate over all piece types to find which piece attribute was clicked
                 for (String pieceType : locationBitboard.getAllPieces().keySet()) {
-                    long bitboard = locationBitboard.getBitboard(pieceType);
+                    long bitboard = locationBitboard.getBitboard(pieceType);  // holds bitboard of the selected piecetype
                     if ((bitboard & (1L << index)) != 0) {
-                        bitboard &= ~(1L << index);  // Clear the bit at the selected index
+                        bitboard &= ~(1L << index);  // Clear the bit at the selected index immediately
                         locationBitboard.setBitboard(pieceType, bitboard);
                         draggedPiece = new AbstractMap.SimpleEntry<>(pieceType, bitboard);
+
+                        // Find the class corresponding to the pieceType
+                        String pieceClass = pieceType.substring(5);  // remove the "black" or "white" prefix and make first letter uppercase
+                        pieceClass = pieceClass.substring(0, 1).toUpperCase() + pieceClass.substring(1);
+
+                        Calculator piece = PieceFactory.getPiece(pieceClass);  // created new class piecefactory for the purpose of knowing
+
+                        // Calculate the valid moves
+                        long validMoves = piece.valid_moves(1L << index, pieceType.startsWith("white") ? 0 : 1, locationBitboard);
+
+                        // Highlight the valid moves
+                        highlightSquares = validMoves;
                         repaint();
                         break;
+
                     }
                 }
             }
 
+            // when the mouse is released, drop the piece onto the new square, update the location bitboard, clear highlighted squares
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (draggedPiece != null) {
@@ -42,6 +59,17 @@ public class ChessBoardUI extends JPanel {
                     long bitboard = draggedPiece.getValue() | (1L << index);  // Update the bit at the selected index for the piece attribute
                     locationBitboard.setBitboard(draggedPiece.getKey(), bitboard);
                     draggedPiece = null;
+                    highlightSquares = 0L;  // Clear the highlighted squares when piece dropped
+                    repaint();
+                }
+            }
+        });
+        // when mouse dragged, make the selected piece image follow the mouse cursor
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (draggedPiece != null) {
+                    mousePoint = e.getPoint();
                     repaint();
                 }
             }
@@ -52,6 +80,7 @@ public class ChessBoardUI extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        // draw squares
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 Color color;
@@ -64,6 +93,7 @@ public class ChessBoardUI extends JPanel {
                 g.fillRect(col * SQUARE_SIZE, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
             }
         }
+        // draw pieces on board
         drawPieces(g, locationBitboard.getBitboard("whitePawn"), Images.whitePawn);
         drawPieces(g, locationBitboard.getBitboard("whiteRook"), Images.whiteRook);
         drawPieces(g, locationBitboard.getBitboard("whiteKnight"), Images.whiteKnight);
@@ -76,6 +106,26 @@ public class ChessBoardUI extends JPanel {
         drawPieces(g, locationBitboard.getBitboard("blackBishop"), Images.blackBishop);
         drawPieces(g, locationBitboard.getBitboard("blackQueen"), Images.blackQueen);
         drawPieces(g, locationBitboard.getBitboard("blackKing"), Images.blackKing);
+
+        // Highlight valid moves on the board as dots
+        g.setColor(new Color(128, 128, 128, 128));
+        int diameter = SQUARE_SIZE / 4;
+        int radius = diameter / 2;
+        for (int i = 0; i < 64; i++) {
+            if ((highlightSquares & (1L << i)) != 0) {
+                int x = i % 8;
+                int y = 7 - i / 8;
+                int centerX = x * SQUARE_SIZE + SQUARE_SIZE / 2;
+                int centerY = y * SQUARE_SIZE + SQUARE_SIZE / 2;
+                g.fillOval(centerX - radius, centerY - radius, diameter, diameter);
+            }
+        }
+
+        // Allows the piece to be visually dragged with cursor
+        if (draggedPiece != null && mousePoint != null) {
+            Image pieceImage = Images.getPieceImage(draggedPiece.getKey());
+            g.drawImage(pieceImage, mousePoint.x - SQUARE_SIZE / 2, mousePoint.y - SQUARE_SIZE / 2, SQUARE_SIZE, SQUARE_SIZE, null);
+        }
     }
 
     private void drawPieces(Graphics g, long bitboard, Image pieceImage) {
@@ -98,4 +148,5 @@ public class ChessBoardUI extends JPanel {
         frame.setVisible(true);
     }
 }
+
 
