@@ -62,7 +62,7 @@ public class Pawn implements Calculator{
         long white_pawn_attacks = 0L;
         long black_pawn_attacks = 0L;
         for (int i = 0; i < 64; i++) {
-            pawn_pos = 1L >>> i;
+            long pawn_pos = 1L >>> i;
             if ((pawn_pos & board.whitePawn[0]) != 0L) {
                 white_pawn_attacks |= pawn_pos << 7;
                 white_pawn_attacks |= pawn_pos << 9;
