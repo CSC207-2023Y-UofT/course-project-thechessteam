@@ -22,5 +22,6 @@ public class ChessGame {
     // Start a new game by setting a new location bitboard
     public static void new_game() {
         currentBoard = new LocationBitboard();
+        turn = true; // Make sure to start with White's turn
     }
 }

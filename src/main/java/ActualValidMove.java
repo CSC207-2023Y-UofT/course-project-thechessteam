@@ -1,6 +1,8 @@
+import javax.xml.stream.Location;
+
 public class ActualValidMove {
-    //A use case class that filters moves calculated by Calculators.
-    // Filters moves that would put the King in check (Illegal moves).
+    // A use case class that filters moves calculated by Calculators.
+    // Filters moves that would put side's King in check (Illegal moves).
     // side == true for white, side == false for black.
 
     // ----------------------------------------------------------------------------------------------------------
@@ -12,6 +14,8 @@ public class ActualValidMove {
         } else {
             color = 1;
         }
+
+        // Determine what calculator to use (i.e. What is the piece type at from?)
         Calculator calculator = identify_calculator(from, currentBoard);
 
         // Read comment on CheckCalculator below for this variable
@@ -24,27 +28,27 @@ public class ActualValidMove {
         long actualValid = candidates;
 
         // Remove invalid moves
-        while (candidates != 0) { // Loop through candidates
-            int position = Long.numberOfTrailingZeros(candidates);
+        for (int i = 0; i < 64; i++) {
+            if ((candidates & (1L << i)) != 0L) {
+                // Make a copy of currentBoard for testing if candidate position is valid
+                LocationBitboard copy = locations_copy(currentBoard);
+                copy.move_piece(from, 1L << i, side);
+                copy.updateLocationVariables();
 
-            // Make a copy of currentBoard for testing if candidate position is valid
-            LocationBitboard copy = locations_copy(currentBoard);
-            copy.move_piece(from, 1L << position, side);
-            copy.updateLocationVariables();
-
-            if (CheckCalculator.is_in_check(color, copy)) {
-                actualValid &= ~(1L << position);
-            }
-            // Since CheckCalculator does not include attack coverage of opponent king,
-            // since it assumes we are not checked by opponent's king,
-            // we have to make sure that when we move a king, it should not be in the attack range of opponent's king
-            else if (fromIsKing) {
-                int opponent_color = 1 - color; // Refactor into boolean later
-                if ((from & Calculators.kingCalculator.attack_coverage(opponent_color, copy)) != 0L) {
-                    actualValid &= ~(1L << position);
+                if (CheckCalculator.is_in_check(color, copy)) {
+                    actualValid &= ~(1L << i);
+                }
+                // Since CheckCalculator does not include attack coverage of opponent king,
+                // since it assumes we are not checked by opponent's king,
+                // we have to make sure that when we move a king,
+                // it should not be in the attack range of opponent's king
+                else if (fromIsKing) {
+                    int opponentColor = 1 - color; // Refactor into boolean later
+                    if ((from & Calculators.kingCalculator.attack_coverage(opponentColor, copy)) != 0L) {
+                        actualValid &= ~(1L << i);
+                    }
                 }
             }
-            candidates &= candidates - 1; // Clear the least significant bit
         }
         return actualValid;
     }
@@ -54,22 +58,22 @@ public class ActualValidMove {
     private static Calculator identify_calculator(long from, LocationBitboard currentBoard) {
         Calculator calculator = null;
 
-        if ((from & currentBoard.whitePawn[0]) != 0L || (from & currentBoard.blackPawn[0]) != 0L) {
+        if (((from & currentBoard.whitePawn[0]) != 0L) || ((from & currentBoard.blackPawn[0]) != 0L)) {
             calculator = Calculators.pawnCalculator;
         }
-        else if ((from & currentBoard.whiteRook[0]) != 0L || (from & currentBoard.blackRook[0]) != 0L) {
+        else if (((from & currentBoard.whiteRook[0]) != 0L) || ((from & currentBoard.blackRook[0]) != 0L)) {
             calculator = Calculators.rookCalculator;
         }
-        else if ((from & currentBoard.whiteKnight[0]) != 0L || (from & currentBoard.blackKnight[0]) != 0L) {
+        else if (((from & currentBoard.whiteKnight[0]) != 0L) || ((from & currentBoard.blackKnight[0]) != 0L)) {
             calculator = Calculators.knightCalculator;
         }
-        else if ((from & currentBoard.whiteBishop[0]) != 0L || (from & currentBoard.blackBishop[0]) != 0L) {
+        else if (((from & currentBoard.whiteBishop[0]) != 0L) || ((from & currentBoard.blackBishop[0]) != 0L)) {
             calculator = Calculators.bishopCalculator;
         }
-        else if ((from & currentBoard.whiteQueen[0]) != 0L || (from & currentBoard.blackQueen[0]) != 0L) {
+        else if (((from & currentBoard.whiteQueen[0]) != 0L) || ((from & currentBoard.blackQueen[0]) != 0L)) {
             calculator = Calculators.queenCalculator;
         }
-        else if ((from & currentBoard.whiteKing[0]) != 0L || (from & currentBoard.blackKing[0]) != 0L) {
+        else if (((from & currentBoard.whiteKing[0]) != 0L) || ((from & currentBoard.blackKing[0]) != 0L)) {
             calculator = Calculators.kingCalculator;
         }
         return calculator;

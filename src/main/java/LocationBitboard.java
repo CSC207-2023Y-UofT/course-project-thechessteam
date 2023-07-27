@@ -11,7 +11,7 @@ import java.util.Map;
  * Castling will be tied to King valid moves. We assume that if King moves two spaces, we are castling.
  */
 public class LocationBitboard {
-    private Map<String, long[]> pieceBitboards = new HashMap<>();
+    private final Map<String, long[]> pieceBitboards = new HashMap<>();
 
     public long[] whitePawn = new long[]{InitialPositions.WHITE_PAWN};
     public long[] whiteRook = new long[]{InitialPositions.WHITE_ROOK};
@@ -68,7 +68,7 @@ public class LocationBitboard {
         if (turn) { // White's turn
             for (long[] pieceType : whitePieces) {
                 if ((pieceType[0] & from) != 0L) { // if from is in White's bitboard of this pieceType
-                    update_piece(pieceType, from, to); // Update location of the bitboard above
+                    update_piece(pieceType, from, to, true); // Update location of the bitboard above
                     moved = true;
                     break;
                 }
@@ -77,7 +77,7 @@ public class LocationBitboard {
         else {
             for (long[] pieceType : blackPieces) {
                 if ((pieceType[0] & from) != 0L) { // if from is in Black's bitboard of this pieceType
-                    update_piece(pieceType, from, to); // Update location of the bitboard above
+                    update_piece(pieceType, from, to, false); // Update location of the bitboard above
                     moved = true;
                     break;
                 }
@@ -105,7 +105,7 @@ public class LocationBitboard {
     // Helper methods
 
     // Helper method for move_piece
-    private void update_piece(long[] pieceType, long from, long to) {
+    private void update_piece(long[] pieceType, long from, long to, boolean turn) {
         if (pieceType[0] == whiteKing[0]) { // if we are moving a white king
             if (from >>> 2 == to) { // castling to queen side
                 update_rook_for_castling(whiteRook, true, true);
@@ -122,6 +122,18 @@ public class LocationBitboard {
 
         }
         pieceType[0] = (pieceType[0] & ~from) | to; // Move the piece of pieceType
+
+        // Remove opponent piece at to
+        if (turn) { // White's turn
+            for (long[] blackPieceType : getBlackPieces()) {
+                blackPieceType[0] &= ~to;
+            }
+        }
+        else {
+            for (long[] whitePieceType : getWhitePieces()) {
+                whitePieceType[0] &= ~to;
+            }
+        }
         updateLocationVariables(); // Update all location variables: whiteLocations, blackLocations, occupied
     }
 
@@ -155,18 +167,18 @@ public class LocationBitboard {
      * Initializes all the bitboards to the starting positions of the pieces
      */
     public LocationBitboard(){
-        pieceBitboards.put("whitePawn", new long[]{InitialPositions.WHITE_PAWN});
-        pieceBitboards.put("whiteRook", new long[]{InitialPositions.WHITE_ROOK});
-        pieceBitboards.put("whiteKnight", new long[]{InitialPositions.WHITE_KNIGHT});
-        pieceBitboards.put("whiteBishop", new long[]{InitialPositions.WHITE_BISHOP});
-        pieceBitboards.put("whiteQueen", new long[]{InitialPositions.WHITE_QUEEN});
-        pieceBitboards.put("whiteKing", new long[]{InitialPositions.WHITE_KING});
-        pieceBitboards.put("blackPawn", new long[]{InitialPositions.BLACK_PAWN});
-        pieceBitboards.put("blackRook", new long[]{InitialPositions.BLACK_ROOK});
-        pieceBitboards.put("blackKnight", new long[]{InitialPositions.BLACK_KNIGHT});
-        pieceBitboards.put("blackBishop", new long[]{InitialPositions.BLACK_BISHOP});
-        pieceBitboards.put("blackQueen", new long[]{InitialPositions.BLACK_QUEEN});
-        pieceBitboards.put("blackKing", new long[]{InitialPositions.BLACK_KING});
+        pieceBitboards.put("whitePawn", whitePawn);
+        pieceBitboards.put("whiteRook", whiteRook);
+        pieceBitboards.put("whiteKnight", whiteKnight);
+        pieceBitboards.put("whiteBishop", whiteBishop);
+        pieceBitboards.put("whiteQueen", whiteQueen);
+        pieceBitboards.put("whiteKing", whiteKing);
+        pieceBitboards.put("blackPawn", blackPawn);
+        pieceBitboards.put("blackRook", blackRook);
+        pieceBitboards.put("blackKnight", blackKnight);
+        pieceBitboards.put("blackBishop", blackBishop);
+        pieceBitboards.put("blackQueen", blackQueen);
+        pieceBitboards.put("blackKing", blackKing);
     }
 
     public Map<String, Long> getAllPieces() {

@@ -96,10 +96,10 @@ public class TestForBitboards {
         print_2d_chessboard(array_representation(FileAndRank.FILE_GH));
         System.out.println("RANK_1");
         print_2d_chessboard(array_representation(FileAndRank.RANK_1));
-        System.out.println("RANK_4");
-        print_2d_chessboard(array_representation(FileAndRank.RANK_4));
-        System.out.println("RANK_5");
-        print_2d_chessboard(array_representation(FileAndRank.RANK_5));
+        System.out.println("RANK_2");
+        print_2d_chessboard(array_representation(FileAndRank.RANK_2));
+        System.out.println("RANK_7");
+        print_2d_chessboard(array_representation(FileAndRank.RANK_7));
         System.out.println("RANK_8");
         print_2d_chessboard(array_representation(FileAndRank.RANK_8));
         System.out.println("KNIGHT_SPAN");
@@ -138,5 +138,15 @@ public class TestForBitboards {
             print_2d_chessboard(array_representation(PreCalculatedAttacks.king_attacks[i]));
             System.out.println();
         }
+        System.out.println();
+        print_2d_chessboard(array_representation(
+                0b1000000000000000000000000000000000000000000000000000000000000000L));
+        System.out.println();
+        print_2d_chessboard(array_representation(
+                0b1000000000000000000000000000000000010000000000000000000000000000L - 1));
+        System.out.println();
+        print_2d_chessboard(array_representation(FileAndRank.RANK_2));
+        System.out.println();
+        print_2d_chessboard(array_representation(FileAndRank.RANK_7));
     }
 }
