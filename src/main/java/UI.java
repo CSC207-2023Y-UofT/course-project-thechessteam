@@ -33,7 +33,7 @@ public class UI extends JPanel {
         javaF.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width-javaF.getWidth())/2,
                 (Toolkit.getDefaultToolkit().getScreenSize().height-javaF.getHeight())/2);
         javaF.setVisible(true);
-        //javaF.repaint();
+        javaF.repaint();
         newGame(); // initializes pieces and starts the game
     }
 
