@@ -1,7 +1,10 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.File;
+import java.util.Objects;
 
 public class UI extends JPanel {
 
@@ -9,11 +12,14 @@ public class UI extends JPanel {
     static long UniversalWP=0L,UniversalWN=0L,UniversalWB=0L,UniversalWR=0L,UniversalWQ=0L,UniversalWK=0L,UniversalBP=0L,UniversalBN=0L,UniversalBB=0L,UniversalBR=0L,UniversalBQ=0L,UniversalBK=0L;
     static int humanIsWhite=1;
     static int rating=0;
+    static int blkPoints = 0;
+    static int whtPoints = 0;
     static int border=10;//the amount of empty space around the frame
     static double squareSize=64;//the size of a chess board square
     static JFrame javaF=new JFrame("Chess Engine");//must be declared as static so that other class' can repaint
     static UI javaUI=new UI();//must be declared as static so that other class' can repaint
 
+    // Ran whenever a new game instance starts
     public static void main(String[] args) {
         javaF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         javaF.add(javaUI);
@@ -37,8 +43,14 @@ public class UI extends JPanel {
         drawBorders(g);
         drawBoard(g);
         drawPieces(g);
+        drawBlackTeam(g);
+        drawWhiteTeam(g);
+        drawTimer(g);
+        drawForfeit(g);
+        drawStalemate(g);
     }
 
+    // Creation of the chess board
     public void drawBoard(Graphics g) {
         for (int i=0;i<64;i+=2) {//draw chess board
             g.setColor(new Color(255, 255, 255));
@@ -48,9 +60,10 @@ public class UI extends JPanel {
         }
     }
 
+    // Creation of all the starting pieces
     public void drawPieces(Graphics g) {
         Image chessPieceImage;
-        chessPieceImage = new ImageIcon(getClass().getResource("/projectimages/ChessPieces.png")).getImage();
+        chessPieceImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/ChessPieces.png"))).getImage();
         for (int i=0;i<64;i++) {
             int j=-1,k=-1;
             if (((WP>>i)&1)==1) {j=5; k=1-humanIsWhite;}
@@ -71,6 +84,7 @@ public class UI extends JPanel {
         }
     }
 
+    // Creation of the borders around the whole board
     public void drawBorders(Graphics g) {
         g.setColor(new Color(43, 45, 48));
         g.fill3DRect(0, border, border, (int)(8*squareSize), true);
@@ -88,8 +102,64 @@ public class UI extends JPanel {
 
         g.setColor(new Color(43, 45, 48));
         g.fill3DRect((int)(8*squareSize)+2*border, 0, 200, border, true);
+
         g.fill3DRect((int)(8*squareSize)+2*border+200, border, border, (int)(8*squareSize), true);
         g.fill3DRect((int)(8*squareSize)+2*border, (int)(8*squareSize)+border, 200, border, true);
+    }
+
+    // Creation of the black teams points and captured pieces
+    public void drawBlackTeam(Graphics g) {
+        g.setColor(new Color(103, 106, 110, 255));
+        g.fill3DRect((int)(8*squareSize)+2*border, border, 200, (int)(2.8*squareSize), true);
+
+        g.setColor(new Color(0, 0, 0, 255));
+        g.drawString("Black Team:", (int)(8*squareSize)+2*border + 2, border*2+ 2);
+        g.drawString(Integer.toString(blkPoints), (int)(8*squareSize)+2*border + 175 - border, border*2 + 2);
+    }
+
+    // Creation of the white teams points and captured pieces
+    public void drawWhiteTeam(Graphics g) {
+        g.setColor(new Color(52, 53, 56));
+        g.fill3DRect((int)(8*squareSize)+2*border, border+(int)(2.8*squareSize), 200, (int)(2.8*squareSize), true);
+
+        g.setColor(new Color(220, 216, 216, 255));
+        g.drawString("White Team:", (int)(8*squareSize)+2*border + 2, border*2+ (int)(2.8*squareSize) + 2);
+        g.drawString(Integer.toString(whtPoints), (int)(8*squareSize)+2*border + 175 - border, border*2+ (int)(2.8*squareSize) + 2);
+    }
+
+    // Creation of the timer UI located at the bottom right
+    public void drawTimer(Graphics g) {
+        // Creation of the clock Borders
+        g.setColor(new Color(44, 46, 51));
+        g.fill3DRect((int)(8*squareSize)+2*border, border+(int)(7*squareSize), 200, (int)(1*squareSize), true);
+        g.setColor(new Color(190, 178, 157));
+        g.fill3DRect((int)(8*squareSize)+2*border + 5, border+(int)(7*squareSize+5), 190, (int)(1*squareSize - 10), true);
+
+
+        // Creation of the clock Label
+        g.setColor(new Color(0, 0, 0));
+        g.setFont(new Font("TRUE TYPE_FONT", Font.BOLD, (int)(1*squareSize) - 20));
+        g.drawString("0:00", (int)(8*squareSize)+2*border + (int)(1*squareSize) - 15, border+(int)(7*squareSize+ (int)(1*squareSize)- 15));
+    }
+
+    // Creation of the forfeit button
+    public void drawForfeit(Graphics g) {
+        g.setColor(new Color(44, 46, 51));
+        g.fill3DRect((int)(8*squareSize)+2*border, border+(int)(6*squareSize), 100, (int)(1*squareSize), true);
+
+        Image chessPieceImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/Forfeit.png"))).getImage();
+        g.drawImage(chessPieceImage, (int)(8*squareSize)+2*border + 25, border+(int)(6*squareSize) + 10, 50, (int)(0.7*squareSize), this);
+
+    }
+
+    // Creation of the draw button
+    public void drawStalemate(Graphics g) {
+        g.setColor(new Color(103, 106, 110));
+        g.fill3DRect((int)(8*squareSize)+2*border + 100, border+(int)(6*squareSize), 100, (int)(1*squareSize), true);
+
+        Image chessPieceImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/DrawIcon.png"))).getImage();
+        g.drawImage(chessPieceImage, (int)(8*squareSize)+2*border + 125, border+(int)(6*squareSize) + 8, 50, (int)(0.8*squareSize), this);
+
     }
 
     public static void newGame() {
