@@ -34,7 +34,7 @@ public class LeaderBoard{
             }
         }
         if (!(existing_player)) {
-            String[] new_player = {input, "0"};
+            String[] new_player = {input, "1"};
             leaderboard.add(new_player);
         }
 
