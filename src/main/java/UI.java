@@ -164,6 +164,5 @@ public class UI extends JPanel {
 
     public static void newGame() {
         ChessBoard.initiateStandardChess();
-//        Moves.possibleMovesW("",WP,WN,WB,WR,WQ,WK,BP,BN,BB,BR,BQ,BK);
     }
 }
