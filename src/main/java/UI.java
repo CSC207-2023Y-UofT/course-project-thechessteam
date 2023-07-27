@@ -1,6 +1,8 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
@@ -12,12 +14,16 @@ public class UI extends JPanel {
     static long UniversalWP=0L,UniversalWN=0L,UniversalWB=0L,UniversalWR=0L,UniversalWQ=0L,UniversalWK=0L,UniversalBP=0L,UniversalBN=0L,UniversalBB=0L,UniversalBR=0L,UniversalBQ=0L,UniversalBK=0L;
     static int humanIsWhite=1;
     static int rating=0;
+    static boolean newGame = true;
     static int blkPoints = 0;
     static int whtPoints = 0;
     static int border=10;//the amount of empty space around the frame
     static double squareSize=64;//the size of a chess board square
     static JFrame javaF=new JFrame("Chess Engine");//must be declared as static so that other class' can repaint
     static UI javaUI=new UI();//must be declared as static so that other class' can repaint
+    static JButton forfeitButton = new JButton("forfeitButton");
+    static JButton stalemateButton = new JButton("stalemateButton");
+
 
     // Ran whenever a new game instance starts
     public static void main(String[] args) {
@@ -27,8 +33,8 @@ public class UI extends JPanel {
         javaF.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width-javaF.getWidth())/2,
                 (Toolkit.getDefaultToolkit().getScreenSize().height-javaF.getHeight())/2);
         javaF.setVisible(true);
-        newGame();
-        javaF.repaint();
+        //javaF.repaint();
+        newGame(); // initializes pieces and starts the game
     }
 
     // Paints the boarder for the board, the pieces, and the board itself
@@ -46,8 +52,11 @@ public class UI extends JPanel {
         drawBlackTeam(g);
         drawWhiteTeam(g);
         drawTimer(g);
-        drawForfeit(g);
-        drawStalemate(g);
+        drawForfeit();
+        drawStalemate();
+        if (newGame) {
+            newGame = false;
+        }
     }
 
     // Creation of the chess board
@@ -143,23 +152,48 @@ public class UI extends JPanel {
     }
 
     // Creation of the forfeit button
-    public void drawForfeit(Graphics g) {
-        g.setColor(new Color(44, 46, 51));
-        g.fill3DRect((int)(8*squareSize)+2*border, border+(int)(6*squareSize), 100, (int)(1*squareSize), true);
+    public void drawForfeit() {
+        Image unscaledIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/Forfeit.png"))).getImage();
+        Image forfeitIcon = unscaledIcon.getScaledInstance(40 ,(int)(1*squareSize) - 25, java.awt.Image.SCALE_SMOOTH);
 
-        Image chessPieceImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/Forfeit.png"))).getImage();
-        g.drawImage(chessPieceImage, (int)(8*squareSize)+2*border + 25, border+(int)(6*squareSize) + 10, 50, (int)(0.7*squareSize), this);
 
+        forfeitButton.setText("");
+        forfeitButton.setFocusPainted(false);
+        forfeitButton.setBounds((int)(8*squareSize)+2*border,border+(int)(6*squareSize),100, (int)(1*squareSize));
+        forfeitButton.setBackground(new Color(44, 46, 51));
+        forfeitButton.setIcon(new ImageIcon(forfeitIcon));
+        if (newGame) {
+            forfeitButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("Forfeited");
+                }
+            });
+        }
+        this.add(stalemateButton);
+        this.add(forfeitButton);
     }
 
     // Creation of the draw button
-    public void drawStalemate(Graphics g) {
-        g.setColor(new Color(103, 106, 110));
-        g.fill3DRect((int)(8*squareSize)+2*border + 100, border+(int)(6*squareSize), 100, (int)(1*squareSize), true);
+    public void drawStalemate() {
+        Image unscaledIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/DrawIcon.png"))).getImage();
+        Image stalemateIcon = unscaledIcon.getScaledInstance(50 ,(int)(1*squareSize) - 10, java.awt.Image.SCALE_SMOOTH);
 
-        Image chessPieceImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/DrawIcon.png"))).getImage();
-        g.drawImage(chessPieceImage, (int)(8*squareSize)+2*border + 125, border+(int)(6*squareSize) + 8, 50, (int)(0.8*squareSize), this);
 
+        stalemateButton.setText("");
+        stalemateButton.setFocusPainted(false);
+        stalemateButton.setBounds((int)(8*squareSize)+2*border + 100,border+(int)(6*squareSize),100, (int)(1*squareSize));
+        stalemateButton.setBackground(new Color(103, 106, 110));
+        stalemateButton.setIcon(new ImageIcon(stalemateIcon));
+        if (newGame) {
+            stalemateButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("Requesting Stalemate");
+                }
+            });
+        }
+        this.add(stalemateButton);
     }
 
     public static void newGame() {
