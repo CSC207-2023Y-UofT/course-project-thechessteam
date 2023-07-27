@@ -29,7 +29,8 @@ public class LeaderBoard{
         for (String[] p : leaderboard) {
             if (Objects.equals(p[0], input)) {
                 existing_player = true;
-                p[1] += 1;
+                // Turn p[1] to int, add 1, turn it back to string, reassign p[1]
+                p[1] = String.valueOf(Integer.parseInt(p[1]) + 1);
             }
         }
         if (!(existing_player)) {
@@ -43,12 +44,12 @@ public class LeaderBoard{
 
     // read file
     private static ArrayList<String[]> readData() {
-        ArrayList<String[]> leaderboard = new ArrayList<String[2]>(); // start with an empty array to populate
+        ArrayList<String[]> leaderboard = new ArrayList<>(); // start with an empty array to populate
         try {
             Scanner player_read = new Scanner(new File("players.txt"));
             while (player_read.hasNext()) {
                 String[] current_player = player_read.nextLine().split(",");
-                leaderboard.add([current_player[0], current_player[1]]);
+                leaderboard.add(new String[] {current_player[0], current_player[1]});
             }
             player_read.close();
         } catch (IOException e) {
