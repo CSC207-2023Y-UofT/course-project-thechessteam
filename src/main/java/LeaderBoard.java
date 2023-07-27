@@ -7,6 +7,7 @@ import java.io.IOException;
 
 public class LeaderBoard{
     // TODO: Add initializer
+    public LeaderBoard(){}
     // has 3 methods excluding main - readData, writeData and printData
     public static void main(String[] args){
         // Read existing leaderboard
