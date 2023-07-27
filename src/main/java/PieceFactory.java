@@ -4,8 +4,8 @@
 public class PieceFactory {
     public static Calculator getPiece(String pieceType) {
         switch (pieceType.toLowerCase()) {
-//            case "pawn":
-//                return new Pawn();
+            case "pawn":
+                return new Pawn();
             case "rook":
                 return new Rook();
             case "knight":

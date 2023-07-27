@@ -1,3 +1,5 @@
+// TODO: Capture, only can move to valid place on board
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -7,44 +9,52 @@ import java.util.AbstractMap;
 import java.util.Map;
 
 public class ChessBoardUI extends JPanel {
-    private LocationBitboard locationBitboard;
-    public int SQUARE_SIZE = 85;
-    private Map.Entry<String, Long> draggedPiece = null;
+    private final LocationBitboard locationBitboard;
+
+    public int SQUARE_SIZE = 85;  // one square size
+
+    private Map.Entry<String, Long> draggedPiece = null;  // key: pieceType, Long: piece location
+
     private long highlightSquares = 0L;  // holds bitboard of the highlighted squares
+
     private Point mousePoint = null; // for mouse dragging
 
-    public ChessBoardUI() {
-        this.locationBitboard = new LocationBitboard();  // initialize
+    private long originalPosition;
 
+    // constructor
+    public ChessBoardUI() {
+        this.locationBitboard = new LocationBitboard();
+
+
+        // utilize mousePressed and mouseReleased.
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                int x = e.getX() / SQUARE_SIZE;
-                int y = 7 - e.getY() / SQUARE_SIZE;
-                int index = y * 8 + x;
+                int x = e.getX() / SQUARE_SIZE;  // x location
+                int y = 7 - e.getY() / SQUARE_SIZE;  // y location
+                int index = y * 8 + x;  // specifies the bits to shift the long (goes from 0 to 63) to get to position where person is clicking :)
 
-                // Iterate over all piece types to find which piece attribute was clicked
+                // Iterates over all the keyset of the locationBitboard. (strings of piece names)
                 for (String pieceType : locationBitboard.getAllPieces().keySet()) {
-                    long bitboard = locationBitboard.getBitboard(pieceType);  // holds bitboard of the selected piecetype
-                    if ((bitboard & (1L << index)) != 0) {
+                    long bitboard = locationBitboard.getBitboard(pieceType);  // holds bitboard of the selected piece type
+                    if ((bitboard & (1L << index)) != 0) {  // if there is a piece at the selected index
+                        originalPosition = bitboard;  // stores the original position
                         bitboard &= ~(1L << index);  // Clear the bit at the selected index immediately
-                        locationBitboard.setBitboard(pieceType, bitboard);
-                        draggedPiece = new AbstractMap.SimpleEntry<>(pieceType, bitboard);
+                        locationBitboard.setBitboard(pieceType, bitboard);  // updates the pieces' respective bitboard with the new move
 
-                        // Find the class corresponding to the pieceType
+                        draggedPiece = new AbstractMap.SimpleEntry<>(pieceType, bitboard);  // holds the piece currently getting dragged
+
+                        // this part is so the valid moves can be highlighted. Also, valid moves methods correponding to each piece
                         String pieceClass = pieceType.substring(5);  // remove the "black" or "white" prefix and make first letter uppercase
-                        pieceClass = pieceClass.substring(0, 1).toUpperCase() + pieceClass.substring(1);
-
-                        Calculator piece = PieceFactory.getPiece(pieceClass);  // created new class piecefactory for the purpose of knowing
-
-                        // Calculate the valid moves
-                        long validMoves = piece.valid_moves(1L << index, pieceType.startsWith("white") ? 0 : 1, locationBitboard);
+                        pieceClass = pieceClass.substring(0, 1).toUpperCase() + pieceClass.substring(1);  // makes the specific piece uppercase
+                        Calculator piece = PieceFactory.getPiece(pieceClass);  // created new class piece factory for the purpose of knowing exactly what piece class is being usd
+                        // retrieve the selected piece's valid moves
+                        long validMoves = piece.valid_moves(1L << index, pieceType.startsWith("white") ? 0 : 1, locationBitboard);  // calls valid moves class
 
                         // Highlight the valid moves
                         highlightSquares = validMoves;
                         repaint();
                         break;
-
                     }
                 }
             }
@@ -53,17 +63,25 @@ public class ChessBoardUI extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (draggedPiece != null) {
+                    // same calculation as previously
                     int x = e.getX() / SQUARE_SIZE;
                     int y = 7 - e.getY() / SQUARE_SIZE;
                     int index = y * 8 + x;
-                    long bitboard = draggedPiece.getValue() | (1L << index);  // Update the bit at the selected index for the piece attribute
-                    locationBitboard.setBitboard(draggedPiece.getKey(), bitboard);
-                    draggedPiece = null;
+
+                    // only allow the move to take place if the destination square is a valid move (highlighted)
+                    if ((highlightSquares & (1L << index)) != 0) {
+                        long bitboard = draggedPiece.getValue() | (1L << index);  // Update the bit at the selected index for the piece attribute
+                        locationBitboard.setBitboard(draggedPiece.getKey(), bitboard);  // updates the bitboard for that piece
+                    } else {
+                        locationBitboard.setBitboard(draggedPiece.getKey(), originalPosition);  // resets the piece position if move was invalid
+                    }
+                    draggedPiece = null;  // resets draggedPiece
                     highlightSquares = 0L;  // Clear the highlighted squares when piece dropped
                     repaint();
                 }
             }
         });
+
         // when mouse dragged, make the selected piece image follow the mouse cursor
         addMouseMotionListener(new MouseMotionAdapter() {
             @Override
@@ -128,6 +146,7 @@ public class ChessBoardUI extends JPanel {
         }
     }
 
+    // helper for drawing pieces onto board
     private void drawPieces(Graphics g, long bitboard, Image pieceImage) {
         for (int i = 0; i < 64; i++) {
             if ((bitboard & (1L << i)) != 0) {
@@ -138,6 +157,7 @@ public class ChessBoardUI extends JPanel {
         }
     }
 
+    // main
     public static void main (String[]args){
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
