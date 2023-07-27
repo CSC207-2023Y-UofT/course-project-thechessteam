@@ -6,30 +6,45 @@ import java.util.AbstractMap;
 import java.util.Map;
 
 public class ChessBoardUI extends JPanel {
-    private LocationBitboard locationBitboard;
+    private static LocationBitboard locationBitboard;
     public int SQUARE_SIZE = 85;
     private Map.Entry<String, Long> draggedPiece = null;
+    private final int[] twoClicks = new int[2];
+    private int numClicks = 0;
+
+    // Just so it works for now, need to refactor later so that
+    // LocationBitboard entity is not connected to View directly.
+
 
     public ChessBoardUI() {
-        this.locationBitboard = new LocationBitboard();
+        locationBitboard = ChessGame.getCurrentBoard();
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+                System.out.println(locationBitboard);
                 int x = e.getX() / SQUARE_SIZE;
                 int y = 7 - e.getY() / SQUARE_SIZE;
                 int index = y * 8 + x;
+                boolean pieceFound = false;
 
                 // Iterate over all piece types to find which piece attribute was clicked
                 for (String pieceType : locationBitboard.getAllPieces().keySet()) {
                     long bitboard = locationBitboard.getBitboard(pieceType);
                     if ((bitboard & (1L << index)) != 0) {
+                        pieceFound = true;
                         bitboard &= ~(1L << index);  // Clear the bit at the selected index
                         locationBitboard.setBitboard(pieceType, bitboard);
                         draggedPiece = new AbstractMap.SimpleEntry<>(pieceType, bitboard);
                         repaint();
                         break;
                     }
+                }
+                if (pieceFound || (numClicks != 0)) { // first click has to be a piece
+                    twoClicks[numClicks] = index;
+                    numClicks += 1;
+                    System.out.println(numClicks);
+                    repaint();
                 }
             }
 
@@ -42,8 +57,13 @@ public class ChessBoardUI extends JPanel {
                     long bitboard = draggedPiece.getValue() | (1L << index);  // Update the bit at the selected index for the piece attribute
                     locationBitboard.setBitboard(draggedPiece.getKey(), bitboard);
                     draggedPiece = null;
-                    repaint();
                 }
+                if (numClicks == 2) {
+                    Controller.process_two_clicks(twoClicks);
+                    numClicks = 0;
+                    System.out.println(locationBitboard);
+                }
+                repaint();
             }
         });
     }
