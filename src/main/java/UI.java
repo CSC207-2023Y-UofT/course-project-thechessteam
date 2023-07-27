@@ -33,8 +33,8 @@ public class UI extends JPanel {
         javaF.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width-javaF.getWidth())/2,
                 (Toolkit.getDefaultToolkit().getScreenSize().height-javaF.getHeight())/2);
         javaF.setVisible(true);
-        //javaF.repaint();
         newGame(); // initializes pieces and starts the game
+        javaF.repaint();
     }
 
     // Paints the boarder for the board, the pieces, and the board itself
