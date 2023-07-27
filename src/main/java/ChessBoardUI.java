@@ -20,6 +20,7 @@ public class ChessBoardUI extends JPanel {
     private Point mousePoint = null; // for mouse dragging
 
     private long originalPosition;
+    private long bitboard;
 
     // constructor
     public ChessBoardUI() {
@@ -36,7 +37,7 @@ public class ChessBoardUI extends JPanel {
 
                 // Iterates over all the keyset of the locationBitboard. (strings of piece names)
                 for (String pieceType : locationBitboard.getAllPieces().keySet()) {
-                    long bitboard = locationBitboard.getBitboard(pieceType);  // holds bitboard of the selected piece type
+                    bitboard = locationBitboard.getBitboard(pieceType);  // holds bitboard of the selected piece type
                     if ((bitboard & (1L << index)) != 0) {  // if there is a piece at the selected index
                         originalPosition = bitboard;  // stores the original position
                         bitboard &= ~(1L << index);  // Clear the bit at the selected index immediately
@@ -71,6 +72,11 @@ public class ChessBoardUI extends JPanel {
                     // only allow the move to take place if the destination square is a valid move (highlighted)
                     if ((highlightSquares & (1L << index)) != 0) {
                         long bitboard = draggedPiece.getValue() | (1L << index);  // Update the bit at the selected index for the piece attribute
+
+                        // new
+                        bitboard &= ~(1L << index); // Clear the bit at the old position
+                        bitboard |= (1L << index); // Set the bit at the new position
+
                         locationBitboard.setBitboard(draggedPiece.getKey(), bitboard);  // updates the bitboard for that piece
                     } else {
                         locationBitboard.setBitboard(draggedPiece.getKey(), originalPosition);  // resets the piece position if move was invalid
@@ -80,6 +86,34 @@ public class ChessBoardUI extends JPanel {
                     repaint();
                 }
             }
+
+            // new
+            // this is so that you can click on the piece to display its valid moves without needing to hold on the piece.
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int x = e.getX() / SQUARE_SIZE;  // x location
+                int y = 7 - e.getY() / SQUARE_SIZE;  // y location
+                int index = y * 8 + x;  // specifies the bits to shift the long (goes from 0 to 63) to get to position where person is clicking :)
+
+                // Iterates over all the keyset of the locationBitboard. (strings of piece names)
+                for (String pieceType : locationBitboard.getAllPieces().keySet()) {
+                    bitboard = locationBitboard.getBitboard(pieceType);  // holds bitboard of the selected piece type
+                    if ((bitboard & (1L << index)) != 0) {  // if there is a piece at the selected index
+                        // this part is so the valid moves can be highlighted. Also, valid moves methods correponding to each piece
+                        String pieceClass = pieceType.substring(5);  // remove the "black" or "white" prefix and make first letter uppercase
+                        pieceClass = pieceClass.substring(0, 1).toUpperCase() + pieceClass.substring(1);  // makes the specific piece uppercase
+                        Calculator piece = PieceFactory.getPiece(pieceClass);  // created new class piece factory for the purpose of knowing exactly what piece class is being usd
+                        // retrieve the selected piece's valid moves
+                        long validMoves = piece.valid_moves(1L << index, pieceType.startsWith("white") ? 0 : 1, locationBitboard);  // calls valid moves class
+
+                        // Highlight the valid moves
+                        highlightSquares = validMoves;
+                        repaint();
+                        break;
+                    }
+                }
+            }
+
         });
 
         // when mouse dragged, make the selected piece image follow the mouse cursor
