@@ -28,7 +28,7 @@ public class ChessBoardUI extends JPanel {
         frame.setLocationRelativeTo(null);
         ChessBoardUI board = new ChessBoardUI();
         frame.add(board);
-        frame.setMinimumSize(new Dimension(925, 766));
+        frame.setMinimumSize(new Dimension(910, 725));
         frame.setVisible(true);
     }
 
@@ -160,6 +160,18 @@ public class ChessBoardUI extends JPanel {
 
         g.fill3DRect((int)(8*SQUARE_SIZE)+2*border+200, border, border, (int)(8*SQUARE_SIZE), true);
         g.fill3DRect((int)(8*SQUARE_SIZE)+2*border, (int)(8*SQUARE_SIZE)+border, 200, border, true);
+
+        // Cast Graphics to Graphics2D to apply line thickness
+        Graphics2D g2d = (Graphics2D) g;
+        // Set the line thickness
+        float thickness = 18.0f;
+        g2d.setStroke(new BasicStroke(thickness));
+        // Set the color for the new borders
+        g2d.setColor(Color.BLACK);
+        // Draw the first line from (x:680, y:680) to (x:680, y:0)
+        g2d.drawLine(689, 689, 689, 0);
+        // Draw the second line from (x:0, y:680) to (x:680, y:680)
+        g2d.drawLine(0, 689, 689, 689);
     }
 
     // Creation of the black teams points and captured pieces
@@ -228,7 +240,6 @@ public class ChessBoardUI extends JPanel {
         this.add(forfeitButton);
     }
 
-
     // Creation of the draw button
     public void drawStalemate() {
         Image unscaledIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/DrawIcon.png"))).getImage();
@@ -239,12 +250,12 @@ public class ChessBoardUI extends JPanel {
         stalemateButton.setBounds((int)(8*SQUARE_SIZE)+2*border + 100,border+(int)(6*SQUARE_SIZE),100, (int)(1*SQUARE_SIZE));
         stalemateButton.setBackground(new Color(103, 106, 110));
         stalemateButton.setIcon(new ImageIcon(stalemateIcon));
-        stalemateButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Requesting Stalemate");
-            }
-        });
+//        stalemateButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                System.out.println("Requesting Stalemate");
+//            }
+//        });
 //        this.add(stalemateButton);
     }
 }
