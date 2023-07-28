@@ -1,8 +1,13 @@
-import javax.xml.stream.Location;
+package UseCases;
+
+import Entities.Calculator;
+import Entities.Calculators;
+import Entities.LocationBitboard;
+import UseCases.CheckCalculator;
 
 public class ActualValidMove {
-    // A use case class that filters moves calculated by Calculators.
-    // Filters moves that would put side's King in check (Illegal moves).
+    // A use case class that filters moves calculated by Entities.Calculators.
+    // Filters moves that would put side's Entities.King in check (Illegal moves).
     // side == true for white, side == false for black.
 
     // ----------------------------------------------------------------------------------------------------------
@@ -18,7 +23,7 @@ public class ActualValidMove {
         // Determine what calculator to use (i.e. What is the piece type at from?)
         Calculator calculator = identify_calculator(from, currentBoard);
 
-        // Read comment on CheckCalculator below for this variable
+        // Read comment on UseCases.CheckCalculator below for this variable
         boolean fromIsKing = ((from & currentBoard.whiteKing[0]) != 0) || ((from & currentBoard.blackKing[0]) != 0);
 
         // Calculate candidate valid moves
@@ -38,7 +43,7 @@ public class ActualValidMove {
                 if (CheckCalculator.is_in_check(color, copy)) {
                     actualValid &= ~(1L << i);
                 }
-                // Since CheckCalculator does not include attack coverage of opponent king,
+                // Since UseCases.CheckCalculator does not include attack coverage of opponent king,
                 // since it assumes we are not checked by opponent's king,
                 // we have to make sure that when we move a king,
                 // it should not be in the attack range of opponent's king
@@ -78,8 +83,8 @@ public class ActualValidMove {
         }
         return calculator;
     }
-    // Helper method for creating a copy of LocationBitboard
-    // Probably needs some refactoring to LocationBitboard later so that this process is easier
+    // Helper method for creating a copy of Entities.LocationBitboard
+    // Probably needs some refactoring to Entities.LocationBitboard later so that this process is easier
     private static LocationBitboard locations_copy(LocationBitboard currentBoard) {
         LocationBitboard copy = new LocationBitboard();
         copy.whitePawn[0] = currentBoard.whitePawn[0];

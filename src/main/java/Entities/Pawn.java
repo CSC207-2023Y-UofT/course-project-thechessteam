@@ -1,10 +1,15 @@
+package Entities;
+
+import Entities.Calculator;
+import Entities.LocationBitboard;
+
 // pawn class
-public class Pawn implements Calculator{
+public class Pawn implements Calculator {
     public Pawn(){}
     public long valid_moves(long from, int side, LocationBitboard board){
 
         long pawnValidMoves = 0L;
-        int s = Long.numberOfTrailingZeros(from); // index to use PreCalculatedAttacks
+        int s = Long.numberOfTrailingZeros(from); // index to use Entities.PreCalculatedAttacks
 
         // white pawn
         if (side == 0) {
@@ -48,7 +53,7 @@ public class Pawn implements Calculator{
     public long attack_coverage(int side, LocationBitboard board) {
         long pawnAttacks = 0L;
 
-        // Add up all the attacks in PreCalculatedAttacks table that is possible,
+        // Add up all the attacks in Entities.PreCalculatedAttacks table that is possible,
         // i.e. there's a pawn in location i.
         if (side == 0) {
             for (int i = 0; i < 64; i++) {

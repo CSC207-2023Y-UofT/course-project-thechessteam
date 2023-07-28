@@ -1,3 +1,7 @@
+package Entities;
+
+import Entities.Bishop;
+
 // Contains all the calculators for valid move calculations
 public class Calculators {
     public static Pawn pawnCalculator = new Pawn();
