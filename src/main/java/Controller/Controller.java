@@ -11,4 +11,3 @@ public class Controller {
         MovePiece.move_piece(from, to);
     }
 }
-
