@@ -33,33 +33,30 @@ public class ChessBoardUI extends JPanel {
     }
 
     public ChessBoardUI() {
+        // Get the current chessboard
         locationBitboard = ChessGame.getCurrentBoard();
-
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                System.out.println(locationBitboard);
-                int x = e.getX() / SQUARE_SIZE;
-                int y = 7 - e.getY() / SQUARE_SIZE;
                 int mouseX = e.getX();
                 int mouseY = e.getY();
+                System.out.println(locationBitboard);
+                int x = mouseX / SQUARE_SIZE;
+                int y = 7 - mouseY / SQUARE_SIZE;
                 int index = y * 8 + x;
                 boolean pieceFound = false;
 
                 if (mouseX >= 0 && mouseX < 8 * SQUARE_SIZE && mouseY >= 0 && mouseY < 8 * SQUARE_SIZE) {
-                    // Iterate over all piece types to find which piece attribute was clicked
                     for (String pieceType : locationBitboard.getAllPieces().keySet()) {
-                        long bitboard = locationBitboard.getBitboard(pieceType);  // gets the bitboard of the piece type
-                        if ((bitboard & (1L << index)) != 0) {  // if there is a selected piece
+                        long bitboard = locationBitboard.getBitboard(pieceType);
+                        if ((bitboard & (1L << index)) != 0) {
                             pieceFound = true;  // for the next if statement
-                            bitboard &= ~(1L << index);  // Clear the bit at the selected index
-                            locationBitboard.setBitboard(pieceType, bitboard);  // set the bitboard for the new piece
-                            draggedPiece = new AbstractMap.SimpleEntry<>(pieceType, bitboard); // piece disappears when the piece is clicked
-                            repaint();
                             break;
                         }
                     }
-                    if (pieceFound || (numClicks != 0)) { // first click has to be a piece
+                    // If a piece was clicked or this is not the first click
+                    if (pieceFound || (numClicks != 0)) {
+                        // Save the clicked location
                         twoClicks[numClicks] = index;
                         numClicks += 1;
                         System.out.println(numClicks);
@@ -67,24 +64,12 @@ public class ChessBoardUI extends JPanel {
                     }
                 }
             }
-
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (draggedPiece != null) {
-                    int mouseX = e.getX();
-                    int mouseY = e.getY();
-                    int x = mouseX / SQUARE_SIZE;
-                    int y = 7 - mouseY / SQUARE_SIZE;
-                    int index = y * 8 + x;
-
-                    if (mouseX >= 0 && mouseX < 8 * SQUARE_SIZE && mouseY >= 0 && mouseY < 8 * SQUARE_SIZE) {
-                        long bitboard = draggedPiece.getValue() | (1L << index);  // Update the bit at the selected index for the piece attribute
-                        locationBitboard.setBitboard(draggedPiece.getKey(), bitboard);
-                    }
-                    draggedPiece = null;
-                }
+                // If this was the second click
                 if (numClicks == 2) {
-                    Controller.process_two_clicks(twoClicks);  // handles valid moves
+                    // Process the two clicks for valid moves
+                    Controller.process_two_clicks(twoClicks);
                     numClicks = 0;
                     System.out.println(locationBitboard);
                 }
@@ -92,6 +77,8 @@ public class ChessBoardUI extends JPanel {
             }
         });
     }
+
+
 
     // new
     @Override
@@ -250,6 +237,7 @@ public class ChessBoardUI extends JPanel {
         stalemateButton.setBounds((int)(8*SQUARE_SIZE)+2*border + 100,border+(int)(6*SQUARE_SIZE),100, (int)(1*SQUARE_SIZE));
         stalemateButton.setBackground(new Color(103, 106, 110));
         stalemateButton.setIcon(new ImageIcon(stalemateIcon));
+        // commented out for safety
 //        stalemateButton.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent e) {
