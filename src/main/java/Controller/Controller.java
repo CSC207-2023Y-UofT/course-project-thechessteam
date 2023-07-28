@@ -1,3 +1,7 @@
+package Controller;
+
+import UseCases.MovePiece;
+
 public class Controller {
     // Takes in two clicks and pass it to use case classes.
     // Precondition: twoClicks is an integer array of length 2.

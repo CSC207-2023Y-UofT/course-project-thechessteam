@@ -1,5 +1,9 @@
+package Entities;
+
+import Entities.Calculator;
+
 public class Knight implements Calculator {
-    // Knight Class intended to hold the calculations for knight piece movements
+    // Entities.Knight Class intended to hold the calculations for knight piece movements
     private long sameColoredPieces;
 
     public Knight() {}

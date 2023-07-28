@@ -1,16 +1,27 @@
-import javax.imageio.ImageIO;
+package View;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.io.File;
 import java.util.Objects;
 
 public class UI extends JPanel {
 
-    static long WP=0L,WN=0L,WB=0L,WR=0L,WQ=0L,WK=0L,BP=0L,BN=0L,BB=0L,BR=0L,BQ=0L,BK=0L;
+    public static long WP=0L;
+    public static long WN=0L;
+    public static long WB=0L;
+    public static long WR=0L;
+    public static long WQ=0L;
+    public static long WK=0L;
+    public static long BP=0L;
+    public static long BN=0L;
+    public static long BB=0L;
+    public static long BR=0L;
+    public static long BQ=0L;
+    public static long BK=0L;
     static long UniversalWP=0L,UniversalWN=0L,UniversalWB=0L,UniversalWR=0L,UniversalWQ=0L,UniversalWK=0L,UniversalBP=0L,UniversalBN=0L,UniversalBB=0L,UniversalBR=0L,UniversalBQ=0L,UniversalBK=0L;
     static int humanIsWhite=1;
     static int rating=0;
@@ -136,7 +147,7 @@ public class UI extends JPanel {
         g.drawString(Integer.toString(whtPoints), (int)(8*squareSize)+2*border + 175 - border, border*2+ (int)(2.8*squareSize) + 2);
     }
 
-    // Creation of the timer UI located at the bottom right
+    // Creation of the timer View.UI located at the bottom right
     public void drawTimer(Graphics g) {
         // Creation of the clock Borders
         g.setColor(new Color(44, 46, 51));
@@ -197,6 +208,6 @@ public class UI extends JPanel {
     }
 
     public static void newGame() {
-        ChessBoard.initiateStandardChess();
+//        RenamePackage.ChessBoard.initiateStandardChess();
     }
 }

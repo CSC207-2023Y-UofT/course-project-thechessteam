@@ -1,7 +1,14 @@
+package UseCases;
+
+import Entities.ChessGame;
+import Entities.LocationBitboard;
+import RenamePackage.TestForBitboards;
+
 public class MovePiece {
     // Use case class for moving pieces, including castling.
     // Returns true if there's a piece at start and end is a valid move of that piece.
     public static void move_piece(long start, long end) {
+        TestForBitboards TestForBitboards = null;
         TestForBitboards.print_2d_chessboard(TestForBitboards.array_representation(start));
         System.out.println();
         TestForBitboards.print_2d_chessboard(TestForBitboards.array_representation(end));

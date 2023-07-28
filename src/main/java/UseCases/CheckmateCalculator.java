@@ -1,3 +1,10 @@
+package UseCases;
+
+import Entities.Calculator;
+import Entities.Calculators;
+import Entities.King;
+import Entities.LocationBitboard;
+import UseCases.CheckCalculator;
 
 public class CheckmateCalculator {
 
@@ -14,12 +21,12 @@ public class CheckmateCalculator {
         }
 
 
-        // Check if the King can move out of check
+        // Check if the Entities.King can move out of check
         long kingPositions = side == 0 ? board.whiteKing[0] : board.blackKing[0];
         int kingPosition = Long.numberOfTrailingZeros(kingPositions);
         King king = new King();
         if (king.valid_moves(1L << kingPosition, side, board) != 0) {
-            return false; // King can move out of check
+            return false; // Entities.King can move out of check
         }
 
         // List all pieces for the side in check
@@ -32,7 +39,7 @@ public class CheckmateCalculator {
             while (pieces != 0) {
                 int position = Long.numberOfTrailingZeros(pieces);
                 pieces ^= (1L << position); // Clear the least significant bit
-                // Assuming we have a generic function `getPieceCalculator` that returns a Calculator for the piece at `position`
+                // Assuming we have a generic function `getPieceCalculator` that returns a Entities.Calculator for the piece at `position`
                 Calculator pieceCalculator = getPieceCalculator(position, board);
                 if (pieceCalculator.valid_moves(1L << position, side, board) != 0) {
                     // Simulate the move and check if it would leave the king in check
@@ -49,7 +56,7 @@ public class CheckmateCalculator {
         return true;
     }
 
-    // This function would return the appropriate Calculator for the piece at a given position
+    // This function would return the appropriate Entities.Calculator for the piece at a given position
 
     Calculator getPieceCalculator(int position, LocationBitboard board) {
         if ((board.whitePawn[0] & (1L << position)) != 0 || (board.blackPawn[0] & (1L << position)) != 0) {

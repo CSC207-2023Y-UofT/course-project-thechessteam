@@ -1,3 +1,9 @@
+package View;
+
+import Controller.Controller;
+import Entities.ChessGame;
+import Entities.LocationBitboard;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -13,7 +19,7 @@ public class ChessBoardUI extends JPanel {
     private int numClicks = 0;
 
     // Just so it works for now, need to refactor later so that
-    // LocationBitboard entity is not connected to View directly.
+    // Entities.LocationBitboard entity is not connected to View directly.
 
 
     public ChessBoardUI() {
