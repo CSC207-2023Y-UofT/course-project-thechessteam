@@ -11,6 +11,7 @@ public class ChessBoardUI extends JPanel {
     public int SQUARE_SIZE = 85;
     private final int[] twoClicks = new int[2];
     private int numClicks = 0;
+    private long highlightSquares = 0L;  // holds bitboard of the highlighted squares
 
     static JButton forfeitButton = new JButton("forfeitButton");
     static JButton stalemateButton = new JButton("stalemateButton");
@@ -48,6 +49,13 @@ public class ChessBoardUI extends JPanel {
                         long bitboard = locationBitboard.getBitboard(pieceType);
                         if ((bitboard & (1L << index)) != 0) {
                             pieceFound = true;  // for the next if statement
+
+                            long pieceLocation = bitboard & (1L << index);
+                            // store the specific move highlights here
+                            // fix the side = 0 or side = 1 later
+                            // need to refactor this for CA
+                            boolean isWhite = pieceType.startsWith("white");
+                            highlightSquares = ActualValidMove.actual_valid_moves(pieceLocation, isWhite, locationBitboard);
                             break;
                         }
                     }
@@ -68,6 +76,7 @@ public class ChessBoardUI extends JPanel {
                     // Process the two clicks for valid moves
                     Controller.process_two_clicks(twoClicks);
                     numClicks = 0;
+                    highlightSquares = 0L;  // Clear the highlights
                     System.out.println(locationBitboard);
                 }
                 repaint();
@@ -110,6 +119,19 @@ public class ChessBoardUI extends JPanel {
         drawTimer(g);
         drawForfeit();
         drawStalemate();
+
+        g.setColor(new Color(128, 128, 128, 128));
+        int diameter = SQUARE_SIZE / 4;
+        int radius = diameter / 2;
+        for (int i = 0; i < 64; i++) {
+            if ((highlightSquares & (1L << i)) != 0) {
+                int x = i % 8;
+                int y = 7 - i / 8;
+                int centerX = x * SQUARE_SIZE + SQUARE_SIZE / 2;
+                int centerY = y * SQUARE_SIZE + SQUARE_SIZE / 2;
+                g.fillOval(centerX - radius, centerY - radius, diameter, diameter);
+            }
+        }
     }
 
     private void drawPieces(Graphics g, long bitboard, Image pieceImage) {
