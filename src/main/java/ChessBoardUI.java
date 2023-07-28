@@ -15,20 +15,12 @@ public class ChessBoardUI extends JPanel {
     private final int[] twoClicks = new int[2];
     private int numClicks = 0;
 
-    // harrison
     static JButton forfeitButton = new JButton("forfeitButton");
     static JButton stalemateButton = new JButton("stalemateButton");
     static int blkPoints = 0;
     static int whtPoints = 0;
-    static int humanIsWhite=1;
-    static int rating=0;
-    static int border=10;//the amount of empty space around the frame
-
-
-    // Just so it works for now, need to refactor later so that
-    // LocationBitboard entity is not connected to View directly.
-    static int int1 = 245+680;
-    static int int2 = 58+708;
+    static int border = 10; //the amount of empty space around the frame
+    private boolean isButtonConfigured = false;
 
     public static void main (String[]args){
         JFrame frame = new JFrame();
@@ -36,7 +28,7 @@ public class ChessBoardUI extends JPanel {
         frame.setLocationRelativeTo(null);
         ChessBoardUI board = new ChessBoardUI();
         frame.add(board);
-        frame.setMinimumSize(new Dimension(int1, int2));
+        frame.setMinimumSize(new Dimension(925, 766));
         frame.setVisible(true);
     }
 
@@ -49,38 +41,46 @@ public class ChessBoardUI extends JPanel {
                 System.out.println(locationBitboard);
                 int x = e.getX() / SQUARE_SIZE;
                 int y = 7 - e.getY() / SQUARE_SIZE;
+                int mouseX = e.getX();
+                int mouseY = e.getY();
                 int index = y * 8 + x;
                 boolean pieceFound = false;
 
-                // Iterate over all piece types to find which piece attribute was clicked
-                for (String pieceType : locationBitboard.getAllPieces().keySet()) {
-                    long bitboard = locationBitboard.getBitboard(pieceType);  // gets the bitboard of the piece type
-                    if ((bitboard & (1L << index)) != 0) {  // if there is a selected piece
-                        pieceFound = true;  // for the next if statement
-                        bitboard &= ~(1L << index);  // Clear the bit at the selected index
-                        locationBitboard.setBitboard(pieceType, bitboard);  // set the bitboard for the new piece
-                        draggedPiece = new AbstractMap.SimpleEntry<>(pieceType, bitboard); // piece disappears when the piece is clicked
-                        repaint();
-                        break;
+                if (mouseX >= 0 && mouseX < 8 * SQUARE_SIZE && mouseY >= 0 && mouseY < 8 * SQUARE_SIZE) {
+                    // Iterate over all piece types to find which piece attribute was clicked
+                    for (String pieceType : locationBitboard.getAllPieces().keySet()) {
+                        long bitboard = locationBitboard.getBitboard(pieceType);  // gets the bitboard of the piece type
+                        if ((bitboard & (1L << index)) != 0) {  // if there is a selected piece
+                            pieceFound = true;  // for the next if statement
+                            bitboard &= ~(1L << index);  // Clear the bit at the selected index
+                            locationBitboard.setBitboard(pieceType, bitboard);  // set the bitboard for the new piece
+                            draggedPiece = new AbstractMap.SimpleEntry<>(pieceType, bitboard); // piece disappears when the piece is clicked
+                            repaint();
+                            break;
+                        }
                     }
-                }
-                if (pieceFound || (numClicks != 0)) { // first click has to be a piece
-                    twoClicks[numClicks] = index;
-                    numClicks += 1;
-                    System.out.println(numClicks);
-                    repaint();
+                    if (pieceFound || (numClicks != 0)) { // first click has to be a piece
+                        twoClicks[numClicks] = index;
+                        numClicks += 1;
+                        System.out.println(numClicks);
+                        repaint();
+                    }
                 }
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (draggedPiece != null) {
-                    int x = e.getX() / SQUARE_SIZE;
-                    int y = 7 - e.getY() / SQUARE_SIZE;
+                    int mouseX = e.getX();
+                    int mouseY = e.getY();
+                    int x = mouseX / SQUARE_SIZE;
+                    int y = 7 - mouseY / SQUARE_SIZE;
                     int index = y * 8 + x;
 
-                    long bitboard = draggedPiece.getValue() | (1L << index);  // Update the bit at the selected index for the piece attribute
-                    locationBitboard.setBitboard(draggedPiece.getKey(), bitboard);
+                    if (mouseX >= 0 && mouseX < 8 * SQUARE_SIZE && mouseY >= 0 && mouseY < 8 * SQUARE_SIZE) {
+                        long bitboard = draggedPiece.getValue() | (1L << index);  // Update the bit at the selected index for the piece attribute
+                        locationBitboard.setBitboard(draggedPiece.getKey(), bitboard);
+                    }
                     draggedPiece = null;
                 }
                 if (numClicks == 2) {
@@ -122,8 +122,7 @@ public class ChessBoardUI extends JPanel {
         drawPieces(g, locationBitboard.getBitboard("blackQueen"), Images.blackQueen);
         drawPieces(g, locationBitboard.getBitboard("blackKing"), Images.blackKing);
 
-        // harrison
-//        drawBorders(g);
+        drawBorders(g);
         drawBlackTeam(g);
         drawWhiteTeam(g);
         drawTimer(g);
@@ -141,8 +140,27 @@ public class ChessBoardUI extends JPanel {
         }
     }
 
-    // harrison
-    // Creation of the chess board
+    public void drawBorders(Graphics g) {
+        g.setColor(new Color(43, 45, 48));
+        g.fill3DRect(0, border, border, (int)(8*SQUARE_SIZE), true);
+        g.fill3DRect((int)(8*SQUARE_SIZE)+border, border, border, (int)(8*SQUARE_SIZE), true);
+        g.fill3DRect(border, 0, (int)(8*SQUARE_SIZE), border, true);
+        g.fill3DRect(border, (int)(8*SQUARE_SIZE)+border, (int)(8*SQUARE_SIZE), border, true);
+
+        g.setColor(Color.BLACK);
+        g.fill3DRect(0, 0, border, border, true);
+        g.fill3DRect((int)(8*SQUARE_SIZE)+border, 0, border, border, true);
+        g.fill3DRect(0, (int)(8*SQUARE_SIZE)+border, border, border, true);
+        g.fill3DRect((int)(8*SQUARE_SIZE)+border, (int)(8*SQUARE_SIZE)+border, border, border, true);
+        g.fill3DRect((int)(8*SQUARE_SIZE)+2*border+200, 0, border, border, true);
+        g.fill3DRect((int)(8*SQUARE_SIZE)+2*border+200, (int)(8*SQUARE_SIZE)+border, border, border, true);
+
+        g.setColor(new Color(43, 45, 48));
+        g.fill3DRect((int)(8*SQUARE_SIZE)+2*border, 0, 200, border, true);
+
+        g.fill3DRect((int)(8*SQUARE_SIZE)+2*border+200, border, border, (int)(8*SQUARE_SIZE), true);
+        g.fill3DRect((int)(8*SQUARE_SIZE)+2*border, (int)(8*SQUARE_SIZE)+border, 200, border, true);
+    }
 
     // Creation of the black teams points and captured pieces
     public void drawBlackTeam(Graphics g) {
@@ -172,11 +190,17 @@ public class ChessBoardUI extends JPanel {
         g.setColor(new Color(190, 178, 157));
         g.fill3DRect((int)(8*SQUARE_SIZE)+2*border + 5, border+(int)(7*SQUARE_SIZE+5), 190, (int)(1*SQUARE_SIZE - 10), true);
 
-
         // Creation of the clock Label
         g.setColor(new Color(0, 0, 0));
         g.setFont(new Font("TRUE TYPE_FONT", Font.BOLD, (int)(1*SQUARE_SIZE) - 20));
-        g.drawString("0:00", (int)(8*SQUARE_SIZE)+2*border + (int)(1*SQUARE_SIZE) - 15, border+(int)(7*SQUARE_SIZE+ (int)(1*SQUARE_SIZE)- 15));
+
+        // Calculate string width
+        FontMetrics fm = g.getFontMetrics();
+        int stringWidth = fm.stringWidth("0:00");
+        int boxCenter = 190 / 2;
+        int stringXPosition = (int)(8*SQUARE_SIZE)+2*border + 5 + boxCenter - stringWidth / 2;
+
+        g.drawString("0:00", stringXPosition, border+(int)(7*SQUARE_SIZE+ (int)(1*SQUARE_SIZE)- 15));
     }
 
     // Creation of the forfeit button
@@ -184,48 +208,44 @@ public class ChessBoardUI extends JPanel {
         Image unscaledIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/Forfeit.png"))).getImage();
         Image forfeitIcon = unscaledIcon.getScaledInstance(40 ,(int)(1*SQUARE_SIZE) - 25, java.awt.Image.SCALE_SMOOTH);
 
-
         forfeitButton.setText("");
         forfeitButton.setFocusPainted(false);
         forfeitButton.setBounds((int)(8*SQUARE_SIZE)+2*border,border+(int)(6*SQUARE_SIZE),100, (int)(1*SQUARE_SIZE));
         forfeitButton.setBackground(new Color(44, 46, 51));
         forfeitButton.setIcon(new ImageIcon(forfeitIcon));
-//        if (newGame) {
-//            forfeitButton.addActionListener(new ActionListener() {
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    System.out.println("Forfeited");
-//                }
-//            });
-//        }
-        this.add(stalemateButton);
+
+        if (!isButtonConfigured) {
+            forfeitButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("Forfeited");
+                }
+            });
+            isButtonConfigured = true;
+        }
+
+        // Add button to panel
         this.add(forfeitButton);
     }
+
 
     // Creation of the draw button
     public void drawStalemate() {
         Image unscaledIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/DrawIcon.png"))).getImage();
         Image stalemateIcon = unscaledIcon.getScaledInstance(50 ,(int)(1*SQUARE_SIZE) - 10, java.awt.Image.SCALE_SMOOTH);
 
-
         stalemateButton.setText("");
         stalemateButton.setFocusPainted(false);
         stalemateButton.setBounds((int)(8*SQUARE_SIZE)+2*border + 100,border+(int)(6*SQUARE_SIZE),100, (int)(1*SQUARE_SIZE));
         stalemateButton.setBackground(new Color(103, 106, 110));
         stalemateButton.setIcon(new ImageIcon(stalemateIcon));
-//        if (newGame) {
-//            stalemateButton.addActionListener(new ActionListener() {
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    System.out.println("Requesting Stalemate");
-//                }
-//            });
-//        }
-        this.add(stalemateButton);
+        stalemateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Requesting Stalemate");
+            }
+        });
+//        this.add(stalemateButton);
     }
-    
-    
-    
-
 }
 
