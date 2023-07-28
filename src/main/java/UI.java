@@ -1,3 +1,5 @@
+import org.w3c.dom.css.Rect;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -14,15 +16,17 @@ public class UI extends JPanel {
     static long UniversalWP=0L,UniversalWN=0L,UniversalWB=0L,UniversalWR=0L,UniversalWQ=0L,UniversalWK=0L,UniversalBP=0L,UniversalBN=0L,UniversalBB=0L,UniversalBR=0L,UniversalBQ=0L,UniversalBK=0L;
     static int humanIsWhite=1;
     static int rating=0;
-    static boolean newGame = true;
+    static boolean newGame = true; // Indicates that the game has not started yet
+    static boolean gameOver = false; // Indicates that the game is in the over and frames should not be updating
     static int blkPoints = 0;
     static int whtPoints = 0;
     static int border=10;//the amount of empty space around the frame
-    static double squareSize=64;//the size of a chess board square
+    static double squareSize = 64;//the size of a chess board square
+    static String winning_team = "Temp"; // Set at the end of the game for the team that won
     static JFrame javaF=new JFrame("Chess Engine");//must be declared as static so that other class' can repaint
     static UI javaUI=new UI();//must be declared as static so that other class' can repaint
-    static JButton forfeitButton = new JButton("forfeitButton");
-    static JButton stalemateButton = new JButton("stalemateButton");
+    static JButton forfeitButton = new JButton("forfeitButton"); // forfeit Button
+    static JButton stalemateButton = new JButton("stalemateButton"); // stalemate Button
 
 
     // Ran whenever a new game instance starts
@@ -166,7 +170,11 @@ public class UI extends JPanel {
             forfeitButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("Forfeited");
+                    if (!gameOver) { // Makes sure the game isn't over
+                        drawEndScreen(winning_team);
+
+                        GameOver gameOverScreen = new GameOver();
+                    }
                 }
             });
         }
@@ -189,11 +197,27 @@ public class UI extends JPanel {
             stalemateButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("Requesting Stalemate");
+                    if (!gameOver) { // Makes sure the game isn't over
+                        System.out.println("Requesting a draw");
+                    }
                 }
             });
         }
         this.add(stalemateButton);
+    }
+
+    public void drawEndScreen(String winning_team) {
+        Graphics g = this.getGraphics();
+        g.setColor(new Color(0, 0, 0, 184));
+        g.fillRect(0, 0, (int)((8)*squareSize)+border*2, (int)((8)*squareSize)+border*2);
+
+        g.setColor(new Color(220, 216, 216));
+        g.setFont(new Font("TRUE TYPE_FONT", Font.BOLD, (int)(1*squareSize) - 20));
+        g.drawString(winning_team + " Team Wins!", (int)((3)*squareSize - (squareSize + 40)), (int) squareSize * 4);
+
+        javaF.setIgnoreRepaint(true);
+        javaF.setResizable(false);
+        gameOver = true;
     }
 
     public static void newGame() {
