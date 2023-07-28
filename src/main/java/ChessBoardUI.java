@@ -4,14 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.AbstractMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class ChessBoardUI extends JPanel {
     private static LocationBitboard locationBitboard;
     public int SQUARE_SIZE = 85;
-    private Map.Entry<String, Long> draggedPiece = null;
     private final int[] twoClicks = new int[2];
     private int numClicks = 0;
 
@@ -77,8 +74,6 @@ public class ChessBoardUI extends JPanel {
             }
         });
     }
-
-
 
     // new
     @Override
