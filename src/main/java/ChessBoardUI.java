@@ -11,8 +11,7 @@ public class ChessBoardUI extends JPanel {
     public int SQUARE_SIZE = 85;
     private final int[] twoClicks = new int[2];
     private int numClicks = 0;
-    private long highlightSquares = 0L;  // holds bitboard of the highlighted squares
-
+    private long highlightSquares = 0L;
     static JButton forfeitButton = new JButton("forfeitButton");
     static JButton stalemateButton = new JButton("stalemateButton");
     static int blkPoints = 0;
@@ -48,11 +47,8 @@ public class ChessBoardUI extends JPanel {
                     for (String pieceType : locationBitboard.getAllPieces().keySet()) {
                         long bitboard = locationBitboard.getBitboard(pieceType);
                         if ((bitboard & (1L << index)) != 0) {
-                            pieceFound = true;  // for the next if statement
-
+                            pieceFound = true;
                             long pieceLocation = bitboard & (1L << index);
-                            // store the specific move highlights here
-                            // fix the side = 0 or side = 1 later
                             // need to refactor this for CA
                             boolean isWhite = pieceType.startsWith("white");
                             highlightSquares = ActualValidMove.actual_valid_moves(pieceLocation, isWhite, locationBitboard);
@@ -84,7 +80,6 @@ public class ChessBoardUI extends JPanel {
         });
     }
 
-    // new
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -112,14 +107,12 @@ public class ChessBoardUI extends JPanel {
         drawPieces(g, locationBitboard.getBitboard("blackBishop"), Images.blackBishop);
         drawPieces(g, locationBitboard.getBitboard("blackQueen"), Images.blackQueen);
         drawPieces(g, locationBitboard.getBitboard("blackKing"), Images.blackKing);
-
         drawBorders(g);
         drawBlackTeam(g);
         drawWhiteTeam(g);
         drawTimer(g);
         drawForfeit();
         drawStalemate();
-
         g.setColor(new Color(128, 128, 128, 128));
         int diameter = SQUARE_SIZE / 4;
         int radius = diameter / 2;
@@ -150,7 +143,6 @@ public class ChessBoardUI extends JPanel {
         g.fill3DRect((int)(8*SQUARE_SIZE)+border, border, border, (int)(8*SQUARE_SIZE), true);
         g.fill3DRect(border, 0, (int)(8*SQUARE_SIZE), border, true);
         g.fill3DRect(border, (int)(8*SQUARE_SIZE)+border, (int)(8*SQUARE_SIZE), border, true);
-
         g.setColor(Color.BLACK);
         g.fill3DRect(0, 0, border, border, true);
         g.fill3DRect((int)(8*SQUARE_SIZE)+border, 0, border, border, true);
@@ -158,13 +150,10 @@ public class ChessBoardUI extends JPanel {
         g.fill3DRect((int)(8*SQUARE_SIZE)+border, (int)(8*SQUARE_SIZE)+border, border, border, true);
         g.fill3DRect((int)(8*SQUARE_SIZE)+2*border+200, 0, border, border, true);
         g.fill3DRect((int)(8*SQUARE_SIZE)+2*border+200, (int)(8*SQUARE_SIZE)+border, border, border, true);
-
         g.setColor(new Color(43, 45, 48));
         g.fill3DRect((int)(8*SQUARE_SIZE)+2*border, 0, 200, border, true);
-
         g.fill3DRect((int)(8*SQUARE_SIZE)+2*border+200, border, border, (int)(8*SQUARE_SIZE), true);
         g.fill3DRect((int)(8*SQUARE_SIZE)+2*border, (int)(8*SQUARE_SIZE)+border, 200, border, true);
-
         // Cast Graphics to Graphics2D to apply line thickness
         Graphics2D g2d = (Graphics2D) g;
         // Set the line thickness
@@ -182,7 +171,6 @@ public class ChessBoardUI extends JPanel {
     public void drawBlackTeam(Graphics g) {
         g.setColor(new Color(103, 106, 110, 255));
         g.fill3DRect((int)(8*SQUARE_SIZE)+2*border, border, 200, (int)(2.8*SQUARE_SIZE), true);
-
         g.setColor(new Color(0, 0, 0, 255));
         g.drawString("Black Team:", (int)(8*SQUARE_SIZE)+2*border + 2, border*2+ 2);
         g.drawString(Integer.toString(blkPoints), (int)(8*SQUARE_SIZE)+2*border + 175 - border, border*2 + 2);
@@ -192,7 +180,6 @@ public class ChessBoardUI extends JPanel {
     public void drawWhiteTeam(Graphics g) {
         g.setColor(new Color(52, 53, 56));
         g.fill3DRect((int)(8*SQUARE_SIZE)+2*border, border+(int)(2.8*SQUARE_SIZE), 200, (int)(2.8*SQUARE_SIZE), true);
-
         g.setColor(new Color(220, 216, 216, 255));
         g.drawString("White Team:", (int)(8*SQUARE_SIZE)+2*border + 2, border*2+ (int)(2.8*SQUARE_SIZE) + 2);
         g.drawString(Integer.toString(whtPoints), (int)(8*SQUARE_SIZE)+2*border + 175 - border, border*2+ (int)(2.8*SQUARE_SIZE) + 2);
@@ -205,17 +192,14 @@ public class ChessBoardUI extends JPanel {
         g.fill3DRect((int)(8*SQUARE_SIZE)+2*border, border+(int)(7*SQUARE_SIZE), 200, (int)(1*SQUARE_SIZE), true);
         g.setColor(new Color(190, 178, 157));
         g.fill3DRect((int)(8*SQUARE_SIZE)+2*border + 5, border+(int)(7*SQUARE_SIZE+5), 190, (int)(1*SQUARE_SIZE - 10), true);
-
         // Creation of the clock Label
         g.setColor(new Color(0, 0, 0));
         g.setFont(new Font("TRUE TYPE_FONT", Font.BOLD, (int)(1*SQUARE_SIZE) - 20));
-
         // Calculate string width
         FontMetrics fm = g.getFontMetrics();
         int stringWidth = fm.stringWidth("0:00");
         int boxCenter = 190 / 2;
         int stringXPosition = (int)(8*SQUARE_SIZE)+2*border + 5 + boxCenter - stringWidth / 2;
-
         g.drawString("0:00", stringXPosition, border+(int)(7*SQUARE_SIZE+ (int)(1*SQUARE_SIZE)- 15));
     }
 
@@ -223,13 +207,11 @@ public class ChessBoardUI extends JPanel {
     public void drawForfeit() {
         Image unscaledIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/Forfeit.png"))).getImage();
         Image forfeitIcon = unscaledIcon.getScaledInstance(40 ,(int)(1*SQUARE_SIZE) - 25, java.awt.Image.SCALE_SMOOTH);
-
         forfeitButton.setText("");
         forfeitButton.setFocusPainted(false);
         forfeitButton.setBounds((int)(8*SQUARE_SIZE)+2*border,border+(int)(6*SQUARE_SIZE),100, (int)(1*SQUARE_SIZE));
         forfeitButton.setBackground(new Color(44, 46, 51));
         forfeitButton.setIcon(new ImageIcon(forfeitIcon));
-
         if (!isButtonConfigured) {
             forfeitButton.addActionListener(new ActionListener() {
                 @Override
@@ -239,7 +221,6 @@ public class ChessBoardUI extends JPanel {
             });
             isButtonConfigured = true;
         }
-
         // Add button to panel
         this.add(forfeitButton);
     }
@@ -248,7 +229,6 @@ public class ChessBoardUI extends JPanel {
     public void drawStalemate() {
         Image unscaledIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/DrawIcon.png"))).getImage();
         Image stalemateIcon = unscaledIcon.getScaledInstance(50 ,(int)(1*SQUARE_SIZE) - 10, java.awt.Image.SCALE_SMOOTH);
-
         stalemateButton.setText("");
         stalemateButton.setFocusPainted(false);
         stalemateButton.setBounds((int)(8*SQUARE_SIZE)+2*border + 100,border+(int)(6*SQUARE_SIZE),100, (int)(1*SQUARE_SIZE));
