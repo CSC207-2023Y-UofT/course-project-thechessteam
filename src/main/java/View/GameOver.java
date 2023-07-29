@@ -1,5 +1,6 @@
+package View;
+
 import javax.swing.*;
-import javax.tools.Tool;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +29,7 @@ public class GameOver implements ActionListener {
         playAgain.setBackground(new Color(48, 183, 62));
         playAgain.addActionListener(this);
 
-        // Configuring the MainMenu button
+        // Configuring the View.MainMenu button
         menuButton.setText("MAIN MENU");
         menuButton.setFocusPainted(false);
         menuButton.setBounds(17, 160, 150, 30);

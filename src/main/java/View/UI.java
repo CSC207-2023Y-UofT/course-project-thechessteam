@@ -1,3 +1,5 @@
+package View;
+
 import RenamePackage.ChessBoard;
 
 import javax.swing.*;
@@ -8,9 +10,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.Objects;
 
-public class gameUI extends JPanel {
-
-    static long WP=0L,WN=0L,WB=0L,WR=0L,WQ=0L,WK=0L,BP=0L,BN=0L,BB=0L,BR=0L,BQ=0L,BK=0L;
+public class UI extends JPanel {
+    public static long WP=0L,WN=0L,WB=0L,WR=0L,WQ=0L,WK=0L,BP=0L,BN=0L,BB=0L,BR=0L,BQ=0L,BK=0L;
     static long UniversalWP=0L,UniversalWN=0L,UniversalWB=0L,UniversalWR=0L,UniversalWQ=0L,UniversalWK=0L,UniversalBP=0L,UniversalBN=0L,UniversalBB=0L,UniversalBR=0L,UniversalBQ=0L,UniversalBK=0L;
     static int humanIsWhite=1;
     static int rating=0;
@@ -22,7 +23,7 @@ public class gameUI extends JPanel {
     static double squareSize = 64;//the size of a chess board square
     static String winning_msg = ""; // Set at the end of the game for the team that won
     static JFrame javaF=new JFrame("Chess Engine");//must be declared as static so that other class' can repaint
-    static gameUI javaUI=new gameUI();//must be declared as static so that other class' can repaint
+    static UI javaUI=new UI();//must be declared as static so that other class' can repaint
     static JButton forfeitButton = new JButton("forfeitButton"); // forfeit Button
     static JButton stalemateButton = new JButton("stalemateButton"); // stalemate Button
     static JButton pawnPromoteQueen = new JButton("stalemateButton"); // queen pawn promotion button
@@ -338,7 +339,11 @@ public class gameUI extends JPanel {
         javaF.setSize(757, 570);
         javaF.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width-javaF.getWidth())/2,
                 (Toolkit.getDefaultToolkit().getScreenSize().height-javaF.getHeight())/2);
+
         javaF.setVisible(true);
+        javaF.setIgnoreRepaint(false);
+        javaF.setResizable(true);
+
         javaF.repaint();
     }
 }
