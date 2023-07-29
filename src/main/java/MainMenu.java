@@ -1,8 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class MainMenu {
+public class MainMenu implements ActionListener {
     JFrame menu_frame = new JFrame();
     JLabel menuBackground = new JLabel("Background");
     JLabel logoBackground = new JLabel("logoBackground");
@@ -55,24 +57,28 @@ public class MainMenu {
         playButton.setFocusPainted(false);
         playButton.setBounds(25, 30, 200, 25);
         playButton.setBackground(new Color(48, 183, 62));
+        playButton.addActionListener(this);
 
         // Configuring the preferences button
         preferencesButton.setText("Preferences");
         preferencesButton.setFocusPainted(false);
         preferencesButton.setBounds(25, 70, 200, 25);
         preferencesButton.setBackground(new Color(210, 242, 245));
+        preferencesButton.addActionListener(this);
 
         // Configuring the leaderboard button
         leaderBoardButton.setText("Leaderboard");
         leaderBoardButton.setFocusPainted(false);
         leaderBoardButton.setBounds(25, 110, 200, 25);
         leaderBoardButton.setBackground(new Color(184, 190, 210));
+        leaderBoardButton.addActionListener(this);
 
         // Configuring the tutorial button
         tutorialButton.setText("Tutorial");
         tutorialButton.setFocusPainted(false);
         tutorialButton.setBounds(25, 150, 200, 25);
         tutorialButton.setBackground(new Color(243, 192, 53));
+        tutorialButton.addActionListener(this);
 
         // All added components
         menuBackground.add(logoBackground);
@@ -94,5 +100,13 @@ public class MainMenu {
                 (Toolkit.getDefaultToolkit().getScreenSize().height-menu_frame.getHeight())/2);
 
         menu_frame.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == playButton) {
+            menu_frame.dispose();
+            UI.newGame();
+        }
     }
 }

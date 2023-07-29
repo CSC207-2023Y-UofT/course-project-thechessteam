@@ -31,14 +31,7 @@ public class UI extends JPanel {
 
     // Ran whenever a new game instance starts
     public static void main(String[] args) {
-        javaF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        javaF.add(javaUI);
-        javaF.setSize(757, 570);
-        javaF.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width-javaF.getWidth())/2,
-                (Toolkit.getDefaultToolkit().getScreenSize().height-javaF.getHeight())/2);
-        javaF.setVisible(true);
-        newGame(); // initializes pieces and starts the game
-        javaF.repaint();
+        MainMenu newMenu = new MainMenu(); // Opens a new menu window when ran
     }
 
     // Paints the boarder for the board, the pieces, and the board itself
@@ -221,6 +214,24 @@ public class UI extends JPanel {
     }
 
     public static void newGame() {
-        ChessBoard.initiateStandardChess();
+        // Setting inital stats
+        humanIsWhite = 1;
+        newGame = true;
+        gameOver = false;
+        blkPoints = 0;
+        whtPoints = 0;
+        rating = 0;
+        winning_team = "";
+        ChessBoard.initiateStandardChess();; // initializes pieces and starts the game
+
+
+        // Setting the UI configurations
+        javaF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        javaF.add(javaUI);
+        javaF.setSize(757, 570);
+        javaF.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width-javaF.getWidth())/2,
+                (Toolkit.getDefaultToolkit().getScreenSize().height-javaF.getHeight())/2);
+        javaF.setVisible(true);
+        javaF.repaint();
     }
 }

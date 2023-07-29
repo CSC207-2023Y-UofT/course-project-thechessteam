@@ -59,7 +59,9 @@ public class GameOver implements ActionListener {
             UI.javaF.dispose();
             MainMenu new_menu = new MainMenu();
         } else if (e.getSource() == playAgain) {
-            System.out.println("Running the game again");
+            window_frame.dispose();
+            UI.javaF.dispose();
+            UI.newGame();
         }
     }
 }
