@@ -8,8 +8,8 @@ import UseCases.CheckCalculator;
 
 public class CheckmateCalculator {
 
-    // side = 0 to represent White
-    // side = 1 to represent Black
+    // side = true to represent White
+    // side = false to represent Black
 
     public boolean is_checkmate(boolean side, LocationBitboard board){
         CheckCalculator checkCalculator = new CheckCalculator();
