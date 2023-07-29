@@ -1,3 +1,8 @@
+package UseCases;
+
+import Entities.Calculators;
+import Entities.LocationBitboard;
+
 public class CheckCalculator {
 
     public static boolean is_in_check(int side, LocationBitboard board) {

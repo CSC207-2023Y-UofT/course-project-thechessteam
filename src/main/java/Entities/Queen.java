@@ -1,4 +1,8 @@
-public class Queen implements Calculator{
+package Entities;
+
+import Entities.Calculator;
+
+public class Queen implements Calculator {
     public Queen(){}
     public long valid_moves(long from, int side, LocationBitboard board) {
         // Hyperbola Quintessence Calculation

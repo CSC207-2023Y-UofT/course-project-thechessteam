@@ -1,3 +1,7 @@
+package RenamePackage;
+
+import View.UI;
+
 import java.util.Arrays;
 
 /**
@@ -16,7 +20,7 @@ public class ChessBoard {
     private static long[] bitboards = new long[Piece.values().length];
 
     /**
-     * Constructs a new ChessBoard from a given 2D string array.
+     * Constructs a new RenamePackage.ChessBoard from a given 2D string array.
      *
      * @param board The initial configuration of the board, represented as a 2D string array.
      */

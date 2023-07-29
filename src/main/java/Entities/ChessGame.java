@@ -1,3 +1,7 @@
+package Entities;
+
+import Entities.LocationBitboard;
+
 public class ChessGame {
     // A class to represent the game board we are using. Keeps track whose turn it is as well.
 
@@ -7,7 +11,7 @@ public class ChessGame {
 
     // ----------------------------------------------------------------------------------------------------------
     // Getter methods
-    public static LocationBitboard getCurrentBoard() { // returns the board this ChessGame is using
+    public static LocationBitboard getCurrentBoard() { // returns the board this Entities.ChessGame is using
         return currentBoard;
     }
     public static boolean getTurn() { return turn; }
@@ -22,5 +26,6 @@ public class ChessGame {
     // Start a new game by setting a new location bitboard
     public static void new_game() {
         currentBoard = new LocationBitboard();
+        turn = true; // Make sure to start with White's turn
     }
 }
