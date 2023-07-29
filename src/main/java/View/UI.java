@@ -4,15 +4,12 @@ import RenamePackage.ChessBoard;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.Objects;
 
 public class UI extends JPanel {
     public static long WP=0L,WN=0L,WB=0L,WR=0L,WQ=0L,WK=0L,BP=0L,BN=0L,BB=0L,BR=0L,BQ=0L,BK=0L;
-    static long UniversalWP=0L,UniversalWN=0L,UniversalWB=0L,UniversalWR=0L,UniversalWQ=0L,UniversalWK=0L,UniversalBP=0L,UniversalBN=0L,UniversalBB=0L,UniversalBR=0L,UniversalBQ=0L,UniversalBK=0L;
     static int humanIsWhite=1;
     static int rating=0;
     static boolean newGame = true; // Indicates that the game has not started yet
@@ -34,7 +31,7 @@ public class UI extends JPanel {
 
     // Ran whenever a new game instance starts
     public static void main(String[] args) {
-        MainMenu newMenu = new MainMenu(); // Opens a new menu window when ran
+        new MainMenu();
     }
 
     // Paints the boarder for the board, the pieces, and the board itself
@@ -164,12 +161,9 @@ public class UI extends JPanel {
         forfeitButton.setBackground(new Color(44, 46, 51));
         forfeitButton.setIcon(new ImageIcon(forfeitIcon));
         if (newGame) {
-            forfeitButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (!gameOver) { // Makes sure the game isn't over
-                        drawEndScreen(winning_msg);
-                    }
+            forfeitButton.addActionListener(e -> {
+                if (!gameOver) { // Makes sure the game isn't over
+                    drawEndScreen(winning_msg);
                 }
             });
         }
@@ -189,13 +183,10 @@ public class UI extends JPanel {
         stalemateButton.setBackground(new Color(103, 106, 110));
         stalemateButton.setIcon(new ImageIcon(stalemateIcon));
         if (newGame) {
-            stalemateButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (!gameOver) { // Makes sure the game isn't over
-                        System.out.println("Requesting a draw");
-                        drawEndScreen("It's a draw!");
-                    }
+            stalemateButton.addActionListener(e -> {
+                if (!gameOver) { // Makes sure the game isn't over
+                    System.out.println("Requesting a draw");
+                    drawEndScreen("It's a draw!");
                 }
             });
         }
@@ -241,57 +232,45 @@ public class UI extends JPanel {
 
         // Action listeners for pawn promotion buttons
         if (newGame) { // Ensures the action listeners are only added once
-            pawnPromoteQueen.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    System.out.println("Promoting Queen!"); // Just a check that the button works can delete
-                    // Put pawn promotion function/code here on button press
+            pawnPromoteQueen.addActionListener(e -> {
+                System.out.println("Promoting Queen!"); // Just a check that the button works can delete
+                // Put pawn promotion function/code here on button press
 
-                    // hides the buttons after a pawn promotion
-                    pawnPromoteBishop.setVisible(false);
-                    pawnPromoteQueen.setVisible(false);
-                    pawnPromoteKnight.setVisible(false);
-                    pawnPromoteRook.setVisible(false);
-                }
+                // hides the buttons after a pawn promotion
+                pawnPromoteBishop.setVisible(false);
+                pawnPromoteQueen.setVisible(false);
+                pawnPromoteKnight.setVisible(false);
+                pawnPromoteRook.setVisible(false);
             });
-            pawnPromoteKnight.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    System.out.println("Promoting Knight!"); // Just a check that the button works can delete
-                    // Put pawn promotion function/code here on button press
+            pawnPromoteKnight.addActionListener(e -> {
+                System.out.println("Promoting Knight!"); // Just a check that the button works can delete
+                // Put pawn promotion function/code here on button press
 
-                    // hides the buttons after a pawn promotion
-                    pawnPromoteBishop.setVisible(false);
-                    pawnPromoteQueen.setVisible(false);
-                    pawnPromoteKnight.setVisible(false);
-                    pawnPromoteRook.setVisible(false);
-                }
+                // hides the buttons after a pawn promotion
+                pawnPromoteBishop.setVisible(false);
+                pawnPromoteQueen.setVisible(false);
+                pawnPromoteKnight.setVisible(false);
+                pawnPromoteRook.setVisible(false);
             });
-            pawnPromoteRook.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    System.out.println("Promoting Rook!"); // Just a check that the button works can delete
-                    // Put pawn promotion function/code here on button press
+            pawnPromoteRook.addActionListener(e -> {
+                System.out.println("Promoting Rook!"); // Just a check that the button works can delete
+                // Put pawn promotion function/code here on button press
 
-                    // hides the buttons after a pawn promotion
-                    pawnPromoteBishop.setVisible(false);
-                    pawnPromoteQueen.setVisible(false);
-                    pawnPromoteKnight.setVisible(false);
-                    pawnPromoteRook.setVisible(false);
-                }
+                // hides the buttons after a pawn promotion
+                pawnPromoteBishop.setVisible(false);
+                pawnPromoteQueen.setVisible(false);
+                pawnPromoteKnight.setVisible(false);
+                pawnPromoteRook.setVisible(false);
             });
-            pawnPromoteBishop.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    System.out.println("Promoting Bishop!"); // Just a check that the button works can delete
-                    // Put pawn promotion function/code here on button press
+            pawnPromoteBishop.addActionListener(e -> {
+                System.out.println("Promoting Bishop!"); // Just a check that the button works can delete
+                // Put pawn promotion function/code here on button press
 
-                    // hides the buttons after a pawn promotion
-                    pawnPromoteBishop.setVisible(false);
-                    pawnPromoteQueen.setVisible(false);
-                    pawnPromoteKnight.setVisible(false);
-                    pawnPromoteRook.setVisible(false);
-                }
+                // hides the buttons after a pawn promotion
+                pawnPromoteBishop.setVisible(false);
+                pawnPromoteQueen.setVisible(false);
+                pawnPromoteKnight.setVisible(false);
+                pawnPromoteRook.setVisible(false);
             });
         }
 
@@ -314,7 +293,7 @@ public class UI extends JPanel {
         javaF.setResizable(false);
         gameOver = true;
 
-        GameOver gameOverScreen = new GameOver();
+        new GameOver();
     }
 
     public static void newGame() {
@@ -330,7 +309,7 @@ public class UI extends JPanel {
         pawnPromoteKnight.setVisible(false);
         pawnPromoteBishop.setVisible(false);
         pawnPromoteRook.setVisible(false);
-        ChessBoard.initiateStandardChess();; // initializes pieces and starts the game
+        ChessBoard.initiateStandardChess(); // initializes pieces and starts the game
 
 
         // Setting the UI configurations

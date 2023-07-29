@@ -1,7 +1,6 @@
 package View;
 
 import javax.swing.*;
-import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -107,7 +106,7 @@ public class MainMenu implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == playButton) {
+        if (e.getSource() == playButton) { // Starts a new game instance
             menu_frame.dispose();
             UI.newGame();
         }

@@ -55,11 +55,11 @@ public class GameOver implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == menuButton) {
+        if (e.getSource() == menuButton) { // Opens the menu screen
             window_frame.dispose();
             UI.javaF.dispose();
-            MainMenu new_menu = new MainMenu();
-        } else if (e.getSource() == playAgain) {
+            new MainMenu();
+        } else if (e.getSource() == playAgain) { // Starts a new game instance
             window_frame.dispose();
             UI.javaF.dispose();
             UI.newGame();
