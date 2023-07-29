@@ -34,14 +34,15 @@ public class ActualValidMove {
 
         // Remove invalid moves
         for (int i = 0; i < 64; i++) {
-            if ((candidates & (1L << i)) != 0L) {
+            long moveCandidate = 1L << i;
+            if ((candidates & moveCandidate) != 0L) {
                 // Make a copy of currentBoard for testing if candidate position is valid
                 LocationBitboard copy = locations_copy(currentBoard);
-                copy.move_piece(from, 1L << i, side);
+                copy.move_piece(from, moveCandidate, side);
                 copy.updateLocationVariables();
 
                 if (CheckCalculator.is_in_check(color, copy)) {
-                    actualValid &= ~(1L << i);
+                    actualValid &= ~moveCandidate;
                 }
                 // Since UseCases.CheckCalculator does not include attack coverage of opponent king,
                 // since it assumes we are not checked by opponent's king,
@@ -49,8 +50,8 @@ public class ActualValidMove {
                 // it should not be in the attack range of opponent's king
                 else if (fromIsKing) {
                     int opponentColor = 1 - color; // Refactor into boolean later
-                    if ((from & Calculators.kingCalculator.attack_coverage(opponentColor, copy)) != 0L) {
-                        actualValid &= ~(1L << i);
+                    if ((moveCandidate & Calculators.kingCalculator.attack_coverage(opponentColor, copy)) != 0L) {
+                        actualValid &= ~moveCandidate;
                     }
                 }
             }

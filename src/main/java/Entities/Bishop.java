@@ -15,26 +15,33 @@ public class Bishop implements Calculator {
      * @return valid moves, long
      */
     public long valid_moves(long from, int side, LocationBitboard board) {
-        // due to occupied being duplicate code, may want to make it reusable.
-        // occupied provides occupied places on the board. (recall, OR | operator)
-        // also recommended that whiteBishop shouldn't be a long array, just keep it as long.
-        long occupied = board.whiteBishop[0] | board.whiteKing[0] | board.whiteRook[0] | board.whiteKnight[0] | board.whitePawn[0] | board.whiteQueen[0] |
-                board.blackBishop[0] | board.blackKing[0] | board.blackRook[0] | board.blackKnight[0] | board.blackPawn[0] | board.blackQueen[0] ;
+        // occupied provides occupied places on the board.
+        long occupied = board.getOccupied();
 
-        // numberOfTrailingZeros built-in method, tells you the number of trailing zeros from where the piece currently stands on the 64 bit array
+        // numberOfTrailingZeros built-in method,
+        // tells you the number of trailing zeros from where the piece currently stands on the 64 bit array
         int s = Long.numberOfTrailingZeros(from);
-        long possibilitiesDiagonal = ((occupied& FileAndRank.DiagonalMasks8[(s / 8) + (s % 8)]) - (2 * from)) ^ Long.reverse(Long.reverse(occupied& FileAndRank.DiagonalMasks8[(s / 8) + (s % 8)]) - (2 * Long.reverse(from)));
-        long possibilitiesAntiDiagonal = ((occupied& FileAndRank.AntiDiagonalMasks8[(s / 8) + 7 - (s % 8)]) - (2 * from)) ^ Long.reverse(Long.reverse(occupied& FileAndRank.AntiDiagonalMasks8[(s / 8) + 7 - (s % 8)]) - (2 * Long.reverse(from)));
+        long diagonalMask = FileAndRank.DiagonalMasks8[(s / 8) + (s % 8)];
+        long antiDiagonalMask = FileAndRank.AntiDiagonalMasks8[(s / 8) + 7 - (s % 8)];
 
-        // depending on whether you are black or white side (white == 0), generates the pieces that are the same color as the piece in question (i.e., can't step on your own pieces).
+        // Candidate diagonal valid move positions.
+        // Apply diagonal mask again to filter out relevant positions.
+        long diagonal = ((occupied& diagonalMask) - (2 * from)) ^ Long.reverse(
+                Long.reverse(occupied& diagonalMask) - (2 * Long.reverse(from)));
+        // Candidate anti-diagonal valid move positions.
+        // Apply anti-diagonal mask again to filter out relevant positions.
+        long antiDiagonal = ((occupied& antiDiagonalMask) - (2 * from)) ^ Long.reverse(
+                Long.reverse(occupied& antiDiagonalMask) - (2 * Long.reverse(from)));
+
+        // depending on whether you are black or white side (white == 0),
+        // generates the pieces that are the same color as the piece in question (i.e., can't step on your own pieces).
         this.sameColoredPieces = (side == 0) ?
-                board.whitePawn[0] | board.whiteRook[0] | board.whiteKnight[0]
-                        | board.whiteBishop[0] | board.whiteQueen[0] | board.whiteKing[0] :
-                board.blackPawn[0] | board.blackRook[0] | board.blackKnight[0]
-                        | board.blackBishop[0] | board.blackQueen[0] | board.blackKing[0];
+                board.getWhiteLocations() :
+                board.getBlackLocations();
 
         // return long, of the valid moves this specific Entities.Bishop may take
-        return calculateFinalPosition((possibilitiesDiagonal& FileAndRank.DiagonalMasks8[(s / 8) + (s % 8)])) | calculateFinalPosition(possibilitiesAntiDiagonal& FileAndRank.AntiDiagonalMasks8[(s / 8) + 7 - (s % 8)]);
+        return calculateFinalPosition((diagonal& diagonalMask)) |
+                calculateFinalPosition(antiDiagonal& antiDiagonalMask);
     }
 
     // helper, to calculate the final position (makes sure piece in question can't step on their own colored pieces)
