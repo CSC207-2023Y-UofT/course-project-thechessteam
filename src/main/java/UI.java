@@ -170,8 +170,6 @@ public class UI extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     if (!gameOver) { // Makes sure the game isn't over
                         drawEndScreen(winning_msg);
-
-                        GameOver gameOverScreen = new GameOver();
                     }
                 }
             });
@@ -197,6 +195,7 @@ public class UI extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     if (!gameOver) { // Makes sure the game isn't over
                         System.out.println("Requesting a draw");
+                        drawEndScreen("It's a draw!");
                     }
                 }
             });
@@ -315,6 +314,8 @@ public class UI extends JPanel {
         javaF.setIgnoreRepaint(true);
         javaF.setResizable(false);
         gameOver = true;
+
+        GameOver gameOverScreen = new GameOver();
     }
 
     public static void newGame() {
