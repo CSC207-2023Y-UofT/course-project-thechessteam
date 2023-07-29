@@ -234,7 +234,7 @@ public class UI extends JPanel {
         if (newGame) { // Ensures the action listeners are only added once
             pawnPromoteQueen.addActionListener(e -> {
                 System.out.println("Promoting Queen!"); // Just a check that the button works can delete
-                // Put pawn promotion function/code here on button press
+                //TODO Put pawn promotion function/code here on button press
 
                 // hides the buttons after a pawn promotion
                 pawnPromoteBishop.setVisible(false);
@@ -244,7 +244,7 @@ public class UI extends JPanel {
             });
             pawnPromoteKnight.addActionListener(e -> {
                 System.out.println("Promoting Knight!"); // Just a check that the button works can delete
-                // Put pawn promotion function/code here on button press
+                //TODO Put pawn promotion function/code here on button press
 
                 // hides the buttons after a pawn promotion
                 pawnPromoteBishop.setVisible(false);
@@ -254,7 +254,7 @@ public class UI extends JPanel {
             });
             pawnPromoteRook.addActionListener(e -> {
                 System.out.println("Promoting Rook!"); // Just a check that the button works can delete
-                // Put pawn promotion function/code here on button press
+                //TODO Put pawn promotion function/code here on button press
 
                 // hides the buttons after a pawn promotion
                 pawnPromoteBishop.setVisible(false);
@@ -264,7 +264,7 @@ public class UI extends JPanel {
             });
             pawnPromoteBishop.addActionListener(e -> {
                 System.out.println("Promoting Bishop!"); // Just a check that the button works can delete
-                // Put pawn promotion function/code here on button press
+                //TODO Put pawn promotion function/code here on button press
 
                 // hides the buttons after a pawn promotion
                 pawnPromoteBishop.setVisible(false);
