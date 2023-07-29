@@ -8,13 +8,7 @@ public class Bishop implements Calculator {
 
     public Bishop(){}
 
-    /**
-     * @param from current location, long
-     * @param side either black side or white side, binary (side should actually be a boolean, need to be mindful of implementation).
-     * @param board the current board state (contains a bunch of attributes)
-     * @return valid moves, long
-     */
-    public long valid_moves(long from, int side, LocationBitboard board) {
+    public long valid_moves(long from, boolean side, LocationBitboard board) {
         // occupied provides occupied places on the board.
         long occupied = board.getOccupied();
 
@@ -35,7 +29,7 @@ public class Bishop implements Calculator {
 
         // depending on whether you are black or white side (white == 0),
         // generates the pieces that are the same color as the piece in question (i.e., can't step on your own pieces).
-        this.sameColoredPieces = (side == 0) ?
+        this.sameColoredPieces = (side) ?
                 board.getWhiteLocations() :
                 board.getBlackLocations();
 
@@ -49,12 +43,12 @@ public class Bishop implements Calculator {
         return candidate & ~this.sameColoredPieces;
     }
 
-    public long attack_coverage(int side, LocationBitboard board) {
+    public long attack_coverage(boolean side, LocationBitboard board) {
         long attacked = 0L;  // bits where bishop is attacking
         long bishopLocations;  // bishop locations based on side/color
 
         // get the locations of the rook based on the input side
-        if (side == 0) {  // white
+        if (side) {  // white
             bishopLocations = board.whiteBishop[0];
         } else {  // black
             bishopLocations = board.blackBishop[0];

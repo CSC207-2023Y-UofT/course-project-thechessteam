@@ -4,7 +4,7 @@ import Entities.Calculator;
 
 public class Queen implements Calculator {
     public Queen(){}
-    public long valid_moves(long from, int side, LocationBitboard board) {
+    public long valid_moves(long from, boolean side, LocationBitboard board) {
         // Hyperbola Quintessence Calculation
         int s = Long.numberOfTrailingZeros(from);
         long diag_m = FileAndRank.DiagonalMasks8[(s / 8) + (s % 8)];
@@ -34,7 +34,7 @@ public class Queen implements Calculator {
         ) & vertical_m;
 
         long your_pieces;
-        if (side == 0) {
+        if (side) {
             your_pieces = board.getWhiteLocations();
         }
         else {
@@ -51,10 +51,10 @@ public class Queen implements Calculator {
         return actualDiagonal | actualAnti | actualHorizontal | actualVertical;
     }
 
-    public long attack_coverage(int side, LocationBitboard board){
+    public long attack_coverage(boolean side, LocationBitboard board){
         long coverage = 0L;
         long queenLocations;
-        if (side == 0) {
+        if (side) {
             queenLocations = board.whiteQueen[0];
         }
         else {

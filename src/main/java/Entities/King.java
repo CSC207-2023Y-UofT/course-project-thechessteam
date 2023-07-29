@@ -4,12 +4,12 @@ import Entities.Calculator;
 
 public class King implements Calculator {
 
-    public long valid_moves(long from, int side, LocationBitboard board) {
+    public long valid_moves(long from, boolean side, LocationBitboard board) {
         int position = Long.numberOfTrailingZeros(from);
         long kingCoverage = PreCalculatedAttacks.king_attacks[position];
 
         // Get the bitboard for all pieces on the current side
-        long allPieces = (side == 0) ? board.getWhiteLocations() : board.getBlackLocations();
+        long allPieces = (side) ? board.getWhiteLocations() : board.getBlackLocations();
 
         // The king can move to a square if it is not already occupied by a piece of the same color
         kingCoverage &= ~allPieces;
@@ -20,9 +20,9 @@ public class King implements Calculator {
         return kingCoverage;
     }
 
-    public long attack_coverage(int side, LocationBitboard board) {
+    public long attack_coverage(boolean side, LocationBitboard board) {
         long coverage = 0L;
-        long kingPositions = side == 0 ? board.whiteKing[0] : board.blackKing[0];
+        long kingPositions = side ? board.whiteKing[0] : board.blackKing[0];
 
         for (int i = 0; i < 64; i++) {
             // Check if the bit at the i-th position is set

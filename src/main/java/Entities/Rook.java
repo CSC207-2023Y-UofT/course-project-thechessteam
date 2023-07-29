@@ -8,7 +8,7 @@ public class Rook implements Calculator {
 
     public Rook() {}
 
-    public long valid_moves(long from, int side, LocationBitboard board) {
+    public long valid_moves(long from, boolean side, LocationBitboard board) {
         // occupied provides occupied places on the board.
         long occupied = board.getOccupied();
 
@@ -27,7 +27,7 @@ public class Rook implements Calculator {
 
         // depending on whether you are black or white side (white == 0),
         // generates the pieces that are the same color as the piece in question (i.e., can't step on your own pieces).
-        this.sameColoredPieces = (side == 0) ? board.getWhiteLocations() : board.getBlackLocations();
+        this.sameColoredPieces = (side) ? board.getWhiteLocations() : board.getBlackLocations();
 
         // Return long, of the valid moves this specific Entities.Rook may take
         // Applies corresponding masks again to filter out relevant positions.
@@ -39,12 +39,12 @@ public class Rook implements Calculator {
         return candidate & ~this.sameColoredPieces;
     }
 
-    public long attack_coverage(int side, LocationBitboard board) {
+    public long attack_coverage(boolean side, LocationBitboard board) {
         long attacked = 0L;  // bits where rook is attacking
         long rookLocations;  // rook locations based on side/color
 
         // get the locations of the rook based on the input side
-        if (side == 0) {  // white
+        if (side) {  // white
             rookLocations = board.whiteRook[0];
         } else {  // black
             rookLocations = board.blackRook[0];

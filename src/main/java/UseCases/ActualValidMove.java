@@ -13,12 +13,6 @@ public class ActualValidMove {
     // ----------------------------------------------------------------------------------------------------------
     public static long actual_valid_moves(long from, boolean side, LocationBitboard currentBoard) {
         // Convert into integer representation of side, refactor into boolean later
-        int color;
-        if (side) {
-            color = 0;
-        } else {
-            color = 1;
-        }
 
         // Determine what calculator to use (i.e. What is the piece type at from?)
         Calculator calculator = identify_calculator(from, currentBoard);
@@ -27,7 +21,7 @@ public class ActualValidMove {
         boolean fromIsKing = ((from & currentBoard.whiteKing[0]) != 0) || ((from & currentBoard.blackKing[0]) != 0);
 
         // Calculate candidate valid moves
-        long candidates = calculator.valid_moves(from, color, currentBoard);
+        long candidates = calculator.valid_moves(from, side, currentBoard);
 
         // We will remove invalid moves from actualValid
         long actualValid = candidates;
@@ -41,7 +35,7 @@ public class ActualValidMove {
                 copy.move_piece(from, moveCandidate, side);
                 copy.updateLocationVariables();
 
-                if (CheckCalculator.is_in_check(color, copy)) {
+                if (CheckCalculator.is_in_check(side, copy)) {
                     actualValid &= ~moveCandidate;
                 }
                 // Since UseCases.CheckCalculator does not include attack coverage of opponent king,
@@ -49,8 +43,7 @@ public class ActualValidMove {
                 // we have to make sure that when we move a king,
                 // it should not be in the attack range of opponent's king
                 else if (fromIsKing) {
-                    int opponentColor = 1 - color; // Refactor into boolean later
-                    if ((moveCandidate & Calculators.kingCalculator.attack_coverage(opponentColor, copy)) != 0L) {
+                    if ((moveCandidate & Calculators.kingCalculator.attack_coverage(!side, copy)) != 0L) {
                         actualValid &= ~moveCandidate;
                     }
                 }

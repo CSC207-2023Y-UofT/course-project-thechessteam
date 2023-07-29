@@ -6,13 +6,13 @@ import Entities.LocationBitboard;
 // pawn class
 public class Pawn implements Calculator {
     public Pawn(){}
-    public long valid_moves(long from, int side, LocationBitboard board){
+    public long valid_moves(long from, boolean side, LocationBitboard board){
 
         long pawnValidMoves = 0L;
         int s = Long.numberOfTrailingZeros(from); // index to use Entities.PreCalculatedAttacks
 
         // white pawn
-        if (side == 0) {
+        if (side) {
             // pawn's 1 tile ahead move for white, if there's no piece there already.
             // Cannot move forward if on Rank 8.
             if ((from & ~FileAndRank.RANK_8) != 0L) {
@@ -50,12 +50,12 @@ public class Pawn implements Calculator {
         return pawnValidMoves;
     }
 
-    public long attack_coverage(int side, LocationBitboard board) {
+    public long attack_coverage(boolean side, LocationBitboard board) {
         long pawnAttacks = 0L;
 
         // Add up all the attacks in Entities.PreCalculatedAttacks table that is possible,
         // i.e. there's a pawn in location i.
-        if (side == 0) {
+        if (side) {
             for (int i = 0; i < 64; i++) {
                 if ((board.whitePawn[0] & (1L << i)) != 0L) { // Check if there's a white pawn at 1L << i.
                     pawnAttacks |= PreCalculatedAttacks.pawn_attacks[0][i];
