@@ -33,8 +33,14 @@ public class LocationBitboard {
     // Stores the location of the black pawn that moved two in previous turn.
     // 0L if black pawn did not move two space in previous turn.
     private long blackPawnMovedTwo = 0L;
+    // Indicates whether white king or either white rooks moved.
     private boolean whiteKingMoved = false;
+    private boolean leftWhiteRookMoved = false;
+    private boolean rightWhiteRookMoved = false;
+    // Indicates whether black king or either black rooks moved.
     private boolean blackKingMoved = false;
+    private boolean leftBlackRookMoved = false;
+    private boolean rightBlackRookMoved = false;
 
     // Various useful attributes. Use getters to access them.
     private final long[][] whitePieces = {whitePawn, whiteRook, whiteKnight,
@@ -71,6 +77,25 @@ public class LocationBitboard {
     }
     public long locationBlackPawnMovedTwo() {
         return blackPawnMovedTwo;
+    }
+    // Moved booleans for kings and rooks
+    public boolean getWhiteKingMoved(){
+        return whiteKingMoved;
+    }
+    public boolean getBlackKingMoved(){
+        return blackKingMoved;
+    }
+    public boolean getLeftRookMovedW(){
+        return leftWhiteRookMoved;
+    }
+    public boolean getRightRookMovedW(){
+        return rightWhiteRookMoved;
+    }
+    public boolean getLeftRookMovedB(){
+        return leftBlackRookMoved;
+    }
+    public boolean getRightRookMovedB(){
+        return rightBlackRookMoved;
     }
 
     // ----------------------------------------------------------------------------------------------------------
@@ -155,7 +180,7 @@ public class LocationBitboard {
         } else if (pieceType[0] == blackPawn[0]) { // if we are moving a black pawn
             // if we are moving without capturing
             if (((to & whiteLocations) == 0L) &&
-            // if we are not moving straight forward when we are at Rank 4
+                    // if we are not moving straight forward when we are at Rank 4
                     ((from & FileAndRank.RANK_4) != 0L) && (to != (from >>> 8))) {
                 // then we perform en passant
                 update_en_passant(to, false);
@@ -163,6 +188,19 @@ public class LocationBitboard {
             // Update blackPawnMovedTwo
             if (((from & FileAndRank.RANK_7) != 0L) && ((to & FileAndRank.RANK_5) != 0L)) {
                 blackPawnMovedTwo = to;
+            }
+        } else if (pieceType[0] == whiteRook[0]) { // if we are moving a white rook
+            if (from == 1L) {
+                leftWhiteRookMoved = true;
+            }
+            else if (from == (1L << 7)) {
+                rightWhiteRookMoved = true;
+            }
+        } else if (pieceType[0] == blackRook[0]) { // if we are moving a black rook
+            if (from == (1L << 56)) {
+                leftBlackRookMoved = true;
+            } else if (from == (1L << 63)) {
+                rightBlackRookMoved = true;
             }
         }
 
