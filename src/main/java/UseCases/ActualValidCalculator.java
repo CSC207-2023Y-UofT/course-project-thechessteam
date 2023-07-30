@@ -50,6 +50,83 @@ public class ActualValidCalculator {
                 }
             }
         }
+        // Check the King does not leave or cross over a square attacked by an enemy piece for castling
+        if (fromIsKing) {
+            // Is king leaving a square attacked by enemy?
+            boolean canCastle = !CheckCalculator.is_in_check(side, currentBoard);
+            if (canCastle) { // Check if we do not cross over a square attacked by an enemy piece
+                if (side) { // White castling
+                    if ((from == (1L << 4)) && (((1L << 2) & actualValid) != 0L)) { // left castling valid candidate
+                        LocationBitboard copy = locations_copy(currentBoard);
+                        copy.move_piece(from, 1L << 3, true); // Suppose king is at the square we cross over
+                        copy.updateLocationVariables();
+
+                        if (CheckCalculator.is_in_check(true, copy)) { // Is king in check?
+                            actualValid &= ~(1L << 2);
+                        } else { // Is king in attack range of opponent king?
+                            if (((1L << 3) & Calculators.kingCalculator.attack_coverage(false, copy)) != 0L) {
+                                actualValid &= ~(1L << 2);
+                            }
+                        }
+                    }
+                    if ((from == (1L << 4)) && (((1L << 6) & actualValid) != 0L)) { // right castling valid candidate
+                        LocationBitboard copy = locations_copy(currentBoard);
+                        copy.move_piece(from, 1L << 5, true); // Suppose king is at the square we cross over
+                        copy.updateLocationVariables();
+
+                        if (CheckCalculator.is_in_check(true, copy)) { // Is king in check?
+                            actualValid &= ~(1L << 6);
+                        } else { // Is king in attack range of opponent king?
+                            if (((1L << 5) & Calculators.kingCalculator.attack_coverage(false, copy)) != 0L) {
+                                actualValid &= ~(1L << 6);
+                            }
+                        }
+                    }
+                }
+                else { // Black castling
+                    if ((from == (1L << 60)) && (((1L << 58) & actualValid) != 0L)) { // left castling valid candidate
+                        LocationBitboard copy = locations_copy(currentBoard);
+                        copy.move_piece(from, 1L << 59, false); // Suppose king is at the square we cross over
+                        copy.updateLocationVariables();
+
+                        if (CheckCalculator.is_in_check(false, copy)) { // Is king in check?
+                            actualValid &= ~(1L << 58);
+                        } else { // Is king in attack range of opponent king?
+                            if (((1L << 59) & Calculators.kingCalculator.attack_coverage(true, copy)) != 0L) {
+                                actualValid &= ~(1L << 58);
+                            }
+                        }
+                    }
+                    if ((from == (1L << 60)) && (((1L << 62) & actualValid) != 0L)) { // right castling valid candidate
+                        LocationBitboard copy = locations_copy(currentBoard);
+                        copy.move_piece(from, 1L << 61, false); // Suppose king is at the square we cross over
+                        copy.updateLocationVariables();
+
+                        if (CheckCalculator.is_in_check(false, copy)) { // Is king in check?
+                            actualValid &= ~(1L << 62);
+                        } else { // Is king in attack range of opponent king?
+                            if (((1L << 61) & Calculators.kingCalculator.attack_coverage(true, copy)) != 0L) {
+                                actualValid &= ~(1L << 62);
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                if (side) {
+                    if (from == 1L << 4) {
+                        actualValid &= ~(1L << 2);
+                        actualValid &= ~(1L << 6);
+                    }
+                }
+                else {
+                    if (from == 1L << 60) {
+                        actualValid &= ~(1L << 58);
+                        actualValid &= ~(1L << 62);
+                    }
+                }
+            }
+        }
         return actualValid;
     }
     // ----------------------------------------------------------------------------------------------------------

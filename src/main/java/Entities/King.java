@@ -17,6 +17,36 @@ public class King implements Calculator {
         // The UseCases.ActualValidCalculator will check if the king would be put in check by making the move,
         // if so, remove that move
 
+        // Castling Move,
+        // Check for if King does not cross a space attacked will be done in ActualValidCalculator.
+        if (side) { // White
+            if (!board.getWhiteKingMoved() && !board.getLeftRookMovedW()) {
+                long needsEmptyL = (1L << 1) | (1L << 2) | (1L << 3);
+                if ((board.getOccupied() & needsEmptyL) == 0L) {
+                    kingCoverage |= (1L << 2);
+                }
+            }
+            if (!board.getWhiteKingMoved() && !board.getRightRookMovedW()) {
+                long needsEmptyR = (1L << 5) | (1L << 6);
+                if ((board.getOccupied() & needsEmptyR) == 0L) {
+                    kingCoverage |= (1L << 6);
+                }
+            }
+        }
+        else { // Black
+            if (!board.getBlackKingMoved() && !board.getLeftRookMovedB()) {
+                long needsEmptyL = (1L << 57) | (1L << 58) | (1L << 59);
+                if ((board.getOccupied() & needsEmptyL) == 0L) {
+                    kingCoverage |= (1L << 58);
+                }
+            }
+            if (!board.getBlackKingMoved() && !board.getRightRookMovedB()) {
+                long needsEmptyR = (1L << 61) | (1L << 62);
+                if ((board.getOccupied() & needsEmptyR) == 0L) {
+                    kingCoverage |= (1L << 62);
+                }
+            }
+        }
         return kingCoverage;
     }
 
