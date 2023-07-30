@@ -1,8 +1,9 @@
 package View;
 
-import Entities.*;
-import Controller.*;
-import UseCases.*;
+import Controller.Controller;
+import Entities.ChessGame;
+import Entities.LocationBitboard;
+import UseCases.ActualValidMove;
 
 import javax.swing.*;
 import java.awt.*;
@@ -195,24 +196,24 @@ public class ChessBoardUI extends JPanel {
     public void drawTimer(Graphics g) {
         // Creation of the clock Borders
         g.setColor(new Color(44, 46, 51));
-        g.fill3DRect((int)(8*SQUARE_SIZE)+2*border, border+(int)(7*SQUARE_SIZE), 200, (int)(1*SQUARE_SIZE), true);
+        g.fill3DRect((int)(8*SQUARE_SIZE)+2*border, border+(int)(7*SQUARE_SIZE), 200, (int)(SQUARE_SIZE), true);
         g.setColor(new Color(190, 178, 157));
-        g.fill3DRect((int)(8*SQUARE_SIZE)+2*border + 5, border+(int)(7*SQUARE_SIZE+5), 190, (int)(1*SQUARE_SIZE - 10), true);
+        g.fill3DRect((int)(8*SQUARE_SIZE)+2*border + 5, border+(int)(7*SQUARE_SIZE+5), 190, (int)(SQUARE_SIZE - 10), true);
         // Creation of the clock Label
         g.setColor(new Color(0, 0, 0));
-        g.setFont(new Font("TRUE TYPE_FONT", Font.BOLD, (int)(1*SQUARE_SIZE) - 20));
+        g.setFont(new Font("TRUE TYPE_FONT", Font.BOLD, (int)(SQUARE_SIZE) - 20));
         // Calculate string width
         FontMetrics fm = g.getFontMetrics();
         int stringWidth = fm.stringWidth("0:00");
         int boxCenter = 190 / 2;
         int stringXPosition = (int)(8*SQUARE_SIZE)+2*border + 5 + boxCenter - stringWidth / 2;
-        g.drawString("0:00", stringXPosition, border+(int)(7*SQUARE_SIZE+ (int)(1*SQUARE_SIZE)- 15));
+        g.drawString("0:00", stringXPosition, border+(int)(7*SQUARE_SIZE+ (int)(SQUARE_SIZE)- 15));
     }
 
     // Creation of the forfeit button
     public void drawForfeit() {
         Image unscaledIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/Forfeit.png"))).getImage();
-        Image forfeitIcon = unscaledIcon.getScaledInstance(40 ,(int)(1*SQUARE_SIZE) - 25, java.awt.Image.SCALE_SMOOTH);
+        Image forfeitIcon = unscaledIcon.getScaledInstance(40 ,(int)(SQUARE_SIZE) - 25, java.awt.Image.SCALE_SMOOTH);
         forfeitButton.setText("");
         forfeitButton.setFocusPainted(false);
         forfeitButton.setBounds((int)(8*SQUARE_SIZE)+2*border,border+(int)(6*SQUARE_SIZE),100, (int)(1*SQUARE_SIZE));
