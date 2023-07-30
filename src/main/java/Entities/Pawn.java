@@ -5,7 +5,6 @@ import Entities.LocationBitboard;
 
 // pawn class
 public class Pawn implements Calculator {
-    public Pawn(){}
     public long valid_moves(long from, boolean side, LocationBitboard board){
 
         long pawnValidMoves = 0L;
@@ -27,6 +26,11 @@ public class Pawn implements Calculator {
 
             // get possible attacks; there must be an opponent's piece to capture.
             pawnValidMoves |= PreCalculatedAttacks.pawn_attacks[0][s] & board.getBlackLocations();
+
+            // Add En passant moves
+            if (board.locationBlackPawnMovedTwo() != 0L) {
+                pawnValidMoves |= PreCalculatedAttacks.pawn_attacks[0][s] & (board.locationBlackPawnMovedTwo() << 8);
+            }
         }
         // black pawn
         else  {
@@ -44,6 +48,11 @@ public class Pawn implements Calculator {
 
             // get possible attacks; there must be an opponent's piece to capture.
             pawnValidMoves |= PreCalculatedAttacks.pawn_attacks[1][s] & board.getWhiteLocations();
+
+            // Add En passant moves
+            if (board.locationWhitePawnMovedTwo() != 0L) {
+                pawnValidMoves |= PreCalculatedAttacks.pawn_attacks[1][s] & (board.locationWhitePawnMovedTwo() >>> 8);
+            }
         }
 
         // return all possible valid moves

@@ -14,7 +14,7 @@ public class King implements Calculator {
         // The king can move to a square if it is not already occupied by a piece of the same color
         kingCoverage &= ~allPieces;
 
-        // The UseCases.ActualValidMove use case class will check if the king would be put in check by making the move,
+        // The UseCases.ActualValidCalculator will check if the king would be put in check by making the move,
         // if so, remove that move
 
         return kingCoverage;

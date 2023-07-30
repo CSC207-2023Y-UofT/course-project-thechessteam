@@ -59,7 +59,7 @@ public class ChessBoardUI extends JPanel {
                             long pieceLocation = bitboard & (1L << index);
                             // need to refactor this for CA
                             boolean isWhite = pieceType.startsWith("white");
-                            highlightSquares = ActualValidMove.actual_valid_moves(pieceLocation, isWhite, locationBitboard);
+                            highlightSquares = ActualValidCalculator.actual_valid_moves(pieceLocation, isWhite, locationBitboard);
                             break;
                         }
                     }

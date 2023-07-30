@@ -3,16 +3,17 @@ package UseCases;
 import Entities.Calculator;
 import Entities.Calculators;
 import Entities.LocationBitboard;
-import UseCases.CheckCalculator;
 
-public class ActualValidMove {
+public class ActualValidCalculator {
     // A use case class that filters moves calculated by Entities.Calculators.
     // Filters moves that would put side's Entities.King in check (Illegal moves).
     // side == true for white, side == false for black.
 
     // ----------------------------------------------------------------------------------------------------------
     public static long actual_valid_moves(long from, boolean side, LocationBitboard currentBoard) {
-        // Convert into integer representation of side, refactor into boolean later
+        // Precondition: There is a piece at from inside currentBoard.
+        // Precondition: The piece is on side.
+        // Precondition: There cannot be two pieces in the same location of currentBoard.
 
         // Determine what calculator to use (i.e. What is the piece type at from?)
         Calculator calculator = identify_calculator(from, currentBoard);
@@ -78,7 +79,6 @@ public class ActualValidMove {
         return calculator;
     }
     // Helper method for creating a copy of Entities.LocationBitboard
-    // Probably needs some refactoring to Entities.LocationBitboard later so that this process is easier
     private static LocationBitboard locations_copy(LocationBitboard currentBoard) {
         LocationBitboard copy = new LocationBitboard();
         copy.whitePawn[0] = currentBoard.whitePawn[0];
