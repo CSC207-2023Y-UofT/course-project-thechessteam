@@ -38,7 +38,7 @@ public class CheckmateCalculator {
                     // Simulate the move and check if it would leave the king in check
                     LocationBitboard clonedBoard = new LocationBitboard();
                     clonedBoard.move_piece(1L << position, pieceCalculator.valid_moves(1L << position, side, clonedBoard), side == 0);
-                    if (!checkCalculator.is_in_check(side, clonedBoard)) {
+                    if (!CheckCalculator.is_in_check(side, clonedBoard)) {
                         return false; // Found a piece that can move to block the check or capture the checking piece
                     }
                 }
@@ -51,7 +51,7 @@ public class CheckmateCalculator {
 
     // This function would return the appropriate Calculator for the piece at a given position
 
-    Calculator getPieceCalculator(int position, LocationBitboard board) {
+    static Calculator getPieceCalculator(int position, LocationBitboard board) {
         if ((board.whitePawn[0] & (1L << position)) != 0 || (board.blackPawn[0] & (1L << position)) != 0) {
             return Calculators.pawnCalculator;
         } else if ((board.whiteRook[0] & (1L << position)) != 0 || (board.blackRook[0] & (1L << position)) != 0) {
