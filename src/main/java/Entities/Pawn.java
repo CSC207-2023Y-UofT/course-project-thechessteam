@@ -24,7 +24,6 @@ public class Pawn implements Calculator {
                 if ((from << 8 & board.getOccupied()) == 0L) { // if there is no piece blocking path
                     pawnValidMoves |= (from << 16) & ~board.getOccupied();
                 }
-
             }
 
             // get possible attacks; there must be an opponent's piece to capture.
