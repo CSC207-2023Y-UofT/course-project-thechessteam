@@ -145,7 +145,7 @@ public class ChessBoardUI extends JPanel {
             if ((bitboard & (1L << i)) != 0) {
                 int x = i % 8;
                 int y = 7 - i / 8;
-                g.drawImage(pieceImage, x * squareSize, y * squareSize, squareSize, squareSize, null);
+                g.drawImage(pieceImage, x * squareSize + 10, y * squareSize + 10, squareSize, squareSize, null);
             }
         }
     }
