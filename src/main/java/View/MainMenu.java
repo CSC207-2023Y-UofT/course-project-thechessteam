@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class MainMenu implements ActionListener {
-    JFrame menu_frame = new JFrame();
+    JFrame menu_frame = new JFrame("Main Menu");
     JLabel menuBackground = new JLabel("Background");
     JLabel logoBackground = new JLabel("logoBackground");
     JLabel buttonBackground = new JLabel("buttonBackground");
@@ -108,7 +108,7 @@ public class MainMenu implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playButton) { // Starts a new game instance
             menu_frame.dispose();
-            UI.newGame();
+            ChessBoardUI.newGame();
         }
     }
 }

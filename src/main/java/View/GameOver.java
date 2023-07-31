@@ -57,12 +57,12 @@ public class GameOver implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == menuButton) { // Opens the menu screen
             window_frame.dispose();
-            UI.javaF.dispose();
+            ChessBoardUI.javaF.dispose();
             new MainMenu();
         } else if (e.getSource() == playAgain) { // Starts a new game instance
             window_frame.dispose();
-            UI.javaF.dispose();
-            UI.newGame();
+            ChessBoardUI.javaF.dispose();
+            ChessBoardUI.newGame();
         }
     }
 }
