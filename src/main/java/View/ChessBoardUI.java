@@ -53,12 +53,14 @@ public class ChessBoardUI extends JPanel {
                 if (mouseX >= 0 && mouseX < 8 * SQUARE_SIZE && mouseY >= 0 && mouseY < 8 * SQUARE_SIZE) {
                     for (String pieceType : locationBitboard.getAllPieces().keySet()) {
                         long bitboard = locationBitboard.getBitboard(pieceType);
-                        if ((bitboard & (1L << index)) != 0) {
+                        // Want to check if there is a piece at where we clicked.
+                        // We only need valid move highlight for first click.
+                        if (((bitboard & (1L << index)) != 0) & (numClicks == 0)) {
                             pieceFound = true;
                             long pieceLocation = bitboard & (1L << index);
                             // need to refactor this for CA
                             boolean isWhite = pieceType.startsWith("white");
-                            highlightSquares = ActualValidMove.actual_valid_moves(pieceLocation, isWhite, locationBitboard);
+                            highlightSquares = ActualValidCalculator.actual_valid_moves(pieceLocation, isWhite, locationBitboard);
                             break;
                         }
                     }

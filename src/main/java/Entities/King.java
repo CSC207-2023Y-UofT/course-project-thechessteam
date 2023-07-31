@@ -4,25 +4,55 @@ import Entities.Calculator;
 
 public class King implements Calculator {
 
-    public long valid_moves(long from, int side, LocationBitboard board) {
+    public long valid_moves(long from, boolean side, LocationBitboard board) {
         int position = Long.numberOfTrailingZeros(from);
         long kingCoverage = PreCalculatedAttacks.king_attacks[position];
 
         // Get the bitboard for all pieces on the current side
-        long allPieces = getAllPieces(side, board);
+        long allPieces = (side) ? board.getWhiteLocations() : board.getBlackLocations();
 
         // The king can move to a square if it is not already occupied by a piece of the same color
         kingCoverage &= ~allPieces;
 
-        // The UseCases.ActualValidMove use case class will check if the king would be put in check by making the move,
+        // The UseCases.ActualValidCalculator will check if the king would be put in check by making the move,
         // if so, remove that move
 
+        // Castling Move,
+        // Check for if King does not cross a space attacked will be done in ActualValidCalculator.
+        if (side) { // White
+            if (!board.getWhiteKingMoved() && !board.getLeftRookMovedW()) {
+                long needsEmptyL = (1L << 1) | (1L << 2) | (1L << 3);
+                if ((board.getOccupied() & needsEmptyL) == 0L) {
+                    kingCoverage |= (1L << 2);
+                }
+            }
+            if (!board.getWhiteKingMoved() && !board.getRightRookMovedW()) {
+                long needsEmptyR = (1L << 5) | (1L << 6);
+                if ((board.getOccupied() & needsEmptyR) == 0L) {
+                    kingCoverage |= (1L << 6);
+                }
+            }
+        }
+        else { // Black
+            if (!board.getBlackKingMoved() && !board.getLeftRookMovedB()) {
+                long needsEmptyL = (1L << 57) | (1L << 58) | (1L << 59);
+                if ((board.getOccupied() & needsEmptyL) == 0L) {
+                    kingCoverage |= (1L << 58);
+                }
+            }
+            if (!board.getBlackKingMoved() && !board.getRightRookMovedB()) {
+                long needsEmptyR = (1L << 61) | (1L << 62);
+                if ((board.getOccupied() & needsEmptyR) == 0L) {
+                    kingCoverage |= (1L << 62);
+                }
+            }
+        }
         return kingCoverage;
     }
 
-    public long attack_coverage(int side, LocationBitboard board) {
+    public long attack_coverage(boolean side, LocationBitboard board) {
         long coverage = 0L;
-        long kingPositions = side == 0 ? board.whiteKing[0] : board.blackKing[0];
+        long kingPositions = side ? board.whiteKing[0] : board.blackKing[0];
 
         for (int i = 0; i < 64; i++) {
             // Check if the bit at the i-th position is set
@@ -31,15 +61,5 @@ public class King implements Calculator {
             }
         }
         return coverage;
-    }
-
-    private long getAllPieces(int side, LocationBitboard board) {
-        if (side == 0) {
-            return board.whitePawn[0] | board.whiteRook[0] | board.whiteKnight[0] |
-                    board.whiteBishop[0] | board.whiteQueen[0] | board.whiteKing[0];
-        } else {
-            return board.blackPawn[0] | board.blackRook[0] | board.blackKnight[0] |
-                    board.blackBishop[0] | board.blackQueen[0] | board.blackKing[0];
-        }
     }
 }

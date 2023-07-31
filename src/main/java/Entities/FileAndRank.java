@@ -16,11 +16,15 @@ public class FileAndRank {
     public static long FILE_GH =
             0b1100000011000000110000001100000011000000110000001100000011000000L;
 
-    // Bitboards representing the 1st, 2nd, 7th, and 8th ranks on the board
+    // Bitboards representing the 1st, 2nd, 4th, 5th, 7th, and 8th ranks on the board
     public static long RANK_1 =
             0b0000000000000000000000000000000000000000000000000000000011111111L;
     public static long RANK_2 =
             0b0000000000000000000000000000000000000000000000001111111100000000L;
+    public static long RANK_4 =
+            0b0000000000000000000000000000000011111111000000000000000000000000L;
+    public static long RANK_5 =
+            0b0000000000000000000000001111111100000000000000000000000000000000L;
     public static long RANK_7 =
             0b0000000011111111000000000000000000000000000000000000000000000000L;
     public static long RANK_8 =

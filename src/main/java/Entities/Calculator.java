@@ -13,26 +13,27 @@ public interface Calculator {
      * Calculates all valid moves a player can make for the piece at the given location.
      *
      * @param from A bitboard with a single bit at the location of the piece and 0-bits elsewhere (long)
-     * @param side The player's side, represented as an integer (0 for White, 1 for Black)
+     * @param side The player's side, represented as a boolean (true for White, false for Black)
      * @param board The current state of the chess board. (Entities.LocationBitboard object)
      * @return A bitboard with 1-bits at the locations of valid moves and 0-bits elsewhere. (long)
      */
-    long valid_moves(long from, int side, LocationBitboard board);
+    long valid_moves(long from, boolean side, LocationBitboard board);
 
     /**
      * Calculates the attack coverage of the chess piece type that is implementing this interface.
      * Note that for pawns, only diagonal moves are considered attacks
      * This method is used to check for chess check situations.
      *
-     * @param side The players side, represented as an integer (0 for White, 1 for Black).
+     * @param side The players side, represented as a boolean (true for White, false for Black).
      * @param board The current state of the chess board
      * @return A bitboard with 1-bits at the locations that the piece can attack and 0-bits otherwise
      */
-    long attack_coverage(int side, LocationBitboard board);
+    long attack_coverage(boolean side, LocationBitboard board);
 
-    // TODO Create Entities.Pawn, Entities.Rook, Entities.Knight, Entities.Bishop, Entities.Queen, and Entities.King Class and have them implement Entities.Calculator.
-    // TODO Implement the methods accordingly.
-    // TODO Use Entities.PreCalculatedAttacks accordingly.
+    // Entities.Pawn, Entities.Rook, Entities.Knight, Entities.Bishop, Entities.Queen, and Entities.King Class
+    // implement Entities.Calculator.
+
+    // Entities.Pawn, Entities.Knight, and Entities.King use Entities.PreCalculatedAttacks in their methods.
 
 
 
