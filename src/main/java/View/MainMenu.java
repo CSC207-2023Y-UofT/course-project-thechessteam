@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class MainMenu implements ActionListener {
-    JFrame menu_frame = new JFrame();
+    JFrame menu_frame = new JFrame("Main Menu");
     JLabel menuBackground = new JLabel("Background");
     JLabel logoBackground = new JLabel("logoBackground");
     JLabel buttonBackground = new JLabel("buttonBackground");

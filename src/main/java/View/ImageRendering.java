@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Images {
+public class ImageRendering {
     public static Image whitePawn;
     public static Image whiteRook;
     public static Image whiteKnight;
@@ -24,7 +24,7 @@ public class Images {
     static BufferedImage img;
     static {
         try {
-            img = ImageIO.read(Objects.requireNonNull(Images.class.getClassLoader().getResource("projectimages/ChessPieces.png")));
+            img = ImageIO.read(Objects.requireNonNull(ImageRendering.class.getClassLoader().getResource("projectimages/ChessPieces.png")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
