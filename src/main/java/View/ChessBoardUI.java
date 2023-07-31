@@ -3,7 +3,7 @@ package View;
 import Controller.Controller;
 import Entities.ChessGame;
 import Entities.LocationBitboard;
-import UseCases.ActualValidMove;
+import UseCases.ActualValidCalculator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,12 +56,15 @@ public class ChessBoardUI extends JPanel {
                         // Want to check if there is a piece at where we clicked.
                         // We only need valid move highlight for first click.
                         if (((bitboard & (1L << index)) != 0) & (numClicks == 0)) {
-                            pieceFound = true;
-                            long pieceLocation = bitboard & (1L << index);
-                            // need to refactor this for CA
                             boolean isWhite = pieceType.startsWith("white");
-                            highlightSquares = ActualValidCalculator.actual_valid_moves(pieceLocation, isWhite, locationBitboard);
-                            break;
+                            boolean isWhitesTurn = ChessGame.getTurn();
+                            if ((isWhite && isWhitesTurn) || (!isWhite && !isWhitesTurn)) {
+                                pieceFound = true;
+                                long pieceLocation = bitboard & (1L << index);
+                                // need to refactor this for CA
+                                highlightSquares = ActualValidCalculator.actual_valid_moves(pieceLocation, isWhite, locationBitboard);
+                                break;
+                            }
                         }
                     }
                     // If a piece was clicked or this is not the first click
