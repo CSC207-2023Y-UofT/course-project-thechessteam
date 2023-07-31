@@ -160,7 +160,7 @@ public class ChessBoardUI extends JPanel {
                 int y = 7 - i / 8;
                 int centerX = x * squareSize + squareSize / 2;
                 int centerY = y * squareSize + squareSize / 2;
-                g.fillOval(centerX - radius, centerY - radius, diameter, diameter);
+                g.fillOval(centerX - radius + 9, centerY - radius + 10, diameter, diameter);
             }
         }
     }
