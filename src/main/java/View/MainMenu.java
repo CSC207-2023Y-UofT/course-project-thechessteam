@@ -108,7 +108,7 @@ public class MainMenu implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playButton) { // Starts a new game instance
             menu_frame.dispose();
-            UI.newGame();
+            ChessBoardUI.newGame();
         }
     }
 }

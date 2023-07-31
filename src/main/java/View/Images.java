@@ -24,7 +24,7 @@ public class Images {
     static BufferedImage img;
     static {
         try {
-            img = ImageIO.read(Objects.requireNonNull(Images.class.getClassLoader().getResource("pieces.png")));
+            img = ImageIO.read(Objects.requireNonNull(Images.class.getClassLoader().getResource("projectimages/ChessPieces.png")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
