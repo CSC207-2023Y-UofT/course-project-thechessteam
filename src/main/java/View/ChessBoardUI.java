@@ -74,52 +74,56 @@ public class ChessBoardUI extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                int mouseX = e.getX();
-                int mouseY = e.getY();
-                System.out.println(locationBitboard);
-                int x = mouseX / squareSize;
-                int y = 7 - mouseY / squareSize;
-                int index = y * 8 + x;
-                boolean pieceFound = false;
+                if (!ChessGame.getIsGameOver()) {
+                    int mouseX = e.getX();
+                    int mouseY = e.getY();
+                    System.out.println(locationBitboard);
+                    int x = mouseX / squareSize;
+                    int y = 7 - mouseY / squareSize;
+                    int index = y * 8 + x;
+                    boolean pieceFound = false;
 
-                if (mouseX >= 0 && mouseX < 8 * squareSize && mouseY >= 0 && mouseY < 8 * squareSize) {
-                    for (String pieceType : locationBitboard.getAllPieces().keySet()) {
-                        long bitboard = locationBitboard.getBitboard(pieceType);
-                        // Want to check if there is a piece at where we clicked.
-                        // We only need valid move highlight for first click.
-                        if (((bitboard & (1L << index)) != 0) & (numClicks == 0)) {
-                            boolean isWhite = pieceType.startsWith("white");
-                            boolean isWhitesTurn = ChessGame.getTurn();
-                            if ((isWhite && isWhitesTurn) || (!isWhite && !isWhitesTurn)) {
-                                pieceFound = true;
-                                long pieceLocation = bitboard & (1L << index);
-                                // need to refactor this for CA
-                                highlightSquares = ActualValidCalculator.actual_valid_moves(pieceLocation, isWhite, locationBitboard);
-                                break;
+                    if (mouseX >= 0 && mouseX < 8 * squareSize && mouseY >= 0 && mouseY < 8 * squareSize) {
+                        for (String pieceType : locationBitboard.getAllPieces().keySet()) {
+                            long bitboard = locationBitboard.getBitboard(pieceType);
+                            // Want to check if there is a piece at where we clicked.
+                            // We only need valid move highlight for first click.
+                            if (((bitboard & (1L << index)) != 0) & (numClicks == 0)) {
+                                boolean isWhite = pieceType.startsWith("white");
+                                boolean isWhitesTurn = ChessGame.getTurn();
+                                if ((isWhite && isWhitesTurn) || (!isWhite && !isWhitesTurn)) {
+                                    pieceFound = true;
+                                    long pieceLocation = bitboard & (1L << index);
+                                    // need to refactor this for CA
+                                    highlightSquares = ActualValidCalculator.actual_valid_moves(pieceLocation, isWhite, locationBitboard);
+                                    break;
+                                }
                             }
                         }
-                    }
-                    // If a piece was clicked or this is not the first click
-                    if (pieceFound || (numClicks != 0)) {
-                        // Save the clicked location
-                        twoClicks[numClicks] = index;
-                        numClicks += 1;
-                        System.out.println(numClicks);
-                        repaint();
+                        // If a piece was clicked or this is not the first click
+                        if (pieceFound || (numClicks != 0)) {
+                            // Save the clicked location
+                            twoClicks[numClicks] = index;
+                            numClicks += 1;
+                            System.out.println(numClicks);
+                            repaint();
+                        }
                     }
                 }
             }
             @Override
             public void mouseReleased(MouseEvent e) {
-                // If this was the second click
-                if (numClicks == 2) {
-                    // Process the two clicks for valid moves
-                    Controller.process_two_clicks(twoClicks);
-                    numClicks = 0;
-                    highlightSquares = 0L;  // Clear the highlights
-                    System.out.println(locationBitboard);
+                if (!ChessGame.getIsGameOver()) {
+                    // If this was the second click
+                    if (numClicks == 2) {
+                        // Process the two clicks for valid moves
+                        Controller.process_two_clicks(twoClicks);
+                        numClicks = 0;
+                        highlightSquares = 0L;  // Clear the highlights
+                        System.out.println(locationBitboard);
+                    }
+                    repaint();
                 }
-                repaint();
             }
         });
     }
