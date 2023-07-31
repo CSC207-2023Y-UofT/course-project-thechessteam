@@ -21,7 +21,9 @@ public class Pawn implements Calculator {
             // pawn's 2 tile ahead move for white,
             // only if we are moving from Rank 2 and if there's no piece in the square we are moving to.
             if ((from & FileAndRank.RANK_2) != 0L) {
-                pawnValidMoves |= (from << 16) & ~board.getOccupied();
+                if ((from << 8 & board.getOccupied()) == 0L) { // if there is no piece blocking path
+                    pawnValidMoves |= (from << 16) & ~board.getOccupied();
+                }
             }
 
             // get possible attacks; there must be an opponent's piece to capture.
@@ -43,7 +45,9 @@ public class Pawn implements Calculator {
             // pawn's 2 tile ahead move for black,
             // only if we are moving from Rank 7 and if there's no piece in the square we are moving to.
             if ((from & FileAndRank.RANK_7) != 0L) {
-                pawnValidMoves |= (from >>> 16) & ~board.getOccupied();
+                if ((from >>> 8 & board.getOccupied()) == 0L) { // if there is no piece blocking path
+                    pawnValidMoves |= (from >>> 16) & ~board.getOccupied();
+                }
             }
 
             // get possible attacks; there must be an opponent's piece to capture.
