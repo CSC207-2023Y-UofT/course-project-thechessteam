@@ -6,42 +6,11 @@ import java.util.ArrayList;
 import java.io.IOException;
 
 public class LeaderBoard{
-    // TODO: Add initializer
     public LeaderBoard(){}
-    // has 3 methods excluding main - readData, writeData and printData
-    public static void main(String[] args){
-        // Read existing leaderboard
-        ArrayList<String[]> leaderboard = readData(); // readData method defined below
-        printData(leaderboard);   // printData method defined below
-
-        // Add new player
-        Scanner input_scanner = new Scanner(System.in); // Scanner class is used to get user input, we just created a scanner object
-        System.out.print("Please enter Player name: "); // adjust this with gui
-        String input = input_scanner.nextLine();
-        // player name must not contain coma
-        while (input.contains(",")) {
-            System.out.print("Player name must not contain comma.");
-            System.out.print("Please enter Player name: ");
-            input = input_scanner.nextLine();
-        }
-
-        input = input.trim().toLowerCase();
-        boolean existing_player = false;
-        for (String[] p : leaderboard) {
-            if (Objects.equals(p[0], input)) {
-                existing_player = true;
-                // Turn p[1] to int, add 1, turn it back to string, reassign p[1]
-                p[1] = String.valueOf(Integer.parseInt(p[1]) + 1);
-            }
-        }
-        if (!(existing_player)) {
-            String[] new_player = {input, "1"};
-            leaderboard.add(new_player);
-        }
-
-        // Save leaderboard with new player
-        writeData(leaderboard); // writeData method defined below
-    }
+    // has 4 methods - readData, writeData, addPlayer and printData
+    // readData and writeData are private methods for use within class only
+    // addPlayer is public, adds a player given their name
+    // printData is public, used to print the leaderboard
 
     // read file
     private static ArrayList<String[]> readData() {
@@ -72,8 +41,30 @@ public class LeaderBoard{
         }
     }
 
+    //write file v2
+    public static void addPlayer(String player_name) {
+        ArrayList<String[]> leaderboard = readData();
+        String input = player_name.trim().toLowerCase();
+        boolean existing_player = false;
+        for (String[] p : leaderboard) {
+            if (Objects.equals(p[0], input)) {
+                existing_player = true;
+                // Turn p[1] to int, add 1, turn it back to string, reassign p[1]
+                p[1] = String.valueOf(Integer.parseInt(p[1]) + 1);
+            }
+        }
+        if (!(existing_player)) {
+            String[] new_player = {input, "1"};
+            leaderboard.add(new_player);
+        }
+
+        // Save leaderboard with new player
+        writeData(leaderboard); // writeData method defined above
+    }
+
     // print leaderboard
-    private static void printData(ArrayList<String[]> leaderboard) {
+    public static void printData() {
+        ArrayList<String[]> leaderboard = readData();
         if (leaderboard.size() > 0) {
             System.out.println("Leaderboard");
             System.out.println("Player Name -> Wins");
