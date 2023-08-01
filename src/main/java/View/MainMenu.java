@@ -44,7 +44,7 @@ public class MainMenu implements ActionListener {
         chessTeam_logo.setBounds(0, 0, 350, 60);
         chessTeam_logo.setIcon(new ImageIcon(gameOverIcon));
 
-        // Configuring the game logo
+        // Configuring the background for buttons
         Image unscaledBBackground = new ImageIcon(Objects.requireNonNull(getClass().getResource(
                 "/projectimages/BBackground.png"))).getImage();
         Image buttonBackgroundIcon = unscaledBBackground.getScaledInstance(250 ,200,
@@ -109,6 +109,9 @@ public class MainMenu implements ActionListener {
         if (e.getSource() == playButton) { // Starts a new game instance
             menu_frame.dispose();
             ChessBoardUI.newGame();
+        } else if (e.getSource() == leaderBoardButton) {
+            menu_frame.dispose();
+            new LeaderBoardUI();
         }
     }
 }
