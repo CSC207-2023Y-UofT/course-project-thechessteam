@@ -1,7 +1,5 @@
 package Entities;
 
-import Entities.LocationBitboard;
-
 import java.util.Objects;
 
 public class ChessGame {
@@ -25,7 +23,7 @@ public class ChessGame {
     public static int getPoints(boolean t) {if (t) {return whtPoints;} else {return blkPoints;}}
     public static String getWinMsg() { return win_msg; }
     public static boolean getIsNewGame() { return newGame; }
-    public static boolean getIsGameOver() { return gameOver; }
+    public static boolean getIsGameOver() { return !gameOver; }
 
     // ----------------------------------------------------------------------------------------------------------
 

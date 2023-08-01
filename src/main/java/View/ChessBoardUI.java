@@ -74,7 +74,7 @@ public class ChessBoardUI extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if (!ChessGame.getIsGameOver()) {
+                if (ChessGame.getIsGameOver()) {
                     int mouseX = e.getX();
                     int mouseY = e.getY();
                     System.out.println(locationBitboard);
@@ -113,7 +113,7 @@ public class ChessBoardUI extends JPanel {
             }
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (!ChessGame.getIsGameOver()) {
+                if (ChessGame.getIsGameOver()) {
                     // If this was the second click
                     if (numClicks == 2) {
                         // Process the two clicks for valid moves
@@ -230,7 +230,7 @@ public class ChessBoardUI extends JPanel {
         stalemateButton.setIcon(new ImageIcon(stalemateIcon));
         if (ChessGame.getIsNewGame()) {
             stalemateButton.addActionListener(e -> {
-                if (!ChessGame.getIsGameOver()) { // Makes sure the game isn't over
+                if (ChessGame.getIsGameOver()) { // Makes sure the game isn't over
                     // TODO put draw code here
 
                     ChessGame.setWinMsg("draw");
@@ -269,7 +269,7 @@ public class ChessBoardUI extends JPanel {
         forfeitButton.setIcon(new ImageIcon(forfeitIcon));
         if (ChessGame.getIsNewGame()) {
             forfeitButton.addActionListener(e -> {
-                if (!ChessGame.getIsGameOver()) { // Makes sure the game isn't over
+                if (ChessGame.getIsGameOver()) { // Makes sure the game isn't over
                     if (ChessGame.getTurn()) {
                         ChessGame.setWinMsg("Black");
                     } else {
