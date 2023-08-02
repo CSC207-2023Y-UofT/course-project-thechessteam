@@ -57,7 +57,7 @@ Pieces can be captures in valid capture positions(For example, pawn can only mov
 
 ### Castling
 <!--- before and after castling, write about the conditions --->
-If neither the king or the rook has moved, and the king is not in check, clicking on the king shows the castling spot, two squares left or right of the king. Clicking on the square afterwards activates castling.
+If neither the king nor the rook has moved, and the king is not in check, clicking on the king shows the castling spot, two squares left or right of the king. Clicking on the square afterwards activates castling.
 <p float="left">
     <img src="https://i.imgur.com/2rXFcHp.png" width="49%" />
     <img src="https://i.imgur.com/4tVivzL.png" width="49%" />
