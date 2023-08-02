@@ -1,57 +1,49 @@
 import java.io.File;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.io.IOException;
 
 public class LeaderBoard{
-    // TODO: Add initializer
     public LeaderBoard(){}
-    // has 3 methods excluding main - readData, writeData and printData
-    public static void main(String[] args){
-        // Read existing leaderboard
-        ArrayList<String[]> leaderboard = readData(); // readData method defined below
-        printData(leaderboard);   // printData method defined below
+    // has 4 methods - readData, writeData, addPlayer and printData
+    // readData and writeData are private methods for use within class only
+    // addPlayer is public, adds a player given their name
+    // printData is public, used to print the leaderboard
 
-        // Add new player
-        Scanner input_scanner = new Scanner(System.in); // Scanner class is used to get user input, we just created a scanner object
-        System.out.print("Please enter Player name: "); // adjust this with gui
-        String input = input_scanner.nextLine();
-        // player name must not contain coma
-        while (input.contains(",")) {
-            System.out.print("Player name must not contain comma.");
-            System.out.print("Please enter Player name: ");
-            input = input_scanner.nextLine();
-        }
 
-        input = input.trim().toLowerCase();
-        boolean existing_player = false;
-        for (String[] p : leaderboard) {
-            if (Objects.equals(p[0], input)) {
-                existing_player = true;
-                // Turn p[1] to int, add 1, turn it back to string, reassign p[1]
-                p[1] = String.valueOf(Integer.parseInt(p[1]) + 1);
-            }
+    //leaderboard will hold custom class player with attributes for name and wins
+    protected static class Player {
+        private String name;
+        private int wins;
+        protected Player(String name, int wins){
+            this.name = name;
+            this.wins = wins;
         }
-        if (!(existing_player)) {
-            String[] new_player = {input, "1"};
-            leaderboard.add(new_player);
+        // Good coding practice bla bla getter functions
+        protected String getName() {
+            return this.name;
         }
-
-        // Save leaderboard with new player
-        writeData(leaderboard); // writeData method defined below
+        protected int getWins() {
+            return this.wins;
+        }
+        protected void addWins() {
+            this.wins += 1;
+        }
     }
 
     // read file
-    private static ArrayList<String[]> readData() {
-        ArrayList<String[]> leaderboard = new ArrayList<>(); // start with an empty array to populate
+    private static ArrayList<Player> readData() {
+        ArrayList<Player> leaderboard = new ArrayList<>(); // start with an empty array to populate
         try {
+            // read file
             Scanner player_read = new Scanner(new File("players.txt"));
             while (player_read.hasNext()) {
+                // split line by comma into name and wins
                 String[] current_player = player_read.nextLine().split(",");
-                leaderboard.add(new String[] {current_player[0], current_player[1]});
+                // create new player with name and wins and add it to leaderboard
+                leaderboard.add(new Player(current_player[0], Integer.parseInt(current_player[1])));
             }
+            // close file
             player_read.close();
         } catch (IOException e) {
             System.out.println("No Players in leaderboard yet");
@@ -60,11 +52,13 @@ public class LeaderBoard{
     }
 
     // write file
-    private static void writeData(ArrayList<String[]> leaderboard) {
+    private static void writeData(ArrayList<Player> leaderboard) {
         try {
+            // open players.txt to write in it
             PrintWriter player_output = new PrintWriter("players.txt");
-            for (String[] player: leaderboard) {
-                player_output.println(player[0] + "," + player[1]);
+            for (Player p: leaderboard) {
+                // write each player in as you loop through it
+                player_output.println(p.getName() + "," + p.getWins());
             }
             player_output.close(); //close file
         } catch (IOException e) {
@@ -72,13 +66,43 @@ public class LeaderBoard{
         }
     }
 
+    // add player
+    public static void addPlayer(String player_name) {
+        // read file into leaderboard var
+        ArrayList<Player> leaderboard = readData();
+        // process name
+        String input = player_name.trim().toLowerCase();
+        // check whether the player is already in leaderboard, add a win if it is
+        boolean existing_player = false;
+        for (Player p : leaderboard) {
+            if (Objects.equals(p.getName(), input)) {
+                existing_player = true;
+                p.addWins();
+            }
+        }
+        // if new player, create new player and add to the leaderboard
+        if (!(existing_player)) {
+            Player new_player = new Player(input, 1);
+            leaderboard.add(new_player);
+        }
+        //sort the leaderboard based on wins
+        Collections.sort(leaderboard, Comparator.comparing(Player::getWins));
+        //descending order
+        Collections.reverse(leaderboard);
+        // Save leaderboard with new player
+        writeData(leaderboard); // writeData method defined above
+    }
+
     // print leaderboard
-    private static void printData(ArrayList<String[]> leaderboard) {
+    public static void printData() {
+        // read file
+        ArrayList<Player> leaderboard = readData();
         if (leaderboard.size() > 0) {
             System.out.println("Leaderboard");
             System.out.println("Player Name -> Wins");
-            for (String[] player: leaderboard) {
-                System.out.println(player[0] + " -> " + player[1]);
+            // print each player and wins
+            for (Player p: leaderboard) {
+                System.out.println(p.getName() + " -> " + p.getWins());
             }
         }
     }
