@@ -1,39 +1,96 @@
-# Project Template
+![Front page](https://i.imgur.com/XUXVs9u.png)
+# The Chess Team
 
-This is a template repository for CSC 207 projects. 
-This repository contains starter code for a gradle project.
-It also contains workflow documents that give instructions on how to manage your Github repository and how to use Github Projects for efficient collaboration.
+The Chess Team is a two player bitboard based chess game engine.
 
-## Checklist For Your Project
-- [ ] Verify the correct settings for your project repository
-- [ ] Set up Github Projects
-- [ ] Create the implementation plan using issues and Github Projects
-- [ ] Create deveopment branches for your features
-- [ ] Use pull requests to merge finished features into main branch
-- [ ] Conduct code reviews
+## Table of contents
+- [About the project](#about-the-project)
+- [Build Details](#build-details)
+- [Features](#features)
+  - [Move piece](#move-a-piece)
+  - [Capture](#capture-pieces)
+  - [Castling](#castling)
+  - [Pawn promotion](#pawn-promotion)
+  - [Check](#check)
+  - [Draw](#draw)
+  - [Forfeit](#forfeit)
+  - [Leaderboard](#leaderboard)
 
-**If your team has trouble with any of these steps, please ask on Piazza. For example, with how GitHub Classroom works, your team *may* not have permissions to do some of the first few steps, in which case we'll post alternative instructions as needed.**
+![Game interface](https://i.imgur.com/4Jx8TaG.png)
+## About The Project
 
-## Workflow Documents
+The Chess Team is a two player chess game engine that focuses on interactive gameplay.
+It features all common chess mechanisms, including move generation, move validation, castling, pawn promotion, draw and forfeit options. Players can also enter themselves into the leaderboard after a win, which accumulates and retains all player wins. Java Chess is written in Java, and uses Java swing for GUI. The board is represented using bitboards, making the program lightweight and fast.
 
-* Github Workflow: Please refer to the workflow that was introduced in the first lab. You should follow this when working on your code. The following document provides additional details too.
+## Build Details
 
-* [Project Planning and Development Guide](project_plan_dev.md): This document helps you to understand how to create and maintain a project plan for your class project. **This document helps you to complete the Implementation Plan Milestone.**
+- Language: Java
+- GUI: Java swing
+- Architecture Pattern: Model-View-Controller (MVC)
+- Board Representation: Bitboard
 
-## Gradle Project
-Import this project into your Intellij editor. It should automatically recognise this as a gradle repository.
-The starter code was built using SDK version 11.0.1. Ensure that you are using this version for this project. (You can, of course, change the SDK version as per your requirement if your team has all agreed to use a different version)
+## Features
 
-You have been provided with two starter files for demonstration: HelloWorld and HelloWorldTest.
+### Selecting a piece and show valid moves
+<!--- game start, valid move --->
+Clicking on a piece while the player's turn is active shows the places that piece can move to.
+<p float="left">
+    <img src="https://i.imgur.com/4Jx8TaG.png" width="49%" />
+    <img src="https://i.imgur.com/n7BA4TE.png" width="49%" />
+</p>
 
-You will find HelloWorld in `src/main/java/tutorial` directory. Right click on the HelloWorld file and click on `Run HelloWorld.main()`.
-This should run the program and print on your console.
+### Move a piece
+<!--- valid move, completed move, explain what happens when invalid parts are selected, use pawn --->
+The piece can be moved to a valid position. Clicking on an invalid spot returns the player to piece selection.
+<p float="left">
+    <img src="https://i.imgur.com/n7BA4TE.png" width="49%" />
+    <img src="https://i.imgur.com/6eKmWg7.png" width="49%" />
+</p>
 
-You will find HelloWorldTest in `src/test/java/tutorial` directory. Right click on the HelloWorldTest file and click on `Run HelloWorldTest`.
-All tests should pass. Your team can remove this sample of how testing works once you start adding your project code to the repo.
+### Capture pieces
+<!--- About to capture, captured, pawn capture --->
+Pieces can be captures in valid capture positions(For example, pawn can only move forward and capture diagonally).
+<p float="left">
+    <img src="https://i.imgur.com/7WClSAD.png" width="49%" />
+    <img src="https://i.imgur.com/NxuuMkv.png" width="49%" />
+</p>
 
-Moving forward, we expect you to maintain this project structure. You *should* use Gradle as the build environment, but it is fine if your team prefers to use something else -- just remove the gradle files and push your preferred project setup. Assuming you stick with Gradle, your source code should go into `src/main/java` (you can keep creating more subdirectories as per your project requirement). Every source class can auto-generate a test file for you. For example, open HelloWorld.java file and click on the `HelloWorld` variable as shown in the image below. You should see an option `Generate` and on clicking this your should see an option `Test`. Clicking on this will generate a JUnit test file for `HelloWorld` class. This was used to generate the `HelloWorldTest`.
+### Castling
+<!--- before and after castling, write about the conditions --->
+If neither the king nor the rook has moved, and the king is not in check, clicking on the king shows the castling spot, two squares left or right of the king. Clicking on the square afterwards activates castling.
+<p float="left">
+    <img src="https://i.imgur.com/2rXFcHp.png" width="49%" />
+    <img src="https://i.imgur.com/4tVivzL.png" width="49%" />
+</p>
 
-![image](https://user-images.githubusercontent.com/5333020/196066655-d3c97bf4-fdbd-46b0-b6ae-aeb8dbcf351d.png)
+### Pawn promotion
+<!--- before and after pawn promotion --->
+When a pawn reaches the end of the board, it can be promoted.
+![Pawn promotion](https://i.imgur.com/pKTplXd.png)
 
-You can create another simple class and try generating a test for this class.
+### Check
+<!--- explain checkmate, one pic --->
+When the king is in check, only moves to get out of the check are allowed.
+<p float="left">
+    <img src="https://i.imgur.com/9mP2Xcu.png" width="49%" />
+    <img src="https://i.imgur.com/MqN837b.png" width="49%" />
+</p>
+
+
+### Draw
+<!--- Draw screen --->
+![Leaderboard](https://i.imgur.com/zCnG3fr.png)
+
+### Forfeit
+<!--- forfeit screen --->
+![Leaderboard](https://i.imgur.com/C91Gmxn.png)
+
+
+### Leaderboard
+<!--- Leaderboard image --->
+The Chess Team also features a leaderboard to record winner names and win counts.
+![Leaderboard](https://i.imgur.com/OnYeVW4.png)
+
+
+
+
