@@ -1,4 +1,4 @@
-![Front page](https://i.imgur.com/UmHDy7t.png)
+![Front page](https://i.imgur.com/XUXVs9u.png)
 # The Chess Team
 
 The Chess Team is a two player bitboard based chess game engine.
@@ -16,7 +16,7 @@ The Chess Team is a two player bitboard based chess game engine.
   - [Forfeit](#forfeit)
   - [Leaderboard](#leaderboard)
 
-![Game interface](https://i.imgur.com/8yIZwh2.png)
+![Game interface](https://i.imgur.com/4Jx8TaG.png)
 ## About The Project
 
 The Chess Team is a two player chess game engine that focuses on interactive gameplay.
@@ -35,61 +35,61 @@ It features all common chess mechanisms, including move generation, move validat
 <!--- game start, valid move --->
 Clicking on a piece while the player's turn is active shows the places that piece can move to.
 <p float="left">
-    <img src="https://i.imgur.com/CI55PKG.png" width="49%" />
-    <img src="https://i.imgur.com/uR0fi4E.png" width="49%" />
+    <img src="https://i.imgur.com/4Jx8TaG.png" width="49%" />
+    <img src="https://i.imgur.com/n7BA4TE.png" width="49%" />
 </p>
 
 ### Move a piece
 <!--- valid move, completed move, explain what happens when invalid parts are selected, use pawn --->
 The piece can be moved to a valid position. Clicking on an invalid spot returns the player to piece selection.
 <p float="left">
-    <img src="https://i.imgur.com/uR0fi4E.png" width="49%" />
-    <img src="https://i.imgur.com/Gg2dOwo.png" width="49%" />
+    <img src="https://i.imgur.com/n7BA4TE.png" width="49%" />
+    <img src="https://i.imgur.com/6eKmWg7.png" width="49%" />
 </p>
 
 ### Capture pieces
 <!--- About to capture, captured, pawn capture --->
 Pieces can be captures in valid capture positions(For example, pawn can only move forward and capture diagonally).
 <p float="left">
-    <img src="https://i.imgur.com/45OjX4Y.png" width="49%" />
-    <img src="https://i.imgur.com/nSjo40c.png" width="49%" />
+    <img src="https://i.imgur.com/7WClSAD.png" width="49%" />
+    <img src="https://i.imgur.com/NxuuMkv.png" width="49%" />
 </p>
 
 ### Castling
 <!--- before and after castling, write about the conditions --->
 If neither the king or the rook has moved, and the king is not in check, clicking on the king shows the castling spot, two squares left or right of the king. Clicking on the square afterwards activates castling.
 <p float="left">
-    <img src="https://i.imgur.com/7kNgQL8.png" width="49%" />
-    <img src="https://i.imgur.com/06bs3jq.png" width="49%" />
+    <img src="https://i.imgur.com/2rXFcHp.png" width="49%" />
+    <img src="https://i.imgur.com/4tVivzL.png" width="49%" />
 </p>
 
 ### Pawn promotion
 <!--- before and after pawn promotion --->
 When a pawn reaches the end of the board, it can be promoted.
-![Pawn promotion](https://i.imgur.com/06bs3jq.png)
+![Pawn promotion](https://i.imgur.com/pKTplXd.png)
 
 ### Check
 <!--- explain checkmate, one pic --->
 When the king is in check, only moves to get out of the check are allowed.
 <p float="left">
-    <img src="https://i.imgur.com/KT4Khia.png" width="49%" />
-    <img src="https://i.imgur.com/WvLSOVB.png" width="49%" />
+    <img src="https://i.imgur.com/9mP2Xcu.png" width="49%" />
+    <img src="https://i.imgur.com/MqN837b.png" width="49%" />
 </p>
 
 
 ### Draw
 <!--- Draw screen --->
-![Leaderboard](https://i.imgur.com/tE238jY.png)
+![Leaderboard](https://i.imgur.com/zCnG3fr.png)
 
 ### Forfeit
 <!--- forfeit screen --->
-![Leaderboard](https://i.imgur.com/8dnewzK.png)
+![Leaderboard](https://i.imgur.com/C91Gmxn.png)
 
 
 ### Leaderboard
 <!--- Leaderboard image --->
 The Chess Team also features a leaderboard to record winner names and win counts.
-![Leaderboard](https://i.imgur.com/NPI9Hbd.png)
+![Leaderboard](https://i.imgur.com/OnYeVW4.png)
 
 
 
