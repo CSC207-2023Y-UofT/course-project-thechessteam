@@ -66,7 +66,7 @@ public class LeaderBoard{
         }
     }
 
-    //write file v2
+    // add player
     public static void addPlayer(String player_name) {
         // read file into leaderboard var
         ArrayList<Player> leaderboard = readData();
