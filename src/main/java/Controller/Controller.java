@@ -1,13 +1,35 @@
 package Controller;
 
-import UseCases.MovePiece;
+import Use_Cases.HighlightValid;
+import Use_Cases.MovePiece;
+import Use_Cases.NewGame;
 
 public class Controller {
-    // Takes in two clicks and pass it to use case classes.
+    private MovePiece movePieceClass;
+    private HighlightValid highlightValidClass;
+    private NewGame newGameClass;
+    public Controller(MovePiece movePiece, HighlightValid highlightValid, NewGame newGameClass) {
+        this.movePieceClass = movePiece;
+        this.highlightValidClass = highlightValid;
+        this.newGameClass = newGameClass;
+    }
+
+    // Takes in two clicks and pass it to a MovePiece class.
     // Precondition: twoClicks is an integer array of length 2.
-    public static void process_two_clicks(int[] twoClicks) {
+    public void process_two_clicks(int[] twoClicks) {
         long from = 1L << twoClicks[0];
         long to = 1L << twoClicks[1];
-        MovePiece.move_piece(from, to);
+
+        movePieceClass.move_piece(from, to);
+    }
+    // Returns false if there is no piece at clickIndex belonging to the player of current turn.
+    public boolean process_highlight(int clickIndex) {
+        long clicked = 1L << clickIndex;
+        return highlightValidClass.create_highlight(clicked);
+    }
+
+    // Calls NewGame use case class. if disposePrevious is true, we want to get rid of current JFrame.
+    public void start_new_game() {
+        newGameClass.start_new_game();
     }
 }

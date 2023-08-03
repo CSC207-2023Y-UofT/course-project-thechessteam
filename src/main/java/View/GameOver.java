@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class GameOver implements ActionListener {
+    private ChessBoardUI chessUI;
     JFrame window_frame = new JFrame();
     JLabel game_overLabel = new JLabel("Game Over!");
     JButton playAgain = new JButton("Play Again");
@@ -14,7 +15,8 @@ public class GameOver implements ActionListener {
     JButton submitButton = new JButton("Submit Name");
     JTextField nameBox = new JTextField("Winner's Name");
 
-    GameOver() {
+    GameOver(ChessBoardUI ui) {
+        this.chessUI = ui;
         // Configuring the gameOver Icon
         Image unscaledIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/GameOver.png"))).getImage();
         Image gameOverIcon = unscaledIcon.getScaledInstance(100 ,100, java.awt.Image.SCALE_SMOOTH);
@@ -74,12 +76,11 @@ public class GameOver implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == menuButton) { // Opens the menu screen
             window_frame.dispose();
-            ChessBoardUI.javaF.dispose();
-            new MainMenu();
+            chessUI.disposeFrame();
+            new MainMenu(chessUI);
         } else if (e.getSource() == playAgain) { // Starts a new game instance
             window_frame.dispose();
-            ChessBoardUI.javaF.dispose();
-            ChessBoardUI.newGame();
+            chessUI.newGame();
         } else if (e.getSource() == submitButton) {
             if (!Objects.equals(nameBox.getText(), "Record Name")) {
                 // TODO Put leaderboard insertion code here, use "nameBox.getText()" to get the contents of the inputed text

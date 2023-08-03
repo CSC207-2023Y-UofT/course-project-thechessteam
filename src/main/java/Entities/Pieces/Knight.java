@@ -1,9 +1,10 @@
-package Entities;
+package Entities.Pieces;
 
-import Entities.Calculator;
+import Entities.Constants.PreCalculatedAttacks;
+import Entities.Locations.LocationBitboard;
 
 public class Knight implements Calculator {
-    // Entities.Knight Class intended to hold the calculations for knight piece movements
+    // Entities.Pieces.Knight Class intended to hold the calculations for knight piece movements
     private long sameColoredPieces;
 
     public Knight() {}

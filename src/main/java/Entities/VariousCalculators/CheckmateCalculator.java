@@ -1,10 +1,8 @@
-package UseCases;
+/*package Entities.VariousCalculators;
 
-import Entities.Calculator;
-import Entities.Calculators;
-import Entities.King;
-import Entities.LocationBitboard;
-import UseCases.CheckCalculator;
+import Entities.Pieces.Calculator;
+import Entities.Pieces.King;
+import Entities.Locations.LocationBitboard;
 
 public class CheckmateCalculator {
 
@@ -20,12 +18,12 @@ public class CheckmateCalculator {
         }
 
 
-        // Check if the Entities.King can move out of check
+        // Check if the Entities.Pieces.King can move out of check
         long kingPositions = side ? board.whiteKing[0] : board.blackKing[0];
         int kingPosition = Long.numberOfTrailingZeros(kingPositions);
         King king = new King();
         if (king.valid_moves(1L << kingPosition, side, board) != 0) {
-            return false; // Entities.King can move out of check
+            return false; // Entities.Pieces.King can move out of check
         }
 
         // List all pieces for the side in check
@@ -38,7 +36,7 @@ public class CheckmateCalculator {
             while (pieces != 0) {
                 int position = Long.numberOfTrailingZeros(pieces);
                 pieces ^= (1L << position); // Clear the least significant bit
-                // Assuming we have a generic function `getPieceCalculator` that returns a Entities.Calculator for the piece at `position`
+                // Assuming we have a generic function `getPieceCalculator` that returns a Entities.Pieces.Calculator for the piece at `position`
                 Calculator pieceCalculator = getPieceCalculator(position, board);
                 if (pieceCalculator.valid_moves(1L << position, side, board) != 0) {
                     // Simulate the move and check if it would leave the king in check
@@ -55,7 +53,7 @@ public class CheckmateCalculator {
         return true;
     }
 
-    // This function would return the appropriate Entities.Calculator for the piece at a given position
+    // This function would return the appropriate Entities.Pieces.Calculator for the piece at a given position
 
     Calculator getPieceCalculator(int position, LocationBitboard board) {
         if ((board.whitePawn[0] & (1L << position)) != 0 || (board.blackPawn[0] & (1L << position)) != 0) {
@@ -74,4 +72,4 @@ public class CheckmateCalculator {
             throw new RuntimeException("No piece found at position " + position);
         }
     }
-}
+}*/

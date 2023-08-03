@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class MainMenu implements ActionListener {
+    private ChessBoardUI ui;
     JFrame menu_frame = new JFrame("Main Menu");
     JLabel menuBackground = new JLabel("Background");
     JLabel logoBackground = new JLabel("logoBackground");
@@ -18,7 +19,8 @@ public class MainMenu implements ActionListener {
     JButton tutorialButton = new JButton("tutorialButton");
 
 
-    MainMenu() {
+    public MainMenu(ChessBoardUI ui) {
+        this.ui = ui;
         // Configuring menu background
         Image unscaledBackgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource(
                 "/projectimages/MenuBackground.jpg"))).getImage();
@@ -108,10 +110,10 @@ public class MainMenu implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playButton) { // Starts a new game instance
             menu_frame.dispose();
-            ChessBoardUI.newGame();
+            ui.newGame();
         } else if (e.getSource() == leaderBoardButton) {
             menu_frame.dispose();
-            new LeaderBoardUI();
+            new LeaderBoardUI(ui);
         }
     }
 }

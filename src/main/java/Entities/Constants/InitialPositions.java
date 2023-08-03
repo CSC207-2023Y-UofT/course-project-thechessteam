@@ -1,4 +1,4 @@
-package Entities;
+package Entities.Constants;
 
 /**
  * This class provides constants for initializing a new chess game.
@@ -8,8 +8,8 @@ package Entities;
  *
  * Chessboard for reference:
  *   Most significant bit (left-most bit) represents h8. Least significant bit (right-most bit) represents a1.
- *   e.g., Black Entities.King on square e8 (file 'e', rank '8')
- *   e.g., White Entities.King on square e1 (file 'e', rank '1')
+ *   e.g., Black Entities.Pieces.King on square e8 (file 'e', rank '8')
+ *   e.g., White Entities.Pieces.King on square e1 (file 'e', rank '1')
  *
  *      [a8 b8 c8 d8 e8 f8 g8 h8]
  *      [a7 b7 c7 d7 e7 f7 g7 h7]
@@ -21,28 +21,28 @@ package Entities;
  *      [a1 b1 c1 d1 e1 f1 g1 h1]
  */
 public class InitialPositions {
-    static long WHITE_PAWN =
+    public static long WHITE_PAWN =
             0b0000000000000000000000000000000000000000000000001111111100000000L; // The initial position of the white pawns.
-    static long WHITE_ROOK =
+    public static long WHITE_ROOK =
             0b0000000000000000000000000000000000000000000000000000000010000001L; // The initial position of the white rooks.
-    static long WHITE_KNIGHT =
+    public static long WHITE_KNIGHT =
             0b0000000000000000000000000000000000000000000000000000000001000010L;
-    static long WHITE_BISHOP =
+    public static long WHITE_BISHOP =
             0b0000000000000000000000000000000000000000000000000000000000100100L;
-    static long WHITE_QUEEN =
+    public static long WHITE_QUEEN =
             0b0000000000000000000000000000000000000000000000000000000000001000L;
-    static long WHITE_KING =
+    public static long WHITE_KING =
             0b0000000000000000000000000000000000000000000000000000000000010000L;
-    static long BLACK_PAWN =
+    public static long BLACK_PAWN =
             0b0000000011111111000000000000000000000000000000000000000000000000L;
-    static long BLACK_ROOK =
+    public static long BLACK_ROOK =
             0b1000000100000000000000000000000000000000000000000000000000000000L;
-    static long BLACK_KNIGHT =
+    public static long BLACK_KNIGHT =
             0b0100001000000000000000000000000000000000000000000000000000000000L;
-    static long BLACK_BISHOP =
+    public static long BLACK_BISHOP =
             0b0010010000000000000000000000000000000000000000000000000000000000L;
-    static long BLACK_QUEEN =
+    public static long BLACK_QUEEN =
             0b0000100000000000000000000000000000000000000000000000000000000000L;
-    static long BLACK_KING =
+    public static long BLACK_KING =
             0b0001000000000000000000000000000000000000000000000000000000000000L;
 }

@@ -1,9 +1,7 @@
-package UseCases;
+/*package Entities.VariousCalculators;
 
-import Entities.Calculator;
-import Entities.Calculators;
-import Entities.LocationBitboard;
-import UseCases.CheckCalculator;
+import Entities.Pieces.Calculator;
+import Entities.Locations.LocationBitboard;
 
 public class StalemateCalculator {
 
@@ -65,4 +63,4 @@ public class StalemateCalculator {
             throw new RuntimeException("No piece found at position " + position);
         }
     }
-}
+}*/

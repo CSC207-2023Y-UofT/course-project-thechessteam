@@ -1,6 +1,10 @@
-package RenamePackage;
+package Entities;
 
-import Entities.*;
+import Entities.Constants.FileAndRank;
+import Entities.Constants.PreCalculatedAttacks;
+import Entities.Locations.LocationBitboard;
+
+// Used for debugging, not actually any component of our program
 
 public class TestForBitboards {
     public static void main(String[] args){
