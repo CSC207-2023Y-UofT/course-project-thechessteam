@@ -2,8 +2,6 @@ package Entities;
 
 import Entities.Locations.LocationBitboard;
 
-import java.util.Objects;
-
 public class ChessGame {
     // A class to represent the game board we are using. Keeps track whose turn it is as well.
 
