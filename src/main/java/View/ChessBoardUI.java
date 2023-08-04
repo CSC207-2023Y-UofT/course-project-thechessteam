@@ -1,8 +1,8 @@
 package View;
 
 import Controller.Controller;
-import Entities.Constants.InitialPositions;
-import Presenter.Presenter;
+import Entities.Constants.InitialPositions; // Used for initializing.
+import Presenter.Presenter; // Used for reestablishing framework after we create a new ChessBoardUI.
 import View_Interface.ViewInterface;
 
 import javax.swing.*;
