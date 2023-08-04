@@ -2,6 +2,7 @@ package View;
 
 import Controller.Controller;
 import Entities.Constants.InitialPositions;
+import Presenter.Presenter;
 import View_Interface.ViewInterface;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.util.Objects;
 public class ChessBoardUI extends JPanel implements ViewInterface {
 
     private Controller clickController;
+    private Presenter presenter;
     private GameOver gameOverScreen;
 
     // ----------------------------------------------------------------------------------------------------------
@@ -44,8 +46,9 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
 
 
     // Holds chessboard exclusive listeners
-    public ChessBoardUI(Controller clickController) {
+    public ChessBoardUI(Controller clickController, Presenter presenter) {
         this.clickController = clickController;
+        this.presenter = presenter;
         addMouseListener(new MouseAdapter() {
             boolean highlightPossible;
             @Override
@@ -324,6 +327,7 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
 
     // Draws the end screen for the game
     public void drawEndScreen() {
+        System.out.println("drawing end screen!");
         Graphics g = this.getGraphics();
         g.setColor(new Color(0, 0, 0, 184));
         g.fillRect(0, 0, ((8)*squareSize) +border*2, ((8)*squareSize) +border*2);
@@ -339,7 +343,7 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         clickController.start_new_game(); // Resets board for next game
         setNewGameVariables(); // Resets game state variables in view
         if (gameOverScreen == null) {
-            gameOverScreen = new GameOver(this);
+            gameOverScreen = new GameOver(clickController,this, presenter);
         } else {
             gameOverScreen.window_frame.setVisible(true);
         }

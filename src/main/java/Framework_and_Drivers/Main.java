@@ -38,7 +38,7 @@ public class Main {
         // View.
         // Our main UI called ChessBoardUI.
         // Implements ViewInterface and depends on Controller. Also depends on GameOver view class.
-        ChessBoardUI ui = new ChessBoardUI(clickController);
+        ChessBoardUI ui = new ChessBoardUI(clickController, presenter);
 
         // Need to set ViewInterface instance in Presenter because it depends on a view interface
         presenter.set_view(ui);
@@ -48,6 +48,6 @@ public class Main {
 
         // Start View.
         // MainMenu, LeaderBoardUI, and GameOver extends View.
-        new MainMenu(ui);
+        new MainMenu(clickController, presenter);
     }
 }
