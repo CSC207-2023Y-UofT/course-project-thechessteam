@@ -29,6 +29,9 @@ It features all common chess mechanisms, including move generation, move validat
 - Architecture Pattern: Model-View-Controller (MVC)
 - Board Representation: Bitboard
 
+This project uses MVC pattern to deploy clean architecture. While some interdependency is unavoidable due to the nature of chess as a game, all such dependencies are contained within each layer and adhere to SOLID principles.
+![MVC](https://i.imgur.com/wci7Tt4.png)
+
 ## Features
 
 ### Selecting a piece and show valid moves
@@ -63,10 +66,13 @@ If neither the king nor the rook has moved, and the king is not in check, clicki
     <img src="https://i.imgur.com/4tVivzL.png" width="49%" />
 </p>
 
-### Pawn promotion
-<!--- before and after pawn promotion --->
-When a pawn reaches the end of the board, it can be promoted.
-![Pawn promotion](https://i.imgur.com/pKTplXd.png)
+[//]: # (### Pawn promotion)
+
+[//]: # (<!--- before and after pawn promotion --->)
+
+[//]: # (When a pawn reaches the end of the board, it can be promoted.)
+
+[//]: # (![Pawn promotion]&#40;https://i.imgur.com/pKTplXd.png&#41;)
 
 ### Check
 <!--- explain checkmate, one pic --->
