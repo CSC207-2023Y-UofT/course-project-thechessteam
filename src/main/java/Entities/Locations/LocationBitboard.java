@@ -1,6 +1,8 @@
-package Entities;
+package Entities.Locations;
 
-import java.awt.*;
+import Entities.Constants.FileAndRank;
+import Entities.Constants.InitialPositions;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,7 +12,7 @@ import java.util.Map;
  * Each type of piece (for both white and black) is represented by a long array, where each element
  * is a bitboard that represents the locations of pieces of that type.
  * Array of longs for flexibility. (long[])
- * Castling will be tied to Entities.King valid moves. We assume that if Entities.King moves two spaces, we are castling.
+ * Castling will be tied to Entities.Pieces.King valid moves. We assume that if Entities.Pieces.King moves two spaces, we are castling.
  */
 public class LocationBitboard {
     private final Map<String, long[]> pieceBitboards = new HashMap<>();
@@ -253,7 +255,7 @@ public class LocationBitboard {
     // ----------------------------------------------------------------------------------------------------------
 
     /**
-     * Constructor for creating an instance of Entities.LocationBitboard.
+     * Constructor for creating an instance of Entities.Locations.LocationBitboard.
      * Initializes all the bitboards to the starting positions of the pieces
      */
     public LocationBitboard(){

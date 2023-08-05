@@ -1,6 +1,7 @@
-package Entities;
+package Entities.Pieces;
 
-import Entities.Calculator;
+import Entities.Constants.FileAndRank;
+import Entities.Locations.LocationBitboard;
 
 public class Bishop implements Calculator {
 
@@ -33,7 +34,7 @@ public class Bishop implements Calculator {
                 board.getWhiteLocations() :
                 board.getBlackLocations();
 
-        // return long, of the valid moves this specific Entities.Bishop may take
+        // return long, of the valid moves this specific Entities.Pieces.Bishop may take
         return calculateFinalPosition((diagonal& diagonalMask)) |
                 calculateFinalPosition(antiDiagonal& antiDiagonalMask);
     }

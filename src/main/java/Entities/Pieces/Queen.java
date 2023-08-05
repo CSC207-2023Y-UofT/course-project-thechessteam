@@ -1,6 +1,7 @@
-package Entities;
+package Entities.Pieces;
 
-import Entities.Calculator;
+import Entities.Constants.FileAndRank;
+import Entities.Locations.LocationBitboard;
 
 public class Queen implements Calculator {
     public Queen(){}

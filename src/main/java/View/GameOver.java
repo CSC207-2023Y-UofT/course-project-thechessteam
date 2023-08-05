@@ -1,5 +1,8 @@
 package View;
 
+import Controller.Controller;
+import Presenter.Presenter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,6 +10,9 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class GameOver implements ActionListener {
+    private Controller clickController;
+    private ChessBoardUI ui;
+    private Presenter presenter;
     JFrame window_frame = new JFrame();
     JLabel game_overLabel = new JLabel("Game Over!");
     JButton playAgain = new JButton("Play Again");
@@ -14,7 +20,10 @@ public class GameOver implements ActionListener {
     JButton submitButton = new JButton("Submit Name");
     JTextField nameBox = new JTextField("Winner's Name");
 
-    GameOver() {
+    GameOver(Controller clickController, ChessBoardUI ui, Presenter presenter) {
+        this.clickController = clickController;
+        this.ui = ui;
+        this.presenter = presenter;
         // Configuring the gameOver Icon
         Image unscaledIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/GameOver.png"))).getImage();
         Image gameOverIcon = unscaledIcon.getScaledInstance(100 ,100, java.awt.Image.SCALE_SMOOTH);
@@ -74,12 +83,14 @@ public class GameOver implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == menuButton) { // Opens the menu screen
             window_frame.dispose();
-            ChessBoardUI.javaF.dispose();
-            new MainMenu();
+            ui.disposeFrame();
+            new MainMenu(clickController, presenter);
         } else if (e.getSource() == playAgain) { // Starts a new game instance
             window_frame.dispose();
-            ChessBoardUI.javaF.dispose();
-            ChessBoardUI.newGame();
+            ui.disposeFrame();
+            ChessBoardUI board = new ChessBoardUI(clickController, presenter);
+            presenter.set_view(board);
+            board.newGame();
         } else if (e.getSource() == submitButton) {
             if (!Objects.equals(nameBox.getText(), "Record Name")) {
                 // TODO Put leaderboard insertion code here, use "nameBox.getText()" to get the contents of the inputed text

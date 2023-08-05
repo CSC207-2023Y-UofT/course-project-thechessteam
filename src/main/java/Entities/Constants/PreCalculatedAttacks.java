@@ -1,10 +1,8 @@
-package Entities;
-
-import Entities.FileAndRank;
+package Entities.Constants;
 
 public class PreCalculatedAttacks {
 
-    // [color][square number] for all arrays in Entities.PreCalculatedAttacks
+    // [color][square number] for all arrays in Entities.Constants.PreCalculatedAttacks
     // 0 for White; 1 for Black
     public static long[][] pawn_attacks = new long[2][64];
     static {

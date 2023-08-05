@@ -1,5 +1,8 @@
 package View;
 
+import Controller.Controller;
+import Presenter.Presenter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,8 +10,9 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class LeaderBoardUI implements ActionListener {
-
-    JFrame leaderboard_frame = new JFrame("LeaderBoard");
+    private Controller clickController;
+    private Presenter presenter;
+    JFrame leaderboard_frame = new JFrame("Database.LeaderBoard");
     JLabel frameBackground = new JLabel("Background");
     JLabel leaderBackground = new JLabel("buttonBackground");
     JLabel nameSort = new JLabel("Name");
@@ -17,7 +21,9 @@ public class LeaderBoardUI implements ActionListener {
     JScrollPane scrollingScore = new JScrollPane(scoresPanel);
     JButton backButton = new JButton("Back");
 
-    LeaderBoardUI() {
+    public LeaderBoardUI(Controller clickController, Presenter presenter) {
+        this.clickController = clickController;
+        this.presenter = presenter;
         // Configuring menu background
         Image unscaledBackgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource(
                 "/projectimages/MenuBackground.jpg"))).getImage();
@@ -111,7 +117,7 @@ public class LeaderBoardUI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backButton) {
             leaderboard_frame.dispose();
-            new MainMenu();
+            new MainMenu(clickController, presenter);
         }
     }
 }

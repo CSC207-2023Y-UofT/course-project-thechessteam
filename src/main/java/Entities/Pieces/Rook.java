@@ -1,6 +1,7 @@
-package Entities;
+package Entities.Pieces;
 
-import Entities.Calculator;
+import Entities.Constants.FileAndRank;
+import Entities.Locations.LocationBitboard;
 
 public class Rook implements Calculator {
 
@@ -29,7 +30,7 @@ public class Rook implements Calculator {
         // generates the pieces that are the same color as the piece in question (i.e., can't step on your own pieces).
         this.sameColoredPieces = (side) ? board.getWhiteLocations() : board.getBlackLocations();
 
-        // Return long, of the valid moves this specific Entities.Rook may take
+        // Return long, of the valid moves this specific Entities.Pieces.Rook may take
         // Applies corresponding masks again to filter out relevant positions.
         return calculateFinalPosition(horizontal & horizontalMask)
                 | calculateFinalPosition(vertical& verticalMask);
