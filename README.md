@@ -10,7 +10,6 @@ The Chess Team is a two player bitboard based chess game engine.
   - [Move piece](#move-a-piece)
   - [Capture](#capture-pieces)
   - [Castling](#castling)
-  - [Pawn promotion](#pawn-promotion)
   - [Check](#check)
   - [Draw](#draw)
   - [Forfeit](#forfeit)
