@@ -255,15 +255,6 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         javaF.dispose();
     }
 
-    public void setNewGameVariables() {
-        turn = true; // Make sure to start with White's turn
-        isNewGame = true;
-        gameOver = false;
-        blkPoints = 0;
-        whtPoints = 0;
-        winMsg = "";
-    }
-
     // Set win message for end screen
     public void setWinMsg(String winTeam) {
         if (Objects.equals(winTeam, "Black")) {
@@ -341,7 +332,6 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         gameOver = true;
 
         clickController.start_new_game(); // Resets board for next game
-        setNewGameVariables(); // Resets game state variables in view
         if (gameOverScreen == null) {
             gameOverScreen = new GameOver(clickController,this, presenter);
         } else {
