@@ -8,8 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class LeaderBoardUI implements ActionListener {
@@ -76,7 +74,6 @@ public class LeaderBoardUI implements ActionListener {
         backButton.addActionListener(this);
 
         // adds each saved score from the leaderboardTable
-        // TODO replace for loop with code to create new labels into table
         int iteration = 0;
 
         for (String i: LeaderBoard.sendData()) {
