@@ -1,12 +1,15 @@
 package View;
 
 import Controller.Controller;
+import Database.LeaderBoard;
 import Presenter.Presenter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class LeaderBoardUI implements ActionListener {
@@ -75,15 +78,21 @@ public class LeaderBoardUI implements ActionListener {
         // adds each saved score from the leaderboardTable
         // TODO replace for loop with code to create new labels into table
         int iteration = 0;
-        for (int i = 5; i >= 0; i--) {
+
+        for (String i: LeaderBoard.sendData()) {
             iteration += 1;
-            JLabel tempName = new JLabel("Temp Name");
+
+            String[] string_split = i.split(":");
+            String name = string_split[0];
+            String wins = string_split[1];
+
+            JLabel tempName = new JLabel(name);
             tempName.setOpaque(true);
             tempName.setBackground(new Color(176, 174, 232));
             tempName.setBounds(0,iteration*25,171,25);
 
 
-            JLabel tempWins = new JLabel(Integer.toString(i));
+            JLabel tempWins = new JLabel(wins);
             tempWins.setOpaque(true);
             tempWins.setBackground(new Color(191, 133, 253));
             tempWins.setBounds(171,iteration*25,171,25);

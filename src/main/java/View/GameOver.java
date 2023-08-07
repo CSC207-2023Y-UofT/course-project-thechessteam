@@ -1,6 +1,7 @@
 package View;
 
 import Controller.Controller;
+import Database.LeaderBoard;
 import Presenter.Presenter;
 
 import javax.swing.*;
@@ -92,9 +93,11 @@ public class GameOver implements ActionListener {
             presenter.set_view(board);
             board.newGame();
         } else if (e.getSource() == submitButton) {
-            if (!Objects.equals(nameBox.getText(), "Record Name")) {
-                // TODO Put leaderboard insertion code here, use "nameBox.getText()" to get the contents of the inputed text
+            if (!Objects.equals(nameBox.getText(), "Record Name") && !nameBox.getText().contains(",") && !nameBox.getText().contains(":")) {
                 System.out.println(nameBox.getText());
+                LeaderBoard.addPlayer(nameBox.getText());
+                submitButton.setEnabled(false);
+                nameBox.setEnabled(false);
             }
         }
     }
