@@ -94,7 +94,6 @@ public class GameOver implements ActionListener {
             board.newGame();
         } else if (e.getSource() == submitButton) {
             if (!Objects.equals(nameBox.getText(), "Record Name") && !nameBox.getText().contains(",") && !nameBox.getText().contains(":")) {
-                System.out.println(nameBox.getText());
                 LeaderBoard.addPlayer(nameBox.getText());
                 submitButton.setEnabled(false);
                 nameBox.setEnabled(false);

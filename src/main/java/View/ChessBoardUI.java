@@ -327,7 +327,6 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
 
     // Draws the end screen for the game
     public void drawEndScreen() {
-        System.out.println("drawing end screen!");
         Graphics g = this.getGraphics();
         g.setColor(new Color(0, 0, 0, 184));
         g.fillRect(0, 0, ((8)*squareSize) +border*2, ((8)*squareSize) +border*2);
@@ -338,6 +337,9 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
 
         javaF.setIgnoreRepaint(true);
         javaF.setResizable(false);
+        forfeitButton.setEnabled(false);
+        stalemateButton.setEnabled(false);
+
         gameOver = true;
 
         clickController.start_new_game(); // Resets board for next game
@@ -455,13 +457,13 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
 
     // starts a new game instance
     public void newGame() {
-        System.out.println("starting a new game!");
-        System.out.println();
         // Setting initial game state
         pawnPromoteQueen.setVisible(false);
         pawnPromoteKnight.setVisible(false);
         pawnPromoteBishop.setVisible(false);
         pawnPromoteRook.setVisible(false);
+        forfeitButton.setEnabled(true);
+        stalemateButton.setEnabled(true);
 
         // Initialize piece positions
         long[][] bitboardArray = new long[2][6];
