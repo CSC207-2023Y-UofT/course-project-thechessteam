@@ -12,8 +12,8 @@ import java.util.Objects;
 
 public class ChessBoardUI extends JPanel implements ViewInterface {
 
-    private Controller clickController;
-    private Presenter presenter;
+    private final Controller clickController;
+    private final Presenter presenter;
     private GameOver gameOverScreen;
 
     // ----------------------------------------------------------------------------------------------------------
@@ -24,10 +24,10 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
     private int whtPoints = 0;
     private int blkPoints = 0;
     private String winMsg = ""; // Set at the end of the game for the team that won
-    private long[][] pieceLocations = new long[2][6]; // bitboards in the format [white, black] [Pawn, Rook, Knight, Bishop. Queen, King]
+    private final long[][] pieceLocations = new long[2][6]; // bitboards in the format [white, black] [Pawn, Rook, Knight, Bishop. Queen, King]
 
     // ----------------------------------------------------------------------------------------------------------
-    private JFrame javaF = new JFrame("Chess Engine");
+    private final JFrame javaF = new JFrame("Chess Engine");
     public int squareSize = 64;
     private final int[] twoClicks = new int[2];
     private int numClicks = 0;
@@ -35,14 +35,14 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
 
     // Highlights in bitboard representation
     private long highlightSquares = 0L;
-    private JButton forfeitButton = new JButton("forfeitButton");
-    private JButton stalemateButton = new JButton("stalemateButton");
+    private final JButton forfeitButton = new JButton("forfeitButton");
+    private final JButton stalemateButton = new JButton("stalemateButton");
     static int border = 10; //the amount of empty space around the frame
 
-    private JButton pawnPromoteQueen = new JButton("stalemateButton"); // queen pawn promotion button
-    private JButton pawnPromoteKnight = new JButton("stalemateButton"); // queen pawn promotion button
-    private JButton pawnPromoteBishop = new JButton("stalemateButton"); // queen pawn promotion button
-    private JButton pawnPromoteRook = new JButton("stalemateButton"); // queen pawn promotion button
+    private final JButton pawnPromoteQueen = new JButton("stalemateButton"); // queen pawn promotion button
+    private final JButton pawnPromoteKnight = new JButton("stalemateButton"); // queen pawn promotion button
+    private final JButton pawnPromoteBishop = new JButton("stalemateButton"); // queen pawn promotion button
+    private final JButton pawnPromoteRook = new JButton("stalemateButton"); // queen pawn promotion button
 
 
     // Holds chessboard exclusive listeners
@@ -289,7 +289,6 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         if (isNewGame) {
             stalemateButton.addActionListener(e -> {
                 if (!gameOver) { // Makes sure the game isn't over
-                    // TODO put draw code here
 
                     setWinMsg("draw");
                     drawEndScreen();
@@ -325,31 +324,6 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         this.add(forfeitButton);
     }
 
-    // Draws the end screen for the game
-    public void drawEndScreen() {
-        System.out.println("drawing end screen!");
-        Graphics g = this.getGraphics();
-        g.setColor(new Color(0, 0, 0, 184));
-        g.fillRect(0, 0, ((8)*squareSize) +border*2, ((8)*squareSize) +border*2);
-
-        g.setColor(new Color(220, 216, 216));
-        g.setFont(new Font("TRUE TYPE_FONT", Font.BOLD, squareSize - 20));
-        g.drawString(winMsg, (3)*squareSize - (squareSize + 40), squareSize * 4);
-
-        javaF.setIgnoreRepaint(true);
-        javaF.setResizable(false);
-        gameOver = true;
-
-        clickController.start_new_game(); // Resets board for next game
-        setNewGameVariables(); // Resets game state variables in view
-        if (gameOverScreen == null) {
-            gameOverScreen = new GameOver(clickController,this, presenter);
-        } else {
-            gameOverScreen.window_frame.setVisible(true);
-        }
-
-    }
-    // ----------------------------------------------------------------------------------------------------------
     // Creation of the timer UI located at the bottom right.
     public void drawTimer(Graphics g) {
         // Creation of the clock Borders
@@ -453,15 +427,42 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         this.add(pawnPromoteBishop);
     }
 
+    public void drawEndScreen() {
+        Graphics g = this.getGraphics();
+        g.setColor(new Color(0, 0, 0, 184));
+        g.fillRect(0, 0, ((8)*squareSize) +border*2, ((8)*squareSize) +border*2);
+
+        g.setColor(new Color(220, 216, 216));
+        g.setFont(new Font("TRUE TYPE_FONT", Font.BOLD, squareSize - 20));
+        g.drawString(winMsg, (3)*squareSize - (squareSize + 40), squareSize * 4);
+
+        javaF.setIgnoreRepaint(true);
+        javaF.setResizable(false);
+        forfeitButton.setEnabled(false);
+        stalemateButton.setEnabled(false);
+
+        gameOver = true;
+
+        clickController.start_new_game(); // Resets board for next game
+
+        setNewGameVariables(); // Resets game state variables in view
+
+        if (gameOverScreen == null) {
+            gameOverScreen = new GameOver(clickController,this, presenter);
+        } else {
+            gameOverScreen.window_frame.setVisible(true);
+        }
+    }
+
     // starts a new game instance
     public void newGame() {
-        System.out.println("starting a new game!");
-        System.out.println();
         // Setting initial game state
         pawnPromoteQueen.setVisible(false);
         pawnPromoteKnight.setVisible(false);
         pawnPromoteBishop.setVisible(false);
         pawnPromoteRook.setVisible(false);
+        forfeitButton.setEnabled(true);
+        stalemateButton.setEnabled(true);
 
         // Initialize piece positions
         long[][] bitboardArray = new long[2][6];
