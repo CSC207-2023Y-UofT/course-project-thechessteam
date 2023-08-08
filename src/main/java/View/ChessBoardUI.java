@@ -201,7 +201,7 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         g.fill3DRect(0, border, border, 8*squareSize, true);
         g.fill3DRect((8*squareSize) +border, border, border, 8*squareSize, true);
         g.fill3DRect(border, 0, 8*squareSize, border, true);
-        g.fill3DRect(border, (int)(8*squareSize)+border, 8*squareSize, border, true);
+        g.fill3DRect(border, (8*squareSize)+border, 8*squareSize, border, true);
 
         g.setColor(Color.BLACK);
         g.fill3DRect(0, 0, border, border, true);
