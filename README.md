@@ -29,7 +29,7 @@ It features all common chess mechanisms, including move generation, move validat
 - Board Representation: Bitboard
 
 This project uses MVC pattern to deploy clean architecture. While some interdependency is unavoidable due to the nature of chess as a game, all such dependencies are contained within each layer and adhere to SOLID principles.
-![MVC](https://i.imgur.com/nCWoDhr.png)
+![MVC](https://i.imgur.com/fJ5qtHP.png)
 
 ## Features
 
