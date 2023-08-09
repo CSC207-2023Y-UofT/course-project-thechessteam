@@ -6,6 +6,11 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * A utility class responsible for rendering and managing images of chess pieces.
+ * This class contains static references to white and black chess pieces' images,
+ * and it initializes these images by reading from a given source.
+ */
 public class ImageRendering {
     public static Image whitePawn;
     public static Image whiteRook;

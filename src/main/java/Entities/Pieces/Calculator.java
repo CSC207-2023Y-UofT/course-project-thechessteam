@@ -11,6 +11,7 @@ import Entities.Locations.LocationBitboard;
  *
  */
 public interface Calculator {
+
     /**
      * Calculates all valid moves a player can make for the piece at the given location.
      *
@@ -36,7 +37,4 @@ public interface Calculator {
     // implement Entities.Pieces.Calculator.
 
     // Entities.Pieces.Pawn, Entities.Pieces.Knight, and Entities.Pieces.King use Entities.Constants.PreCalculatedAttacks in their methods.
-
-
-
 }

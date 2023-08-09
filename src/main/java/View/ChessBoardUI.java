@@ -10,14 +10,16 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Objects;
 
+/**
+ * ChessBoardUI class represents the User Interface of the chessboard, handling
+ * the visualization of the game state and user interactions, such as clicks.
+ *
+ */
 public class ChessBoardUI extends JPanel implements ViewInterface {
 
     private Controller clickController;
     private Presenter presenter;
     private GameOver gameOverScreen;
-
-    // ----------------------------------------------------------------------------------------------------------
-    // Game State
     private boolean gameOver = false;
     private boolean isNewGame = true;
     private boolean turn = true;
@@ -25,27 +27,27 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
     private int blkPoints = 0;
     private String winMsg = ""; // Set at the end of the game for the team that won
     private long[][] pieceLocations = new long[2][6]; // bitboards in the format [white, black] [Pawn, Rook, Knight, Bishop. Queen, King]
-
-    // ----------------------------------------------------------------------------------------------------------
     private JFrame javaF = new JFrame("Chess Engine");
     public int squareSize = 64;
     private final int[] twoClicks = new int[2];
     private int numClicks = 0;
-
-
-    // Highlights in bitboard representation
     private long highlightSquares = 0L;
     private JButton forfeitButton = new JButton("forfeitButton");
     private JButton stalemateButton = new JButton("stalemateButton");
     static int border = 10; //the amount of empty space around the frame
-
     private JButton pawnPromoteQueen = new JButton("stalemateButton"); // queen pawn promotion button
     private JButton pawnPromoteKnight = new JButton("stalemateButton"); // queen pawn promotion button
     private JButton pawnPromoteBishop = new JButton("stalemateButton"); // queen pawn promotion button
     private JButton pawnPromoteRook = new JButton("stalemateButton"); // queen pawn promotion button
 
 
-    // Holds chessboard exclusive listeners
+    /**
+     * Constructs a new ChessBoardUI object with the specified Controller and Presenter.
+     * It initializes the chessboard and user interaction listeners.
+     *
+     * @param clickController The Controller handling mouse clicks.
+     * @param presenter The Presenter managing the view.
+     */
     public ChessBoardUI(Controller clickController, Presenter presenter) {
         this.clickController = clickController;
         this.presenter = presenter;
@@ -92,8 +94,12 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
             }
         });
     }
-    // ----------------------------------------------------------------------------------------------------------
-    // Paint Chess Board
+
+    /**
+     * Overrides the paintComponent method to draw the current state of the chess game, including the board, pieces, borders, teams, timers, etc.
+     *
+     * @param g Graphics object used to paint the components.
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -128,8 +134,12 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         }
         drawHighlights(g);
     }
-    // ----------------------------------------------------------------------------------------------------------
-    // ViewInterface methods
+
+    /**
+     * Sets the board's bitboard array.
+     *
+     * @param bitboardArray The bitboard representation of the chessboard.
+     */
     @Override
     public void setBoard(long[][] bitboardArray) {
         for(int i = 0; i < 6; i++) {
@@ -138,29 +148,51 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         }
     }
 
+    /**
+     * Sets the highlighted squares on the chessboard.
+     *
+     * @param highlight The bitboard representing the highlighted squares.
+     */
     @Override
     public void setHighlights(long highlight) {
         this.highlightSquares = highlight;
     }
 
+    /**
+     * Sets the current turn of the game.
+     *
+     * @param turn The boolean representing whose turn it is (true for white, false for black).
+     */
     @Override
     public void setTurn(boolean turn) {
         this.turn = turn;
     }
 
+    /**
+     * Sets the points for the white team.
+     *
+     * @param whtPoints The points for the white team.
+     */
     @Override
     public void setWhtPoints(int whtPoints) {
         this.whtPoints = whtPoints;
     }
 
+    /**
+     * Sets the points for the black team.
+     *
+     * @param blkPoints The points for the black team.
+     */
     @Override
     public void setBlkPoints(int blkPoints) {
         this.blkPoints = blkPoints;
     }
-    // ----------------------------------------------------------------------------------------------------------
-    // Components of paintComponent
 
-    // Draws the chess board
+    /**
+     * Draws the chessboard on the panel.
+     *
+     * @param g Graphics object used to draw the chessboard.
+     */
     public void drawBoard(Graphics g) {
         for (int i=0;i<64;i+=2) {//draw chess board
             g.setColor(new Color(255, 255, 255));
@@ -169,7 +201,12 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
             g.fillRect((((i+1)%8-((i+1)/8)%2)*squareSize) +border, (((i+1)/8)*squareSize) +border, squareSize, squareSize);
         }
     }
-    // Draws the game borders
+
+    /**
+     * Draws the game borders.
+     *
+     * @param g Graphics object used to draw the borders.
+     */
     public void drawBorders(Graphics g) {
         g.setColor(new Color(43, 45, 48));
         g.fill3DRect(0, border, border, 8*squareSize, true);
@@ -191,7 +228,14 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         g.fill3DRect((8*squareSize) +2*border+200, border, border, 8*squareSize, true);
         g.fill3DRect((8*squareSize) +2*border, (8*squareSize) +border, 200, border, true);
     }
-    // Draws pieces
+
+    /**
+     * Draws the chess pieces on the board.
+     *
+     * @param g Graphics object used to draw the pieces.
+     * @param bitboard The bitboard representation of the pieces.
+     * @param pieceImage The image of the chess piece.
+     */
     public void draw_pieces(Graphics g, long bitboard, Image pieceImage) {
         for (int i = 0; i < 64; i++) {
             if ((bitboard & (1L << i)) != 0) {
@@ -203,7 +247,11 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         }
     }
 
-    // Draw the piece move highlight
+    /**
+     * Highlights the legal moves for a piece on the chessboard.
+     *
+     * @param g Graphics object used to draw the highlights.
+     */
     public void drawHighlights(Graphics g) {
         int diameter = squareSize / 4;
         int radius = diameter / 2;
@@ -218,8 +266,12 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
             }
         }
     }
-    // ----------------------------------------------------------------------------------------------------------
-    // Creation of the white teams points and captured pieces.
+
+    /**
+     * Draws the white team's points and captured pieces.
+     *
+     * @param g Graphics object used to draw the white team's information.
+     */
     public void drawWhiteTeam(Graphics g) {
         if (turn) {
             g.setColor(new Color(93, 111, 155));
@@ -233,7 +285,11 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         g.drawString(Integer.toString(whtPoints), (8*squareSize) +2*border + 175 - border, border*2+ (int)(2.8*squareSize) + 2);
     }
 
-    // Creation of the black teams points and captured pieces.
+    /**
+     * Draws the black team's points and captured pieces.
+     *
+     * @param g Graphics object used to draw the black team's information.
+     */
     public void drawBlackTeam(Graphics g) {
         if (!turn) {
             g.setColor(new Color(93, 111, 155));
@@ -247,14 +303,17 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         g.drawString("Black Team:", (8*squareSize) +2*border + 2, border*2+ 2);
         g.drawString(Integer.toString(blkPoints), (8*squareSize) +2*border + 175 - border, border*2 + 2);
     }
-    // ----------------------------------------------------------------------------------------------------------
-    // Buttons that updates who won and drawing for end screen.
 
-    // Dispose frame here. Used by GameOver class
+    /**
+     * Dispose of the frame.
+     */
     public void disposeFrame() {
         javaF.dispose();
     }
 
+    /**
+     * Sets the variables for a new game.
+     */
     public void setNewGameVariables() {
         turn = true; // Make sure to start with White's turn
         isNewGame = true;
@@ -264,7 +323,11 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         winMsg = "";
     }
 
-    // Set win message for end screen
+    /**
+     * Sets the win message for the end screen.
+     *
+     * @param winTeam The winning team ("Black", "White", or "draw").
+     */
     public void setWinMsg(String winTeam) {
         if (Objects.equals(winTeam, "Black")) {
             winMsg = "Black Team Wins!";
@@ -275,7 +338,9 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         }
     }
 
-    // Creation of the draw button.
+    /**
+     * Creates and displays the draw stalemate button.
+     */
     public void drawStalemate() {
         Image unscaledIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/DrawIcon.png"))).getImage();
         Image stalemateIcon = unscaledIcon.getScaledInstance(50 , squareSize - 10, java.awt.Image.SCALE_SMOOTH);
@@ -298,7 +363,10 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         }
         this.add(stalemateButton);
     }
-    // Creation of the forfeit button.
+
+    /**
+     * Creates and displays the forfeit button.
+     */
     public void drawForfeit() {
         Image unscaledIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/Forfeit.png"))).getImage();
         Image forfeitIcon = unscaledIcon.getScaledInstance(40 , squareSize - 25, java.awt.Image.SCALE_SMOOTH);
@@ -325,7 +393,10 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         this.add(forfeitButton);
     }
 
-    // Draws the end screen for the game
+    /**
+     * Draws the end screen for the game, including settings related to game over status,
+     * game window configurations, and display of the game over screen.
+     */
     public void drawEndScreen() {
         System.out.println("drawing end screen!");
         Graphics g = this.getGraphics();
@@ -349,8 +420,13 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         }
 
     }
-    // ----------------------------------------------------------------------------------------------------------
-    // Creation of the timer UI located at the bottom right.
+
+    /**
+     * Renders the timer UI located at the bottom right of the game screen.
+     * It creates the clock borders and labels with specified dimensions and colors.
+     *
+     * @param g Graphics object to render the timer elements on.
+     */
     public void drawTimer(Graphics g) {
         // Creation of the clock Borders
         g.setColor(new Color(44, 46, 51));
@@ -365,7 +441,11 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         g.drawString("0:00", (8*squareSize) +2*border + squareSize - 15, border+ (7*squareSize+ squareSize - 15));
     }
 
-    // Draws the pawn promotion buttons
+    /**
+     * Draws and configures the pawn promotion buttons on the game screen.
+     * It sets the icon, position, and other visual configurations for the promotion buttons.
+     * It also adds action listeners to handle the pawn promotion event.
+     */
     public void drawPromotionButtons() {
         // Queen promotion button configurations
         Image unscaledQIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/QueenPromote.png"))).getImage();
@@ -453,7 +533,10 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         this.add(pawnPromoteBishop);
     }
 
-    // starts a new game instance
+    /**
+     * Starts a new game instance by initializing piece positions,
+     * setting initial game state, and configuring the game UI.
+     */
     public void newGame() {
         System.out.println("starting a new game!");
         System.out.println();

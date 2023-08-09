@@ -12,7 +12,19 @@ import Use_Cases.NewGame;
 import View.ChessBoardUI;
 import View.MainMenu;
 
+/**
+ * This is the main entry point for the Chess Game application.
+ * The class ties together different components of the chess game
+ *
+ */
 public class Main {
+
+    /**
+     * The main method initializes various components of the application
+     * and starts the game by showing the MainMenu view.
+     *
+     * @param args Command line arguments. Not used in this application.
+     */
     public static void main(String[] args) {
         // Entities.
         // Dependencies are non-cyclical and within the same entity layer
