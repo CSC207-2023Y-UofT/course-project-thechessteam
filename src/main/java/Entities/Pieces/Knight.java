@@ -3,7 +3,7 @@ package Entities.Pieces;
 import Entities.Constants.PreCalculatedAttacks;
 import Entities.Locations.LocationBitboard;
 
-public class Knight implements Calculator {
+public class Knight implements PieceCalculator {
     // Entities.Pieces.Knight Class intended to hold the calculations for knight piece movements
     private long sameColoredPieces;
 

@@ -1,14 +1,14 @@
 package Entities.VariousCalculators;
 
-import Entities.Pieces.Calculator;
+import Entities.Pieces.PieceCalculator;
 import Entities.Locations.LocationBitboard;
 
 public class ActualValidCalculator {
     // A use case class that filters moves calculated by Entities.VariousCalculators.Calculators.
     // Filters moves that would put side's Entities.Pieces.King in check (Illegal moves).
     // side == true for white, side == false for black.
-    private Calculators calculators;
-    private CheckCalculator checkCalc;
+    private final Calculators calculators;
+    private final CheckCalculator checkCalc;
     public ActualValidCalculator(Calculators calculators, CheckCalculator checkCalc) {
         this.calculators = calculators;
         this.checkCalc = checkCalc;
@@ -21,7 +21,7 @@ public class ActualValidCalculator {
         // Precondition: There cannot be two pieces in the same location of currentBoard.
 
         // Determine what calculator to use (i.e. What is the piece type at from?)
-        Calculator calculator = identify_calculator(from, currentBoard);
+        PieceCalculator calculator = identify_calculator(from, currentBoard);
 
         // Read comment on UseCases.CheckCalculator below for this variable
         boolean fromIsKing = ((from & currentBoard.whiteKing[0]) != 0) || ((from & currentBoard.blackKing[0]) != 0);
@@ -137,8 +137,8 @@ public class ActualValidCalculator {
     // ----------------------------------------------------------------------------------------------------------
     // Helper method for finding piece type
     // Throws RuntimeException if side does not have any piece at from
-    private Calculator identify_calculator(long from, LocationBitboard currentBoard) {
-        Calculator calculator;
+    private PieceCalculator identify_calculator(long from, LocationBitboard currentBoard) {
+        PieceCalculator calculator;
 
         if (((from & currentBoard.whitePawn[0]) != 0L) || ((from & currentBoard.blackPawn[0]) != 0L)) {
             calculator = calculators.pawnCalculator;

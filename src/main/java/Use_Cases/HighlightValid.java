@@ -7,8 +7,8 @@ import Presenter_Interface.PresenterInterface;
 
 public class HighlightValid {
     private PresenterInterface presenter;
-    private ChessGame currentGame;
-    private ActualValidCalculator actualValidCalc;
+    private final ChessGame currentGame;
+    private final ActualValidCalculator actualValidCalc;
 
     public HighlightValid(ChessGame currentGame, ActualValidCalculator actualValidCalc) {
         this.currentGame = currentGame;

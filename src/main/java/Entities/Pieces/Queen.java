@@ -3,7 +3,7 @@ package Entities.Pieces;
 import Entities.Constants.FileAndRank;
 import Entities.Locations.LocationBitboard;
 
-public class Queen implements Calculator {
+public class Queen implements PieceCalculator {
     public Queen(){}
     public long valid_moves(long from, boolean side, LocationBitboard board) {
         // Hyperbola Quintessence Calculation

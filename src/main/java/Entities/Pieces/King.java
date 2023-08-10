@@ -3,7 +3,7 @@ package Entities.Pieces;
 import Entities.Constants.PreCalculatedAttacks;
 import Entities.Locations.LocationBitboard;
 
-public class King implements Calculator {
+public class King implements PieceCalculator {
 
     public long valid_moves(long from, boolean side, LocationBitboard board) {
         int position = Long.numberOfTrailingZeros(from);
@@ -21,13 +21,13 @@ public class King implements Calculator {
         // Castling Move,
         // Check for if King does not cross a space attacked will be done in ActualValidCalculator.
         if (side) { // White
-            if (!board.getWhiteKingMoved() && !board.getLeftRookMovedW()) {
+            if (board.getWhiteKingMoved() && !board.getLeftRookMovedW()) {
                 long needsEmptyL = (1L << 1) | (1L << 2) | (1L << 3);
                 if ((board.getOccupied() & needsEmptyL) == 0L) {
                     kingCoverage |= (1L << 2);
                 }
             }
-            if (!board.getWhiteKingMoved() && !board.getRightRookMovedW()) {
+            if (board.getWhiteKingMoved() && !board.getRightRookMovedW()) {
                 long needsEmptyR = (1L << 5) | (1L << 6);
                 if ((board.getOccupied() & needsEmptyR) == 0L) {
                     kingCoverage |= (1L << 6);
@@ -35,13 +35,13 @@ public class King implements Calculator {
             }
         }
         else { // Black
-            if (!board.getBlackKingMoved() && !board.getLeftRookMovedB()) {
+            if (board.getBlackKingMoved() && !board.getLeftRookMovedB()) {
                 long needsEmptyL = (1L << 57) | (1L << 58) | (1L << 59);
                 if ((board.getOccupied() & needsEmptyL) == 0L) {
                     kingCoverage |= (1L << 58);
                 }
             }
-            if (!board.getBlackKingMoved() && !board.getRightRookMovedB()) {
+            if (board.getBlackKingMoved() && !board.getRightRookMovedB()) {
                 long needsEmptyR = (1L << 61) | (1L << 62);
                 if ((board.getOccupied() & needsEmptyR) == 0L) {
                     kingCoverage |= (1L << 62);
