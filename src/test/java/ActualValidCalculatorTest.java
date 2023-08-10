@@ -73,4 +73,77 @@ class ActualValidCalculatorTest {
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedActualValidMove), actualValidMove);
     }
+
+    @Test
+    void KnightMovingResultInCheck() {
+        // The array representation of knightLocation
+        int[][] whiteKnightLocation = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+
+        int[][] whiteKingLocation = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 0, 0, 0}
+        };
+
+        int[][] blackQueenLocation = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+
+        int[][] blackRookLocation = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+
+        // Remove all pieces from board.
+        TestHelper.remove_all_pieces(board);
+        board.whiteKnight[0] = TestHelper.bitboard_representation(whiteKnightLocation);
+        board.whiteKing[0] = TestHelper.bitboard_representation(whiteKingLocation);
+        board.blackQueen[0] = TestHelper.bitboard_representation(blackQueenLocation);
+        board.blackRook[0] = TestHelper.bitboard_representation(blackRookLocation);
+        board.updateLocationVariables();
+
+        // Only moves that does not put the king in check should be valid
+        int[][] expectedActualValidMove = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+
+        long actualValidMove = actualValidCalculator.actual_valid_moves(
+                TestHelper.bitboard_representation(whiteKnightLocation), true, board);
+        // Check if valid move is as expected
+        assertEquals(TestHelper.bitboard_representation(expectedActualValidMove), actualValidMove);
+    }
 }
