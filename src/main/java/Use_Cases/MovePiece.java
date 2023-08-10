@@ -9,8 +9,8 @@ public class MovePiece {
     // Use case class for moving pieces, including castling.
     // Returns true if there's a piece at start and end is a valid move of that piece.
     private PresenterInterface presenter;
-    private ChessGame currentGame;
-    private ActualValidCalculator actualValidCalc;
+    private final ChessGame currentGame;
+    private final ActualValidCalculator actualValidCalc;
     public MovePiece(ChessGame currentGame, ActualValidCalculator actualValidCalc) {
         this.currentGame = currentGame;
         this.actualValidCalc = actualValidCalc;

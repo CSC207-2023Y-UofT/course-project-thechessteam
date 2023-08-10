@@ -5,9 +5,9 @@ import Use_Cases.MovePiece;
 import Use_Cases.NewGame;
 
 public class Controller {
-    private MovePiece movePieceClass;
-    private HighlightValid highlightValidClass;
-    private NewGame newGameClass;
+    private final MovePiece movePieceClass;
+    private final HighlightValid highlightValidClass;
+    private final NewGame newGameClass;
     public Controller(MovePiece movePiece, HighlightValid highlightValid, NewGame newGameClass) {
         this.movePieceClass = movePiece;
         this.highlightValidClass = highlightValid;

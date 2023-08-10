@@ -8,8 +8,6 @@ public class ChessGame {
     // Various useful attributes. Use getters to access them.
     private LocationBitboard currentBoard = new LocationBitboard();
     private boolean turn = true; // true for White's turn, false for Black's turn
-    private int blkPoints = 0;
-    private int whtPoints = 0;
 
     // ----------------------------------------------------------------------------------------------------------
     // Getter methods
@@ -17,7 +15,6 @@ public class ChessGame {
         return currentBoard;
     }
     public boolean getTurn() { return turn; }
-    public int getPoints(boolean t) {if (t) {return whtPoints;} else {return blkPoints;}}
 
     // ----------------------------------------------------------------------------------------------------------
 
@@ -27,19 +24,9 @@ public class ChessGame {
         return turn;
     }
 
-    public void setPoints(boolean team, int increment) {
-        if (team) {
-            whtPoints += increment;
-        } else {
-            blkPoints += increment;
-        }
-    }
-
     // Start a new game by setting a new location bitboard
     public void new_game() {
         currentBoard = new LocationBitboard();
         turn = true; // Make sure to start with White's turn
-        blkPoints = 0;
-        whtPoints = 0;
     }
 }

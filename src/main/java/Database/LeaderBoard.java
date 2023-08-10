@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class LeaderBoard{
     public LeaderBoard(){}
-    // has 4 methods - readData, writeData, addPlayer and printData
+    // has 5 methods - readData, writeData, addPlayer, sendData and printData
     // readData and writeData are private methods for use within class only
     // addPlayer is public, adds a player given their name
     // printData is public, used to print the leaderboard
@@ -15,7 +15,7 @@ public class LeaderBoard{
 
     //leaderboard will hold custom class player with attributes for name and wins
     protected static class Player {
-        private String name;
+        private final String name;
         private int wins;
         protected Player(String name, int wins){
             this.name = name;
@@ -99,7 +99,7 @@ public class LeaderBoard{
         // sends a copy of the leaderboard
         ArrayList<Player> leaderboard = readData();
 
-        List<String> cloned_list = new ArrayList<String>();
+        List<String> cloned_list = new ArrayList<>();
 
         if (!leaderboard.isEmpty()) {
             // Adds the player and wins to the cloned list
@@ -111,7 +111,8 @@ public class LeaderBoard{
         return cloned_list;
     }
 
-    // print leaderboard
+    /*
+    // print leaderboard (was used for testing)
     public static void printData() {
         // read file
         ArrayList<Player> leaderboard = readData();
@@ -121,5 +122,5 @@ public class LeaderBoard{
                 System.out.println(p.getName() + " -> " + p.getWins());
             }
         }
-    }
+    } */
 }

@@ -16,7 +16,6 @@ import java.util.Map;
  */
 public class LocationBitboard {
     private final Map<String, long[]> pieceBitboards = new HashMap<>();
-
     public long[] whitePawn = new long[]{InitialPositions.WHITE_PAWN};
     public long[] whiteRook = new long[]{InitialPositions.WHITE_ROOK};
     public long[] whiteKnight = new long[]{InitialPositions.WHITE_KNIGHT};
@@ -82,10 +81,10 @@ public class LocationBitboard {
     }
     // Moved booleans for kings and rooks
     public boolean getWhiteKingMoved(){
-        return whiteKingMoved;
+        return !whiteKingMoved;
     }
     public boolean getBlackKingMoved(){
-        return blackKingMoved;
+        return !blackKingMoved;
     }
     public boolean getLeftRookMovedW(){
         return leftWhiteRookMoved;
@@ -273,6 +272,8 @@ public class LocationBitboard {
         pieceBitboards.put("blackKing", blackKing);
     }
 
+    /* Unused Methods ->
+
     public Map<String, Long> getAllPieces() {
         Map<String, Long> bitboards = new HashMap<>();
         for (Map.Entry<String, long[]> entry : pieceBitboards.entrySet()) {
@@ -287,5 +288,5 @@ public class LocationBitboard {
 
     public void setBitboard(String pieceType, long bitboard) {
         pieceBitboards.get(pieceType)[0] = bitboard;
-    }
+    } */
 }
