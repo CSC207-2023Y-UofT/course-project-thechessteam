@@ -3,6 +3,7 @@ import Entities.Pieces.Pawn;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 public class PawnTest{
 
     // black pawn
@@ -555,6 +556,129 @@ public class PawnTest{
         long from = TestHelper.bitboard_representation(arrayfrom);
         long expected_moves = TestHelper.bitboard_representation(arrayto);
         long test_moves = test_pawn.valid_moves(from, true, new_board);
+        assertEquals(expected_moves, test_moves);
+    }
+
+    // attack coverage tests
+    // initial positions, no enemy
+    @Test
+    public void initial_position_attack_test(){
+        Pawn test_pawn = new Pawn();
+        LocationBitboard new_board = new LocationBitboard();
+        TestHelper.remove_all_pieces(new_board);
+        int[][] array_from = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+        int[][] array_attacks = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+        new_board.blackPawn[0] = TestHelper.bitboard_representation(array_from);
+        new_board.updateLocationVariables();
+        long from = TestHelper.bitboard_representation(array_from);
+        long expected_moves = TestHelper.bitboard_representation(array_attacks);
+        long test_moves = test_pawn.valid_moves(from, true, new_board);
+        assertEquals(expected_moves, test_moves);
+    }
+
+    // initial positions, 1 enemy
+    @Test
+    public void one_enemy_attack_test(){
+        Pawn test_pawn = new Pawn();
+        LocationBitboard new_board = new LocationBitboard();
+        TestHelper.remove_all_pieces(new_board);
+        int[][] ally_positions = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+        int[][] array_attacks = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+        int[][] enemy_positions = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+        new_board.whitePawn[0] = TestHelper.bitboard_representation(ally_positions);
+        new_board.blackPawn[0] = TestHelper.bitboard_representation(enemy_positions);
+        new_board.updateLocationVariables();
+        long expected_moves = TestHelper.bitboard_representation(array_attacks);
+        long test_moves = test_pawn.attack_coverage(true, new_board);
+        assertEquals(expected_moves, test_moves);
+    }
+
+    // initial positions, multiple enemy
+    @Test
+    public void multiple_enemy_attack_test(){
+        Pawn test_pawn = new Pawn();
+        LocationBitboard new_board = new LocationBitboard();
+        TestHelper.remove_all_pieces(new_board);
+        int[][] ally_positions = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+        int[][] array_attacks = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+        int[][] enemy_positions = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 1, 0, 1, 0, 0, 1, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+        new_board.whitePawn[0] = TestHelper.bitboard_representation(ally_positions);
+        new_board.blackPawn[0] = TestHelper.bitboard_representation(enemy_positions);
+        new_board.updateLocationVariables();
+        long expected_moves = TestHelper.bitboard_representation(array_attacks);
+        long test_moves = test_pawn.attack_coverage(true, new_board);
         assertEquals(expected_moves, test_moves);
     }
 }
