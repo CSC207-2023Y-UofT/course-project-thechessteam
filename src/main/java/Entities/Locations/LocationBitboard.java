@@ -3,9 +3,6 @@ package Entities.Locations;
 import Entities.Constants.FileAndRank;
 import Entities.Constants.InitialPositions;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * This class represents a chessboard using bitboards for each pieces location
  * A new instance of this class should be created at the beginning of each game
@@ -15,8 +12,6 @@ import java.util.Map;
  * Castling will be tied to Entities.Pieces.King valid moves. We assume that if Entities.Pieces.King moves two spaces, we are castling.
  */
 public class LocationBitboard {
-    private final Map<String, long[]> pieceBitboards = new HashMap<>();
-
     public long[] whitePawn = new long[]{InitialPositions.WHITE_PAWN};
     public long[] whiteRook = new long[]{InitialPositions.WHITE_ROOK};
     public long[] whiteKnight = new long[]{InitialPositions.WHITE_KNIGHT};
@@ -153,6 +148,20 @@ public class LocationBitboard {
         whitePawnMovedTwo = 0L;
         blackPawnMovedTwo = 0L;
 
+        update_for_special_conditions(pieceType, from, to);
+
+        pieceType[0] = (pieceType[0] & ~from) | to; // Move the piece of pieceType
+
+        // Remove opponent piece at to
+        remove_opponent_piece_at_to(turn, to);
+
+        // Update all location variables: whiteLocations, blackLocations, occupied
+        updateLocationVariables();
+    }
+
+    // Move pieces for special chess rules: Castling, En Passant.
+    // Also updates instance variables in this class related to these rules.
+    private void update_for_special_conditions(long[] pieceType, long from, long to) {
         if (pieceType[0] == whiteKing[0]) { // if we are moving a white king
             if (from >>> 2 == to) { // castling to queen side
                 update_rook_for_castling(whiteRook, true, true);
@@ -170,7 +179,7 @@ public class LocationBitboard {
         } else if (pieceType[0] == whitePawn[0]) { // if we are moving a white pawn
             // if we are moving without capturing
             if (((to & blackLocations) == 0L) &&
-            // if we are not moving straight forward when we are at Rank 5
+                    // if we are not moving straight forward when we are at Rank 5
                     ((from & FileAndRank.RANK_5) != 0L) && (to != (from << 8))) {
                 // then we perform en passant
                 update_en_passant(to, true);
@@ -205,24 +214,9 @@ public class LocationBitboard {
                 rightBlackRookMoved = true;
             }
         }
-
-        pieceType[0] = (pieceType[0] & ~from) | to; // Move the piece of pieceType
-
-        // Remove opponent piece at to
-        if (turn) { // White's turn
-            for (long[] blackPieceType : getBlackPieces()) {
-                blackPieceType[0] &= ~to;
-            }
-        } else {
-            for (long[] whitePieceType : getWhitePieces()) {
-                whitePieceType[0] &= ~to;
-            }
-        }
-        updateLocationVariables(); // Update all location variables: whiteLocations, blackLocations, occupied
     }
-
     // Helper methods for update_piece
-    private void update_rook_for_castling (long[] rookLocations, boolean direction, boolean color){
+    private void update_rook_for_castling (long[] rookLocations, boolean direction, boolean color) {
         // direction == true for queen side, direction == false for king side
         // color == true for White, color == false for Black
         if (color) { // if moving a white king
@@ -252,40 +246,24 @@ public class LocationBitboard {
             whitePawn[0] = whitePawn[0] & ~(to << 8);
         }
     }
+
+    // Remove opponent piece at to
+    private void remove_opponent_piece_at_to(boolean turn, long to) {
+        if (turn) { // White's turn
+            for (long[] blackPieceType : getBlackPieces()) {
+                blackPieceType[0] &= ~to;
+            }
+        } else {
+            for (long[] whitePieceType : getWhitePieces()) {
+                whitePieceType[0] &= ~to;
+            }
+        }
+    }
     // ----------------------------------------------------------------------------------------------------------
 
     /**
      * Constructor for creating an instance of Entities.Locations.LocationBitboard.
      * Initializes all the bitboards to the starting positions of the pieces
      */
-    public LocationBitboard(){
-        pieceBitboards.put("whitePawn", whitePawn);
-        pieceBitboards.put("whiteRook", whiteRook);
-        pieceBitboards.put("whiteKnight", whiteKnight);
-        pieceBitboards.put("whiteBishop", whiteBishop);
-        pieceBitboards.put("whiteQueen", whiteQueen);
-        pieceBitboards.put("whiteKing", whiteKing);
-        pieceBitboards.put("blackPawn", blackPawn);
-        pieceBitboards.put("blackRook", blackRook);
-        pieceBitboards.put("blackKnight", blackKnight);
-        pieceBitboards.put("blackBishop", blackBishop);
-        pieceBitboards.put("blackQueen", blackQueen);
-        pieceBitboards.put("blackKing", blackKing);
-    }
-
-    public Map<String, Long> getAllPieces() {
-        Map<String, Long> bitboards = new HashMap<>();
-        for (Map.Entry<String, long[]> entry : pieceBitboards.entrySet()) {
-            bitboards.put(entry.getKey(), entry.getValue()[0]);
-        }
-        return bitboards;
-    }
-
-    public long getBitboard(String pieceType) {
-        return pieceBitboards.get(pieceType)[0];
-    }
-
-    public void setBitboard(String pieceType, long bitboard) {
-        pieceBitboards.get(pieceType)[0] = bitboard;
-    }
+    public LocationBitboard(){}
 }
