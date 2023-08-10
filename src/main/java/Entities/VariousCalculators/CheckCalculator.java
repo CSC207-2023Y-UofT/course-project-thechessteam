@@ -3,8 +3,7 @@ package Entities.VariousCalculators;
 import Entities.Locations.LocationBitboard;
 
 public class CheckCalculator {
-
-    private Calculators calculators;
+    private final Calculators calculators;
     public CheckCalculator(Calculators calculators) {
         this.calculators = calculators;
     }

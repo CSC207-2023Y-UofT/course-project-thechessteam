@@ -3,7 +3,7 @@ package Entities.Pieces;
 import Entities.Constants.PreCalculatedAttacks;
 import Entities.Locations.LocationBitboard;
 
-public class King implements Calculator {
+public class King implements PieceCalculator {
 
     public long valid_moves(long from, boolean side, LocationBitboard board) {
         int position = Long.numberOfTrailingZeros(from);

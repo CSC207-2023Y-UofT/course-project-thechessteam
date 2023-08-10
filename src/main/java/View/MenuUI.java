@@ -9,9 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class MainMenu implements ActionListener {
-    private Controller clickController;
-    private Presenter presenter;
+public class MenuUI implements ActionListener {
+    private final Controller clickController;
+    private final Presenter presenter;
     JFrame menu_frame = new JFrame("Main Menu");
     JLabel menuBackground = new JLabel("Background");
     JLabel logoBackground = new JLabel("logoBackground");
@@ -23,7 +23,7 @@ public class MainMenu implements ActionListener {
     JButton tutorialButton = new JButton("tutorialButton");
 
 
-    public MainMenu(Controller clickController, Presenter presenter) {
+    public MenuUI(Controller clickController, Presenter presenter) {
         this.clickController = clickController;
         this.presenter = presenter;
         // Configuring menu background
@@ -115,9 +115,9 @@ public class MainMenu implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playButton) { // Starts a new game instance
             menu_frame.dispose();
-            ChessBoardUI board = new ChessBoardUI(clickController, presenter);
+            BoardUI board = new BoardUI(clickController, presenter);
             presenter.set_view(board);
-            board.newGame();
+            board.newBoard();
         } else if (e.getSource() == leaderBoardButton) {
             menu_frame.dispose();
             new LeaderBoardUI(clickController, presenter);

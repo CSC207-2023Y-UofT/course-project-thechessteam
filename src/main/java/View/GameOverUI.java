@@ -11,10 +11,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class GameOver implements ActionListener {
-    private Controller clickController;
-    private ChessBoardUI ui;
-    private Presenter presenter;
+public class GameOverUI implements ActionListener {
+    private final Controller clickController;
+    private final BoardUI ui;
+    private final Presenter presenter;
     JFrame window_frame = new JFrame();
     JLabel game_overLabel = new JLabel("Game Over!");
     JButton playAgain = new JButton("Play Again");
@@ -22,7 +22,7 @@ public class GameOver implements ActionListener {
     JButton submitButton = new JButton("Submit Name");
     JTextField nameBox = new JTextField("Winner's Name");
 
-    GameOver(Controller clickController, ChessBoardUI ui, Presenter presenter) {
+    GameOverUI(Controller clickController, BoardUI ui, Presenter presenter) {
         this.clickController = clickController;
         this.ui = ui;
         this.presenter = presenter;
@@ -86,13 +86,13 @@ public class GameOver implements ActionListener {
         if (e.getSource() == menuButton) { // Opens the menu screen
             window_frame.dispose();
             ui.disposeFrame();
-            new MainMenu(clickController, presenter);
+            new MenuUI(clickController, presenter);
         } else if (e.getSource() == playAgain) { // Starts a new game instance
             window_frame.dispose();
             ui.disposeFrame();
-            ChessBoardUI board = new ChessBoardUI(clickController, presenter);
+            BoardUI board = new BoardUI(clickController, presenter);
             presenter.set_view(board);
-            board.newGame();
+            board.newBoard();
         } else if (e.getSource() == submitButton) {
             if (!Objects.equals(nameBox.getText(), "Record Name") && !nameBox.getText().contains(",") && !nameBox.getText().contains(":")) {
                 LeaderBoard.addPlayer(nameBox.getText());

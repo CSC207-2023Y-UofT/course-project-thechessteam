@@ -77,10 +77,10 @@ public class LocationBitboard {
     }
     // Moved booleans for kings and rooks
     public boolean getWhiteKingMoved(){
-        return whiteKingMoved;
+        return !whiteKingMoved;
     }
     public boolean getBlackKingMoved(){
-        return blackKingMoved;
+        return !blackKingMoved;
     }
     public boolean getLeftRookMovedW(){
         return leftWhiteRookMoved;
