@@ -32,14 +32,14 @@ public class King implements PieceCalculator {
     // Returns kingCoverage with valid white king castling moves
     private long addWhiteKingCastlingMove(long kingCoverage, LocationBitboard board) {
         long updatedKingCoverage = kingCoverage;
-        if (!board.getWhiteKingNotMoved() && !board.getLeftRookMovedW()) {
+        if (board.getWhiteKingNotMoved() && !board.getLeftRookMovedW()) {
             long needsEmptyL = (1L << 1) | (1L << 2) | (1L << 3);
             if (((board.getOccupied() & needsEmptyL) == 0L) // No piece between king and rook
                     && ((board.whiteRook[0] & 1L) != 0L)) { // There is a rook we can move
                 updatedKingCoverage |= (1L << 2);
             }
         }
-        if (!board.getWhiteKingNotMoved() && !board.getRightRookMovedW()) {
+        if (board.getWhiteKingNotMoved() && !board.getRightRookMovedW()) {
             long needsEmptyR = (1L << 5) | (1L << 6);
             if ((board.getOccupied() & needsEmptyR) == 0L // No piece between king and rook
                     && ((board.whiteRook[0] & (1L << 7)) != 0L)) { // There is a rook we can move
@@ -52,14 +52,14 @@ public class King implements PieceCalculator {
     // Returns kingCoverage with valid black king castling moves
     private long addBlackKingCastlingMove(long kingCoverage, LocationBitboard board) {
         long updatedKingCoverage = kingCoverage;
-        if (!board.getBlackKingNotMoved() && !board.getLeftRookMovedB()) {
+        if (board.getBlackKingNotMoved() && !board.getLeftRookMovedB()) {
             long needsEmptyL = (1L << 57) | (1L << 58) | (1L << 59);
             if ((board.getOccupied() & needsEmptyL) == 0L // No piece between king and rook
                     && ((board.blackRook[0] & (1L << 56)) != 0L)) { // There is a rook we can move
                 updatedKingCoverage |= (1L << 58);
             }
         }
-        if (!board.getBlackKingNotMoved() && !board.getRightRookMovedB()) {
+        if (board.getBlackKingNotMoved() && !board.getRightRookMovedB()) {
             long needsEmptyR = (1L << 61) | (1L << 62);
             if ((board.getOccupied() & needsEmptyR) == 0L // No piece between king and rook
                     && ((board.blackRook[0] & (1L << 63)) != 0L)) { // There is a rook we can move
