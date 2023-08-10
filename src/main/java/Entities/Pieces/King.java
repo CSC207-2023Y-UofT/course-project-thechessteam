@@ -21,34 +21,52 @@ public class King implements PieceCalculator {
         // Castling Move,
         // Check for if King does not cross a space attacked will be done in ActualValidCalculator.
         if (side) { // White
-            if (board.getWhiteKingMoved() && !board.getLeftRookMovedW()) {
-                long needsEmptyL = (1L << 1) | (1L << 2) | (1L << 3);
-                if ((board.getOccupied() & needsEmptyL) == 0L) {
-                    kingCoverage |= (1L << 2);
-                }
-            }
-            if (board.getWhiteKingMoved() && !board.getRightRookMovedW()) {
-                long needsEmptyR = (1L << 5) | (1L << 6);
-                if ((board.getOccupied() & needsEmptyR) == 0L) {
-                    kingCoverage |= (1L << 6);
-                }
-            }
+            kingCoverage = addWhiteKingCastlingMove(kingCoverage, board);
         }
         else { // Black
-            if (board.getBlackKingMoved() && !board.getLeftRookMovedB()) {
-                long needsEmptyL = (1L << 57) | (1L << 58) | (1L << 59);
-                if ((board.getOccupied() & needsEmptyL) == 0L) {
-                    kingCoverage |= (1L << 58);
-                }
-            }
-            if (board.getBlackKingMoved() && !board.getRightRookMovedB()) {
-                long needsEmptyR = (1L << 61) | (1L << 62);
-                if ((board.getOccupied() & needsEmptyR) == 0L) {
-                    kingCoverage |= (1L << 62);
-                }
-            }
+            kingCoverage = addBlackKingCastlingMove(kingCoverage, board);
         }
         return kingCoverage;
+    }
+
+    // Returns kingCoverage with valid white king castling moves
+    private long addWhiteKingCastlingMove(long kingCoverage, LocationBitboard board) {
+        long updatedKingCoverage = kingCoverage;
+        if (board.getWhiteKingNotMoved() && !board.getLeftRookMovedW()) {
+            long needsEmptyL = (1L << 1) | (1L << 2) | (1L << 3);
+            if (((board.getOccupied() & needsEmptyL) == 0L) // No piece between king and rook
+                    && ((board.whiteRook[0] & 1L) != 0L)) { // There is a rook we can move
+                updatedKingCoverage |= (1L << 2);
+            }
+        }
+        if (board.getWhiteKingNotMoved() && !board.getRightRookMovedW()) {
+            long needsEmptyR = (1L << 5) | (1L << 6);
+            if ((board.getOccupied() & needsEmptyR) == 0L // No piece between king and rook
+                    && ((board.whiteRook[0] & (1L << 7)) != 0L)) { // There is a rook we can move
+                updatedKingCoverage |= (1L << 6);
+            }
+        }
+        return updatedKingCoverage;
+    }
+
+    // Returns kingCoverage with valid black king castling moves
+    private long addBlackKingCastlingMove(long kingCoverage, LocationBitboard board) {
+        long updatedKingCoverage = kingCoverage;
+        if (board.getBlackKingNotMoved() && !board.getLeftRookMovedB()) {
+            long needsEmptyL = (1L << 57) | (1L << 58) | (1L << 59);
+            if ((board.getOccupied() & needsEmptyL) == 0L // No piece between king and rook
+                    && ((board.blackRook[0] & (1L << 56)) != 0L)) { // There is a rook we can move
+                updatedKingCoverage |= (1L << 58);
+            }
+        }
+        if (board.getBlackKingNotMoved() && !board.getRightRookMovedB()) {
+            long needsEmptyR = (1L << 61) | (1L << 62);
+            if ((board.getOccupied() & needsEmptyR) == 0L // No piece between king and rook
+                    && ((board.blackRook[0] & (1L << 63)) != 0L)) { // There is a rook we can move
+                updatedKingCoverage |= (1L << 62);
+            }
+        }
+        return updatedKingCoverage;
     }
 
     public long attack_coverage(boolean side, LocationBitboard board) {
