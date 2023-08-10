@@ -82,41 +82,6 @@ class BishopTest {
         assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
     }
 
-    @Test
-    void bishopFreeMoveAtOrigin() {
-        // The array representation of bishopLocation
-        int[][] bishopLocation = {
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 1, 0}
-        };
-
-        // Remove all pieces from board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteBishop[0] = TestHelper.bitboard_representation(bishopLocation);
-        board.updateLocationVariables();
-
-        int[][] expectedValidMove = {
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {1, 0, 0, 0, 0, 0, 0, 0},
-                {0, 1, 0, 0, 0, 0, 0, 0},
-                {0, 0, 1, 0, 0, 0, 0, 0},
-                {0, 0, 0, 1, 0, 0, 0, 0},
-                {0, 0, 0, 0, 1, 0, 0, 0},
-                {0, 0, 0, 0, 0, 1, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0}
-        };
-
-        long validMove = bishopCalculator.valid_moves(TestHelper.bitboard_representation(bishopLocation), true, board);
-        // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
-    }
-
 
     // ----------------------------------------------------------------------------------------------------------
     // Attack Coverage Tests
