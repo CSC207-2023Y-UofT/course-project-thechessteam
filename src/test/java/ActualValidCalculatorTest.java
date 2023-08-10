@@ -74,6 +74,129 @@ class ActualValidCalculatorTest {
         assertEquals(TestHelper.bitboard_representation(expectedActualValidMove), actualValidMove);
     }
 
+    // pawn movement when king would be in check
+    @Test
+    void pawnMovingResultsInCheck() {
+        // The array representation of pawnLocation
+        int[][] whitePawnLocation = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+
+        int[][] whiteKingLocation = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0}
+        };
+
+        int[][] blackRookLocation = {
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+
+        // Remove all pieces from board. Only have white pawn, king and black rook on board.
+        TestHelper.remove_all_pieces(board);
+        board.whitePawn[0] = TestHelper.bitboard_representation(whitePawnLocation);
+        board.whiteKing[0] = TestHelper.bitboard_representation(whiteKingLocation);
+        board.blackRook[0] = TestHelper.bitboard_representation(blackRookLocation);
+        board.updateLocationVariables();
+
+        // Only moves that does not put the king in check should be valid
+        int[][] expectedActualValidMove = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+
+        long actualValidMove = actualValidCalculator.actual_valid_moves(
+                TestHelper.bitboard_representation(whitePawnLocation), true, board);
+        // Check if valid move is as expected
+        assertEquals(TestHelper.bitboard_representation(expectedActualValidMove), actualValidMove);
+    }
+
+    // pawn movement when king would be in check, but enemy in front
+    @Test
+    void pawnMovingResultsInCheckBlocked() {
+        // The array representation of pawnLocation
+        int[][] whitePawnLocation = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+
+        int[][] whiteKingLocation = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0}
+        };
+
+        int[][] blackRookLocation = {
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+        int[][] blackPawnLocation = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+
+        // Remove all pieces from board. Only have white pawn, king and black rook on board.
+        TestHelper.remove_all_pieces(board);
+        board.whitePawn[0] = TestHelper.bitboard_representation(whitePawnLocation);
+        board.whiteKing[0] = TestHelper.bitboard_representation(whiteKingLocation);
+        board.blackRook[0] = TestHelper.bitboard_representation(blackRookLocation);
+        board.blackPawn[0] = TestHelper.bitboard_representation(blackPawnLocation);
+        board.updateLocationVariables();
+
+        long actualValidMove = actualValidCalculator.actual_valid_moves(
+                TestHelper.bitboard_representation(whitePawnLocation), true, board);
+        // Check if valid move is as expected
+        assertEquals(0L, actualValidMove);
+    }
+
     @Test
     void KnightMovingResultInCheck() {
         // The array representation of knightLocation
