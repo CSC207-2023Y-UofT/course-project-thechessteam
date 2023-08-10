@@ -273,8 +273,8 @@ public class PawnTest{
         new_board.blackPawn[0] = TestHelper.bitboard_representation(arrayfrom);
         new_board.whitePawn[0] = TestHelper.bitboard_representation(enemy_pawn_from);
         new_board.updateLocationVariables();
-        long black_pawn_from_long = TestHelper.bitboard_representation(enemy_pawn_from);
-        long black_pawn_to_long = TestHelper.bitboard_representation(enemy_pawn_to);
+        long white_pawn_from_long = TestHelper.bitboard_representation(enemy_pawn_from);
+        long white_pawn_to_long = TestHelper.bitboard_representation(enemy_pawn_to);
         new_board.move_piece(black_pawn_from_long, black_pawn_to_long, true);
         long from = TestHelper.bitboard_representation(arrayfrom);
         long expected_moves = TestHelper.bitboard_representation(arrayto);
