@@ -10,11 +10,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Objects;
 
-public class ChessBoardUI extends JPanel implements ViewInterface {
-
+public class BoardUI extends JPanel implements ViewInterface {
     private final Controller clickController;
     private final Presenter presenter;
-    private GameOver gameOverScreen;
+    private GameOverUI gameOverScreen;
 
     // ----------------------------------------------------------------------------------------------------------
     // Game State
@@ -32,7 +31,6 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
     private final int[] twoClicks = new int[2];
     private int numClicks = 0;
 
-
     // Highlights in bitboard representation
     private long highlightSquares = 0L;
     private final JButton forfeitButton = new JButton("forfeitButton");
@@ -46,7 +44,7 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
 
 
     // Holds chessboard exclusive listeners
-    public ChessBoardUI(Controller clickController, Presenter presenter) {
+    public BoardUI(Controller clickController, Presenter presenter) {
         this.clickController = clickController;
         this.presenter = presenter;
         addMouseListener(new MouseAdapter() {
@@ -104,18 +102,18 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
             }
         });
         drawBoard(g);
-        draw_pieces(g, pieceLocations[0][0], ImageRendering.whitePawn);
-        draw_pieces(g, pieceLocations[0][1], ImageRendering.whiteRook);
-        draw_pieces(g, pieceLocations[0][2], ImageRendering.whiteKnight);
-        draw_pieces(g, pieceLocations[0][3], ImageRendering.whiteBishop);
-        draw_pieces(g, pieceLocations[0][4], ImageRendering.whiteQueen);
-        draw_pieces(g, pieceLocations[0][5], ImageRendering.whiteKing);
-        draw_pieces(g, pieceLocations[1][0], ImageRendering.blackPawn);
-        draw_pieces(g, pieceLocations[1][1], ImageRendering.blackRook);
-        draw_pieces(g, pieceLocations[1][2], ImageRendering.blackKnight);
-        draw_pieces(g, pieceLocations[1][3], ImageRendering.blackBishop);
-        draw_pieces(g, pieceLocations[1][4], ImageRendering.blackQueen);
-        draw_pieces(g, pieceLocations[1][5], ImageRendering.blackKing);
+        draw_pieces(g, pieceLocations[0][0], PieceRendering.whitePawn);
+        draw_pieces(g, pieceLocations[0][1], PieceRendering.whiteRook);
+        draw_pieces(g, pieceLocations[0][2], PieceRendering.whiteKnight);
+        draw_pieces(g, pieceLocations[0][3], PieceRendering.whiteBishop);
+        draw_pieces(g, pieceLocations[0][4], PieceRendering.whiteQueen);
+        draw_pieces(g, pieceLocations[0][5], PieceRendering.whiteKing);
+        draw_pieces(g, pieceLocations[1][0], PieceRendering.blackPawn);
+        draw_pieces(g, pieceLocations[1][1], PieceRendering.blackRook);
+        draw_pieces(g, pieceLocations[1][2], PieceRendering.blackKnight);
+        draw_pieces(g, pieceLocations[1][3], PieceRendering.blackBishop);
+        draw_pieces(g, pieceLocations[1][4], PieceRendering.blackQueen);
+        draw_pieces(g, pieceLocations[1][5], PieceRendering.blackKing);
         drawBorders(g);
         drawBlackTeam(g);
         drawWhiteTeam(g);
@@ -148,6 +146,7 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         this.turn = turn;
     }
 
+    /* Unused for now
     @Override
     public void setWhtPoints(int whtPoints) {
         this.whtPoints = whtPoints;
@@ -156,9 +155,7 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
     @Override
     public void setBlkPoints(int blkPoints) {
         this.blkPoints = blkPoints;
-    }
-    // ----------------------------------------------------------------------------------------------------------
-    // Components of paintComponent
+    } */
 
     // Draws the chess board
     public void drawBoard(Graphics g) {
@@ -175,7 +172,7 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         g.fill3DRect(0, border, border, 8*squareSize, true);
         g.fill3DRect((8*squareSize) +border, border, border, 8*squareSize, true);
         g.fill3DRect(border, 0, 8*squareSize, border, true);
-        g.fill3DRect(border, (int)(8*squareSize)+border, 8*squareSize, border, true);
+        g.fill3DRect(border, (8*squareSize) +border, 8*squareSize, border, true);
 
         g.setColor(Color.BLACK);
         g.fill3DRect(0, 0, border, border, true);
@@ -381,7 +378,6 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         if (isNewGame) { // Ensures the action listeners are only added once
             pawnPromoteQueen.addActionListener(e -> {
                 System.out.println("Promoting Queen!"); // Just a check that the button works can delete
-                //TODO Put pawn promotion function/code here on button press
 
                 // hides the buttons after a pawn promotion
                 pawnPromoteBishop.setVisible(false);
@@ -391,7 +387,6 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
             });
             pawnPromoteKnight.addActionListener(e -> {
                 System.out.println("Promoting Knight!"); // Just a check that the button works can delete
-                //TODO Put pawn promotion function/code here on button press
 
                 // hides the buttons after a pawn promotion
                 pawnPromoteBishop.setVisible(false);
@@ -401,7 +396,6 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
             });
             pawnPromoteRook.addActionListener(e -> {
                 System.out.println("Promoting Rook!"); // Just a check that the button works can delete
-                //TODO Put pawn promotion function/code here on button press
 
                 // hides the buttons after a pawn promotion
                 pawnPromoteBishop.setVisible(false);
@@ -411,7 +405,6 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
             });
             pawnPromoteBishop.addActionListener(e -> {
                 System.out.println("Promoting Bishop!"); // Just a check that the button works can delete
-                //TODO Put pawn promotion function/code here on button press
 
                 // hides the buttons after a pawn promotion
                 pawnPromoteBishop.setVisible(false);
@@ -448,14 +441,14 @@ public class ChessBoardUI extends JPanel implements ViewInterface {
         setNewGameVariables(); // Resets game state variables in view
 
         if (gameOverScreen == null) {
-            gameOverScreen = new GameOver(clickController,this, presenter);
+            gameOverScreen = new GameOverUI(clickController,this, presenter);
         } else {
             gameOverScreen.window_frame.setVisible(true);
         }
     }
 
     // starts a new game instance
-    public void newGame() {
+    public void newBoard() {
         // Setting initial game state
         pawnPromoteQueen.setVisible(false);
         pawnPromoteKnight.setVisible(false);

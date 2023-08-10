@@ -11,8 +11,8 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class LeaderBoardUI implements ActionListener {
-    private Controller clickController;
-    private Presenter presenter;
+    private final Controller clickController;
+    private final Presenter presenter;
     JFrame leaderboard_frame = new JFrame("Database.LeaderBoard");
     JLabel frameBackground = new JLabel("Background");
     JLabel leaderBackground = new JLabel("buttonBackground");
@@ -123,7 +123,7 @@ public class LeaderBoardUI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backButton) {
             leaderboard_frame.dispose();
-            new MainMenu(clickController, presenter);
+            new MenuUI(clickController, presenter);
         }
     }
 }

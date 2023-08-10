@@ -3,7 +3,7 @@ package Entities.Pieces;
 import Entities.Constants.FileAndRank;
 import Entities.Locations.LocationBitboard;
 
-public class Bishop implements Calculator {
+public class Bishop implements PieceCalculator {
 
     private long sameColoredPieces;
 

@@ -18,7 +18,8 @@ public interface ViewInterface {
     // Sets the turn in View. The turn argument must be true for white and false for black
     void setTurn(boolean turn);
 
+    /* Unused code for now
     // Sets the white points and black points in View.
     void setWhtPoints(int whtPoints);
-    void setBlkPoints(int blkPoints);
+    void setBlkPoints(int blkPoints); */
 }
