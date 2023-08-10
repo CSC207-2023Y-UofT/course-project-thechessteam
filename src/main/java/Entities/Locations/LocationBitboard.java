@@ -162,6 +162,18 @@ public class LocationBitboard {
     // Move pieces for special chess rules: Castling, En Passant.
     // Also updates instance variables in this class related to these rules.
     private void update_for_special_conditions(long[] pieceType, long from, long to) {
+        if (!check_and_update_castling(pieceType, from, to)) {
+            if (!check_and_update_pawn(pieceType, from, to)) {
+                check_and_update_rook_moved(pieceType, from);
+            }
+        }
+    }
+
+    // Helper methods for update_piece
+
+    // Check if we are castling and update accordingly. Returns true if we castled.
+    private boolean check_and_update_castling(long[] pieceType, long from, long to) {
+        boolean checkedCastling = false;
         if (pieceType[0] == whiteKing[0]) { // if we are moving a white king
             if (from >>> 2 == to) { // castling to queen side
                 update_rook_for_castling(whiteRook, true, true);
@@ -169,6 +181,7 @@ public class LocationBitboard {
                 update_rook_for_castling(whiteRook, false, true);
             }
             whiteKingMoved = true;
+            checkedCastling = true;
         } else if (pieceType[0] == blackKing[0]) { // if we are moving a black king
             if (from >>> 2 == to) { // castling to queen side
                 update_rook_for_castling(blackRook, true, false);
@@ -176,7 +189,15 @@ public class LocationBitboard {
                 update_rook_for_castling(blackRook, false, false);
             }
             blackKingMoved = true;
-        } else if (pieceType[0] == whitePawn[0]) { // if we are moving a white pawn
+            checkedCastling = true;
+        }
+        return checkedCastling;
+    }
+
+    // Check if we are performing en passant. Update if opponent will be able to perform en passant next turn.
+    private boolean check_and_update_pawn(long[] pieceType, long from, long to) {
+        boolean movingPawn = false;
+        if (pieceType[0] == whitePawn[0]) { // if we are moving a white pawn
             // if we are moving without capturing
             if (((to & blackLocations) == 0L) &&
                     // if we are not moving straight forward when we are at Rank 5
@@ -188,6 +209,7 @@ public class LocationBitboard {
             if (((from & FileAndRank.RANK_2) != 0L) && ((to & FileAndRank.RANK_4) != 0L)) {
                 whitePawnMovedTwo = to;
             }
+            movingPawn = true;
         } else if (pieceType[0] == blackPawn[0]) { // if we are moving a black pawn
             // if we are moving without capturing
             if (((to & whiteLocations) == 0L) &&
@@ -200,7 +222,14 @@ public class LocationBitboard {
             if (((from & FileAndRank.RANK_7) != 0L) && ((to & FileAndRank.RANK_5) != 0L)) {
                 blackPawnMovedTwo = to;
             }
-        } else if (pieceType[0] == whiteRook[0]) { // if we are moving a white rook
+            movingPawn = true;
+        }
+        return movingPawn;
+    }
+
+    // Update boolean instance variables for whether a rook moved
+    private void check_and_update_rook_moved(long[] pieceType, long from) {
+        if (pieceType[0] == whiteRook[0]) { // if we are moving a white rook
             if (from == 1L) {
                 leftWhiteRookMoved = true;
             }
@@ -215,7 +244,6 @@ public class LocationBitboard {
             }
         }
     }
-    // Helper methods for update_piece
     private void update_rook_for_castling (long[] rookLocations, boolean direction, boolean color) {
         // direction == true for queen side, direction == false for king side
         // color == true for White, color == false for Black
