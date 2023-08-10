@@ -2,7 +2,8 @@ package View;
 
 import Controller.Controller;
 import Database.LeaderBoard;
-import Presenter.Presenter;
+
+import Presenter.Presenter; // Used for reestablishing framework after we create a new view class.
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,19 +1,46 @@
 package View;
 
 import Controller.Controller;
-import Entities.Constants.InitialPositions; // Used for initializing.
-import Presenter.Presenter; // Used for reestablishing framework after we create a new ChessBoardUI.
 import View_Interface.ViewInterface;
+
+import Presenter.Presenter; // Used for reestablishing framework after we create a new view class.
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Objects;
 
-public class BoardUI extends JPanel implements ViewInterface {
+public class ChessBoardUI extends JPanel implements ViewInterface {
+
     private final Controller clickController;
     private final Presenter presenter;
-    private GameOverUI gameOverScreen;
+    private GameOver gameOverScreen;
+
+    // Used for initial location initializations
+    private static final long WHITE_PAWN =
+            0b0000000000000000000000000000000000000000000000001111111100000000L;
+    private static final long WHITE_ROOK =
+            0b0000000000000000000000000000000000000000000000000000000010000001L;
+    private static final long WHITE_KNIGHT =
+            0b0000000000000000000000000000000000000000000000000000000001000010L;
+    private static final long WHITE_BISHOP =
+            0b0000000000000000000000000000000000000000000000000000000000100100L;
+    private static final long WHITE_QUEEN =
+            0b0000000000000000000000000000000000000000000000000000000000001000L;
+    private static final long WHITE_KING =
+            0b0000000000000000000000000000000000000000000000000000000000010000L;
+    private static final long BLACK_PAWN =
+            0b0000000011111111000000000000000000000000000000000000000000000000L;
+    private static final long BLACK_ROOK =
+            0b1000000100000000000000000000000000000000000000000000000000000000L;
+    private static final long BLACK_KNIGHT =
+            0b0100001000000000000000000000000000000000000000000000000000000000L;
+    private static final long BLACK_BISHOP =
+            0b0010010000000000000000000000000000000000000000000000000000000000L;
+    private static final long BLACK_QUEEN =
+            0b0000100000000000000000000000000000000000000000000000000000000000L;
+    private static final long BLACK_KING =
+            0b0001000000000000000000000000000000000000000000000000000000000000L;
 
     // ----------------------------------------------------------------------------------------------------------
     // Game State
@@ -31,6 +58,7 @@ public class BoardUI extends JPanel implements ViewInterface {
     private final int[] twoClicks = new int[2];
     private int numClicks = 0;
 
+
     // Highlights in bitboard representation
     private long highlightSquares = 0L;
     private final JButton forfeitButton = new JButton("forfeitButton");
@@ -44,7 +72,7 @@ public class BoardUI extends JPanel implements ViewInterface {
 
 
     // Holds chessboard exclusive listeners
-    public BoardUI(Controller clickController, Presenter presenter) {
+    public ChessBoardUI(Controller clickController, Presenter presenter) {
         this.clickController = clickController;
         this.presenter = presenter;
         addMouseListener(new MouseAdapter() {
@@ -102,18 +130,18 @@ public class BoardUI extends JPanel implements ViewInterface {
             }
         });
         drawBoard(g);
-        draw_pieces(g, pieceLocations[0][0], PieceRendering.whitePawn);
-        draw_pieces(g, pieceLocations[0][1], PieceRendering.whiteRook);
-        draw_pieces(g, pieceLocations[0][2], PieceRendering.whiteKnight);
-        draw_pieces(g, pieceLocations[0][3], PieceRendering.whiteBishop);
-        draw_pieces(g, pieceLocations[0][4], PieceRendering.whiteQueen);
-        draw_pieces(g, pieceLocations[0][5], PieceRendering.whiteKing);
-        draw_pieces(g, pieceLocations[1][0], PieceRendering.blackPawn);
-        draw_pieces(g, pieceLocations[1][1], PieceRendering.blackRook);
-        draw_pieces(g, pieceLocations[1][2], PieceRendering.blackKnight);
-        draw_pieces(g, pieceLocations[1][3], PieceRendering.blackBishop);
-        draw_pieces(g, pieceLocations[1][4], PieceRendering.blackQueen);
-        draw_pieces(g, pieceLocations[1][5], PieceRendering.blackKing);
+        draw_pieces(g, pieceLocations[0][0], ImageRendering.whitePawn);
+        draw_pieces(g, pieceLocations[0][1], ImageRendering.whiteRook);
+        draw_pieces(g, pieceLocations[0][2], ImageRendering.whiteKnight);
+        draw_pieces(g, pieceLocations[0][3], ImageRendering.whiteBishop);
+        draw_pieces(g, pieceLocations[0][4], ImageRendering.whiteQueen);
+        draw_pieces(g, pieceLocations[0][5], ImageRendering.whiteKing);
+        draw_pieces(g, pieceLocations[1][0], ImageRendering.blackPawn);
+        draw_pieces(g, pieceLocations[1][1], ImageRendering.blackRook);
+        draw_pieces(g, pieceLocations[1][2], ImageRendering.blackKnight);
+        draw_pieces(g, pieceLocations[1][3], ImageRendering.blackBishop);
+        draw_pieces(g, pieceLocations[1][4], ImageRendering.blackQueen);
+        draw_pieces(g, pieceLocations[1][5], ImageRendering.blackKing);
         drawBorders(g);
         drawBlackTeam(g);
         drawWhiteTeam(g);
@@ -146,7 +174,6 @@ public class BoardUI extends JPanel implements ViewInterface {
         this.turn = turn;
     }
 
-    /* Unused for now
     @Override
     public void setWhtPoints(int whtPoints) {
         this.whtPoints = whtPoints;
@@ -155,7 +182,9 @@ public class BoardUI extends JPanel implements ViewInterface {
     @Override
     public void setBlkPoints(int blkPoints) {
         this.blkPoints = blkPoints;
-    } */
+    }
+    // ----------------------------------------------------------------------------------------------------------
+    // Components of paintComponent
 
     // Draws the chess board
     public void drawBoard(Graphics g) {
@@ -172,7 +201,7 @@ public class BoardUI extends JPanel implements ViewInterface {
         g.fill3DRect(0, border, border, 8*squareSize, true);
         g.fill3DRect((8*squareSize) +border, border, border, 8*squareSize, true);
         g.fill3DRect(border, 0, 8*squareSize, border, true);
-        g.fill3DRect(border, (8*squareSize) +border, 8*squareSize, border, true);
+        g.fill3DRect(border, (8*squareSize)+border, 8*squareSize, border, true);
 
         g.setColor(Color.BLACK);
         g.fill3DRect(0, 0, border, border, true);
@@ -250,15 +279,6 @@ public class BoardUI extends JPanel implements ViewInterface {
     // Dispose frame here. Used by GameOver class
     public void disposeFrame() {
         javaF.dispose();
-    }
-
-    public void setNewGameVariables() {
-        turn = true; // Make sure to start with White's turn
-        isNewGame = true;
-        gameOver = false;
-        blkPoints = 0;
-        whtPoints = 0;
-        winMsg = "";
     }
 
     // Set win message for end screen
@@ -378,6 +398,7 @@ public class BoardUI extends JPanel implements ViewInterface {
         if (isNewGame) { // Ensures the action listeners are only added once
             pawnPromoteQueen.addActionListener(e -> {
                 System.out.println("Promoting Queen!"); // Just a check that the button works can delete
+                //TODO Put pawn promotion function/code here on button press
 
                 // hides the buttons after a pawn promotion
                 pawnPromoteBishop.setVisible(false);
@@ -387,6 +408,7 @@ public class BoardUI extends JPanel implements ViewInterface {
             });
             pawnPromoteKnight.addActionListener(e -> {
                 System.out.println("Promoting Knight!"); // Just a check that the button works can delete
+                //TODO Put pawn promotion function/code here on button press
 
                 // hides the buttons after a pawn promotion
                 pawnPromoteBishop.setVisible(false);
@@ -396,6 +418,7 @@ public class BoardUI extends JPanel implements ViewInterface {
             });
             pawnPromoteRook.addActionListener(e -> {
                 System.out.println("Promoting Rook!"); // Just a check that the button works can delete
+                //TODO Put pawn promotion function/code here on button press
 
                 // hides the buttons after a pawn promotion
                 pawnPromoteBishop.setVisible(false);
@@ -405,6 +428,7 @@ public class BoardUI extends JPanel implements ViewInterface {
             });
             pawnPromoteBishop.addActionListener(e -> {
                 System.out.println("Promoting Bishop!"); // Just a check that the button works can delete
+                //TODO Put pawn promotion function/code here on button press
 
                 // hides the buttons after a pawn promotion
                 pawnPromoteBishop.setVisible(false);
@@ -438,17 +462,15 @@ public class BoardUI extends JPanel implements ViewInterface {
 
         clickController.start_new_game(); // Resets board for next game
 
-        setNewGameVariables(); // Resets game state variables in view
-
         if (gameOverScreen == null) {
-            gameOverScreen = new GameOverUI(clickController,this, presenter);
+            gameOverScreen = new GameOver(clickController,this, presenter);
         } else {
             gameOverScreen.window_frame.setVisible(true);
         }
     }
 
     // starts a new game instance
-    public void newBoard() {
+    public void newGame() {
         // Setting initial game state
         pawnPromoteQueen.setVisible(false);
         pawnPromoteKnight.setVisible(false);
@@ -460,19 +482,19 @@ public class BoardUI extends JPanel implements ViewInterface {
         // Initialize piece positions
         long[][] bitboardArray = new long[2][6];
 
-        bitboardArray[0][0] = InitialPositions.WHITE_PAWN;
-        bitboardArray[0][1] = InitialPositions.WHITE_ROOK;
-        bitboardArray[0][2] = InitialPositions.WHITE_KNIGHT;
-        bitboardArray[0][3] = InitialPositions.WHITE_BISHOP;
-        bitboardArray[0][4] = InitialPositions.WHITE_QUEEN;
-        bitboardArray[0][5] = InitialPositions.WHITE_KING;
+        bitboardArray[0][0] = WHITE_PAWN; // White Pawn
+        bitboardArray[0][1] = WHITE_ROOK; // White Rook
+        bitboardArray[0][2] = WHITE_KNIGHT; // White Knight
+        bitboardArray[0][3] = WHITE_BISHOP; // White Bishop
+        bitboardArray[0][4] = WHITE_QUEEN; // White Queen
+        bitboardArray[0][5] = WHITE_KING; // White King
 
-        bitboardArray[1][0] = InitialPositions.BLACK_PAWN;
-        bitboardArray[1][1] = InitialPositions.BLACK_ROOK;
-        bitboardArray[1][2] = InitialPositions.BLACK_KNIGHT;
-        bitboardArray[1][3] = InitialPositions.BLACK_BISHOP;
-        bitboardArray[1][4] = InitialPositions.BLACK_QUEEN;
-        bitboardArray[1][5] = InitialPositions.BLACK_KING;
+        bitboardArray[1][0] = BLACK_PAWN; // Black Pawn
+        bitboardArray[1][1] = BLACK_ROOK; // Black Rook
+        bitboardArray[1][2] = BLACK_KNIGHT; // Black Knight
+        bitboardArray[1][3] = BLACK_BISHOP; // Black Bishop
+        bitboardArray[1][4] = BLACK_QUEEN; // Black Queen
+        bitboardArray[1][5] = BLACK_KING; // Black King
 
         this.setBoard(bitboardArray);
 
