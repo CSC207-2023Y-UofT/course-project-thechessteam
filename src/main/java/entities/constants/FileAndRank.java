@@ -44,14 +44,14 @@ public class FileAndRank {
             };
 
     // Array of bitboards representing each file on the board, from file A to file H
-    public static long[] FileMasks8 =/*from fileA to FileH*/
+    public static long[] FILE_MASKS_8 =/*from fileA to FileH*/
             {
                     0x101010101010101L, 0x202020202020202L, 0x404040404040404L, 0x808080808080808L,
                     0x1010101010101010L, 0x2020202020202020L, 0x4040404040404040L, 0x8080808080808080L
             };
 
     // Array of bitboards representing each diagonal on the board, from top left to bottom right
-    public static long[] DiagonalMasks8 =/*from top left to bottom right*/
+    public static long[] DIAGONAL_MASKS_8 =/*from top left to bottom right*/
             {
                     0x1L, 0x102L, 0x10204L, 0x1020408L, 0x102040810L, 0x10204081020L, 0x1020408102040L,
                     0x102040810204080L, 0x204081020408000L, 0x408102040800000L, 0x810204080000000L,
@@ -59,7 +59,7 @@ public class FileAndRank {
             };
 
     // Array of bitboards representing each anti-diagonal on the board, from top right to bottom left
-    public static long[] AntiDiagonalMasks8 =/*from top right to bottom left*/
+    public static long[] ANTI_DIAGONAL_MASKS_8 =/*from top right to bottom left*/
             {
                     0x80L, 0x8040L, 0x804020L, 0x80402010L, 0x8040201008L, 0x804020100804L, 0x80402010080402L,
                     0x8040201008040201L, 0x4020100804020100L, 0x2010080402010000L, 0x1008040201000000L,
