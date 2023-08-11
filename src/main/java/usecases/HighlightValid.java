@@ -30,7 +30,7 @@ public class HighlightValid {
                 return false;
             }
         }
-        long highlight = actualValidCalc.actual_valid_moves(from, turn, currentBoard);
+        long highlight = actualValidCalc.actualValidMoves(from, turn, currentBoard);
         presenter.set_highlight(highlight);
         return true;
     }

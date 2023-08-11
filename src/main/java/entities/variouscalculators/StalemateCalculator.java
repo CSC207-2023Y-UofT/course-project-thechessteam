@@ -11,7 +11,7 @@ public class StalemateCalculator {
     public boolean is_stalemate(boolean side, LocationBitboard board) {
 
         // If the king is in check, it cannot be stalemate
-        if (CheckCalculator.is_in_check(side, board)) {
+        if (CheckCalculator.isInCheck(side, board)) {
             return false;
         }
 
@@ -34,7 +34,7 @@ public class StalemateCalculator {
                     // Simulate the move and check if it would leave the king in check
                     LocationBitboard clonedBoard = new LocationBitboard();
                     clonedBoard.movePiece(1L << position, move, side);
-                    if (!CheckCalculator.is_in_check(side, clonedBoard)) {
+                    if (!CheckCalculator.isInCheck(side, clonedBoard)) {
                         return false; // Found a move that would not leave the player in check
                     }
                 }

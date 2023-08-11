@@ -42,7 +42,7 @@ class BishopTest {
                 {0, 0, 0, 0, 0, 0, 0, 1}
         };
 
-        long validMove = bishopCalculator.valid_moves(TestHelper.bitboard_representation(bishopLocation), false, board);
+        long validMove = bishopCalculator.validMoves(TestHelper.bitboard_representation(bishopLocation), false, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
     }
@@ -77,7 +77,7 @@ class BishopTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long validMove = bishopCalculator.valid_moves(TestHelper.bitboard_representation(bishopLocation), true, board);
+        long validMove = bishopCalculator.validMoves(TestHelper.bitboard_representation(bishopLocation), true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
     }
@@ -116,7 +116,7 @@ class BishopTest {
                 {1, 0, 0, 0, 0, 0, 1, 0}
         };
 
-        long attackCoverage = bishopCalculator.attack_coverage(true, board);
+        long attackCoverage = bishopCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
     }
@@ -163,7 +163,7 @@ class BishopTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long attackCoverage = bishopCalculator.attack_coverage(true, board);
+        long attackCoverage = bishopCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
     }
@@ -210,7 +210,7 @@ class BishopTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long attackCoverage = bishopCalculator.attack_coverage(true, board);
+        long attackCoverage = bishopCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
     }
@@ -269,7 +269,7 @@ class BishopTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long attackCoverage = bishopCalculator.attack_coverage(false, board);
+        long attackCoverage = bishopCalculator.attackCoverage(false, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
     }

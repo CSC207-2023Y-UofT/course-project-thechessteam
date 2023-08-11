@@ -15,13 +15,13 @@ public class ActualValidCalculator {
     }
 
     // ----------------------------------------------------------------------------------------------------------
-    public long actual_valid_moves(long from, boolean side, LocationBitboard currentBoard) {
+    public long actualValidMoves(long from, boolean side, LocationBitboard currentBoard) {
         // Precondition: There is a piece at from inside currentBoard.
         // Precondition: The piece is on side.
         // Precondition: There cannot be two pieces in the same location of currentBoard.
 
         // Determine what calculator to use (i.e. What is the piece type at from?)
-        PieceCalculator calculator = identify_calculator(from, currentBoard);
+        PieceCalculator calculator = identifyCalculator(from, currentBoard);
 
         // Read comment on UseCases.CheckCalculator below for this variable
         boolean fromIsKing = ((from & currentBoard.whiteKing[0]) != 0) || ((from & currentBoard.blackKing[0]) != 0);
@@ -37,11 +37,11 @@ public class ActualValidCalculator {
             long moveCandidate = 1L << i;
             if ((candidates & moveCandidate) != 0L) {
                 // Make a copy of currentBoard for testing if candidate position is valid
-                LocationBitboard copy = locations_copy(currentBoard);
+                LocationBitboard copy = locationsCopy(currentBoard);
                 copy.movePiece(from, moveCandidate, side);
                 copy.updateLocationVariables();
 
-                if (checkCalc.is_in_check(side, copy)) {
+                if (checkCalc.isInCheck(side, copy)) {
                     actualValid &= ~moveCandidate;
                 }
                 // Since UseCases.CheckCalculator does not include attack coverage of opponent king,
@@ -57,7 +57,7 @@ public class ActualValidCalculator {
         }
         // Check the King does not leave or cross over a square attacked by an enemy piece for castling
         if (fromIsKing) {
-            actualValid = process_castling_actual_valid_moves(from, side, currentBoard, actualValid);
+            actualValid = processCastlingActualValidMoves(from, side, currentBoard, actualValid);
         }
         return actualValid;
     }
@@ -69,7 +69,7 @@ public class ActualValidCalculator {
 
     // Helper method for finding piece type
     // Throws RuntimeException if side does not have any piece at from
-    private PieceCalculator identify_calculator(long from, LocationBitboard currentBoard) {
+    private PieceCalculator identifyCalculator(long from, LocationBitboard currentBoard) {
         PieceCalculator calculator;
 
         if (((from & currentBoard.whitePawn[0]) != 0L) || ((from & currentBoard.blackPawn[0]) != 0L)) {
@@ -96,7 +96,7 @@ public class ActualValidCalculator {
     }
 
     // Helper method for creating a copy of Entities.Locations.LocationBitboard
-    private static LocationBitboard locations_copy(LocationBitboard currentBoard) {
+    private static LocationBitboard locationsCopy(LocationBitboard currentBoard) {
         LocationBitboard copy = new LocationBitboard();
         copy.whitePawn[0] = currentBoard.whitePawn[0];
         copy.whiteRook[0] = currentBoard.whiteRook[0];
@@ -117,49 +117,49 @@ public class ActualValidCalculator {
     }
 
     // Returns the actual valid moves of king, removing castling moves that violates castling conditions
-    private long process_castling_actual_valid_moves(long from, boolean side,
-                                                     LocationBitboard currentBoard, long actualValid) {
+    private long processCastlingActualValidMoves(long from, boolean side,
+                                                 LocationBitboard currentBoard, long actualValid) {
         long updatedActualValid = actualValid;
         // Is king leaving a square attacked by enemy?
-        boolean canCastle = !checkCalc.is_in_check(side, currentBoard);
+        boolean canCastle = !checkCalc.isInCheck(side, currentBoard);
         if (canCastle) { // Check if we do not cross over a square attacked by an enemy piece
             if (side) { // White castling
-                updatedActualValid = update_white_king_castling_moves(from, currentBoard, updatedActualValid);
+                updatedActualValid = updateWhiteKingCastlingMoves(from, currentBoard, updatedActualValid);
             }
             else { // Black castling
-                updatedActualValid = update_black_king_castling_moves(from, currentBoard, updatedActualValid);
+                updatedActualValid = updateBlackKingCastlingMoves(from, currentBoard, updatedActualValid);
             }
         }
         else { // We can now remove all castling moves since we now know it is now not possible
-            updatedActualValid = remove_all_castling_moves(from, side, updatedActualValid);
+            updatedActualValid = removeAllCastlingMoves(from, side, updatedActualValid);
         }
         return updatedActualValid;
     }
 
     // Helper methods for removing moves that violate castling conditions.
     // Returns the actual valid moves after the removal.
-    private long update_white_king_castling_moves(long from, LocationBitboard currentBoard, long actualValid) {
+    private long updateWhiteKingCastlingMoves(long from, LocationBitboard currentBoard, long actualValid) {
         long updatedActualValid = actualValid;
-        updatedActualValid = update_white_king_left_castle(from, currentBoard, updatedActualValid);
-        updatedActualValid = update_white_king_right_castle(from, currentBoard, updatedActualValid);
+        updatedActualValid = updateWhiteKingLeftCastle(from, currentBoard, updatedActualValid);
+        updatedActualValid = updateWhiteKingRightCastle(from, currentBoard, updatedActualValid);
         return updatedActualValid;
     }
 
-    private long update_black_king_castling_moves(long from, LocationBitboard currentBoard, long actualValid) {
+    private long updateBlackKingCastlingMoves(long from, LocationBitboard currentBoard, long actualValid) {
         long updatedActualValid = actualValid;
-        updatedActualValid = update_black_king_left_castle(from, currentBoard, updatedActualValid);
-        updatedActualValid = update_black_king_right_castle(from, currentBoard, updatedActualValid);
+        updatedActualValid = updateBlackKingLeftCastle(from, currentBoard, updatedActualValid);
+        updatedActualValid = updateBlackKingRightCastle(from, currentBoard, updatedActualValid);
         return updatedActualValid;
     }
 
-    private long update_white_king_left_castle(long from, LocationBitboard currentBoard, long actualValid) {
+    private long updateWhiteKingLeftCastle(long from, LocationBitboard currentBoard, long actualValid) {
         long updatedActualValid = actualValid;
         if ((from == (1L << 4)) && (((1L << 2) & actualValid) != 0L)) { // left castling valid candidate
-            LocationBitboard copy = locations_copy(currentBoard);
+            LocationBitboard copy = locationsCopy(currentBoard);
             copy.movePiece(from, 1L << 3, true); // Suppose king is at the square we cross over
             copy.updateLocationVariables();
 
-            if (checkCalc.is_in_check(true, copy)) { // Is king in check?
+            if (checkCalc.isInCheck(true, copy)) { // Is king in check?
                 updatedActualValid &= ~(1L << 2);
             } else { // Is king in attack range of opponent king?
                 if (((1L << 3) & calculators.kingCalculator.attackCoverage(false, copy)) != 0L) {
@@ -170,14 +170,14 @@ public class ActualValidCalculator {
         return updatedActualValid;
     }
 
-    private long update_white_king_right_castle(long from, LocationBitboard currentBoard, long actualValid) {
+    private long updateWhiteKingRightCastle(long from, LocationBitboard currentBoard, long actualValid) {
         long updatedActualValid = actualValid;
         if ((from == (1L << 4)) && (((1L << 6) & actualValid) != 0L)) { // right castling valid candidate
-            LocationBitboard copy = locations_copy(currentBoard);
+            LocationBitboard copy = locationsCopy(currentBoard);
             copy.movePiece(from, 1L << 5, true); // Suppose king is at the square we cross over
             copy.updateLocationVariables();
 
-            if (checkCalc.is_in_check(true, copy)) { // Is king in check?
+            if (checkCalc.isInCheck(true, copy)) { // Is king in check?
                 updatedActualValid &= ~(1L << 6);
             } else { // Is king in attack range of opponent king?
                 if (((1L << 5) & calculators.kingCalculator.attackCoverage(false, copy)) != 0L) {
@@ -188,14 +188,14 @@ public class ActualValidCalculator {
         return updatedActualValid;
     }
 
-    private long update_black_king_left_castle(long from, LocationBitboard currentBoard, long actualValid) {
+    private long updateBlackKingLeftCastle(long from, LocationBitboard currentBoard, long actualValid) {
         long updatedActualValid = actualValid;
         if ((from == (1L << 60)) && (((1L << 58) & actualValid) != 0L)) { // left castling valid candidate
-            LocationBitboard copy = locations_copy(currentBoard);
+            LocationBitboard copy = locationsCopy(currentBoard);
             copy.movePiece(from, 1L << 59, false); // Suppose king is at the square we cross over
             copy.updateLocationVariables();
 
-            if (checkCalc.is_in_check(false, copy)) { // Is king in check?
+            if (checkCalc.isInCheck(false, copy)) { // Is king in check?
                 updatedActualValid &= ~(1L << 58);
             } else { // Is king in attack range of opponent king?
                 if (((1L << 59) & calculators.kingCalculator.attackCoverage(true, copy)) != 0L) {
@@ -206,14 +206,14 @@ public class ActualValidCalculator {
         return updatedActualValid;
     }
 
-    private long update_black_king_right_castle(long from, LocationBitboard currentBoard, long actualValid) {
+    private long updateBlackKingRightCastle(long from, LocationBitboard currentBoard, long actualValid) {
         long updatedActualValid = actualValid;
         if ((from == (1L << 60)) && (((1L << 62) & actualValid) != 0L)) { // right castling valid candidate
-            LocationBitboard copy = locations_copy(currentBoard);
+            LocationBitboard copy = locationsCopy(currentBoard);
             copy.movePiece(from, 1L << 61, false); // Suppose king is at the square we cross over
             copy.updateLocationVariables();
 
-            if (checkCalc.is_in_check(false, copy)) { // Is king in check?
+            if (checkCalc.isInCheck(false, copy)) { // Is king in check?
                 updatedActualValid &= ~(1L << 62);
             } else { // Is king in attack range of opponent king?
                 if (((1L << 61) & calculators.kingCalculator.attackCoverage(true, copy)) != 0L) {
@@ -225,7 +225,7 @@ public class ActualValidCalculator {
     }
 
     // Returns actualValid with all castling moves removed
-    private long remove_all_castling_moves(long from, boolean side, long actualValid) {
+    private long removeAllCastlingMoves(long from, boolean side, long actualValid) {
         long updatedActualValid = actualValid;
         if (side) {
             if (from == 1L << 4) {

@@ -68,7 +68,7 @@ class ActualValidCalculatorTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long actualValidMove = actualValidCalculator.actual_valid_moves(
+        long actualValidMove = actualValidCalculator.actualValidMoves(
                 TestHelper.bitboard_representation(whiteQueenLocation), true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedActualValidMove), actualValidMove);
@@ -130,7 +130,7 @@ class ActualValidCalculatorTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long actualValidMove = actualValidCalculator.actual_valid_moves(
+        long actualValidMove = actualValidCalculator.actualValidMoves(
                 TestHelper.bitboard_representation(whitePawnLocation), true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedActualValidMove), actualValidMove);
@@ -191,7 +191,7 @@ class ActualValidCalculatorTest {
         board.blackPawn[0] = TestHelper.bitboard_representation(blackPawnLocation);
         board.updateLocationVariables();
 
-        long actualValidMove = actualValidCalculator.actual_valid_moves(
+        long actualValidMove = actualValidCalculator.actualValidMoves(
                 TestHelper.bitboard_representation(whitePawnLocation), true, board);
         // Check if valid move is as expected
         assertEquals(0L, actualValidMove);
@@ -264,7 +264,7 @@ class ActualValidCalculatorTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long actualValidMove = actualValidCalculator.actual_valid_moves(
+        long actualValidMove = actualValidCalculator.actualValidMoves(
                 TestHelper.bitboard_representation(whiteKnightLocation), true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedActualValidMove), actualValidMove);
