@@ -1,5 +1,5 @@
 import entities.locations.LocationBitboard;
-import entities.Pieces.Knight;
+import entities.pieces.Knight;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,7 +41,7 @@ class KnightTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long validMove = knightCalculator.valid_moves(TestHelper.bitboard_representation(knightLocation), false, board);
+        long validMove = knightCalculator.validMoves(TestHelper.bitboard_representation(knightLocation), false, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
     }
@@ -76,7 +76,7 @@ class KnightTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long validMove = knightCalculator.valid_moves(TestHelper.bitboard_representation(knightLocation), true, board);
+        long validMove = knightCalculator.validMoves(TestHelper.bitboard_representation(knightLocation), true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
     }
@@ -111,7 +111,7 @@ class KnightTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long validMove = knightCalculator.valid_moves(TestHelper.bitboard_representation(knightLocation), true, board);
+        long validMove = knightCalculator.validMoves(TestHelper.bitboard_representation(knightLocation), true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
     }
@@ -150,7 +150,7 @@ class KnightTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long attackCoverage = knightCalculator.attack_coverage(true, board);
+        long attackCoverage = knightCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
     }
@@ -197,7 +197,7 @@ class KnightTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long attackCoverage = knightCalculator.attack_coverage(true, board);
+        long attackCoverage = knightCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
     }
@@ -244,7 +244,7 @@ class KnightTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long attackCoverage = knightCalculator.attack_coverage(true, board);
+        long attackCoverage = knightCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
     }
@@ -303,7 +303,7 @@ class KnightTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long attackCoverage = knightCalculator.attack_coverage(false, board);
+        long attackCoverage = knightCalculator.attackCoverage(false, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
     }

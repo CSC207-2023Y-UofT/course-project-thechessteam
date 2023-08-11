@@ -1,5 +1,5 @@
 import entities.locations.LocationBitboard;
-import entities.Pieces.King;
+import entities.pieces.King;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,7 +38,7 @@ class KingTest {
                 {0, 1, 0, 0, 0, 0, 0, 0}
         };
 
-        long validMove = kingCalculator.valid_moves(TestHelper.bitboard_representation(kingLocation), true, board);
+        long validMove = kingCalculator.validMoves(TestHelper.bitboard_representation(kingLocation), true, board);
         assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
     }
 
@@ -72,7 +72,7 @@ class KingTest {
 
             };
 
-            long validMove = kingCalculator.valid_moves(TestHelper.bitboard_representation(kingLocation), true, board);
+            long validMove = kingCalculator.validMoves(TestHelper.bitboard_representation(kingLocation), true, board);
             assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
         }
 
@@ -116,7 +116,7 @@ class KingTest {
                     {0, 0, 0, 0, 0, 0, 0, 0},
             };
 
-            long validMove = kingCalculator.valid_moves(TestHelper.bitboard_representation(kingLocation), true, board);
+            long validMove = kingCalculator.validMoves(TestHelper.bitboard_representation(kingLocation), true, board);
             assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
         }
 

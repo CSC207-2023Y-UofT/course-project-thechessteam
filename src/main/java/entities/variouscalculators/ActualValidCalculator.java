@@ -49,7 +49,7 @@ public class ActualValidCalculator {
                 // we have to make sure that when we move a king,
                 // it should not be in the attack range of opponent's king
                 else if (fromIsKing) {
-                    if ((moveCandidate & calculators.kingCalculator.attack_coverage(!side, copy)) != 0L) {
+                    if ((moveCandidate & calculators.kingCalculator.attackCoverage(!side, copy)) != 0L) {
                         actualValid &= ~moveCandidate;
                     }
                 }
@@ -162,7 +162,7 @@ public class ActualValidCalculator {
             if (checkCalc.is_in_check(true, copy)) { // Is king in check?
                 updatedActualValid &= ~(1L << 2);
             } else { // Is king in attack range of opponent king?
-                if (((1L << 3) & calculators.kingCalculator.attack_coverage(false, copy)) != 0L) {
+                if (((1L << 3) & calculators.kingCalculator.attackCoverage(false, copy)) != 0L) {
                     updatedActualValid &= ~(1L << 2);
                 }
             }
@@ -180,7 +180,7 @@ public class ActualValidCalculator {
             if (checkCalc.is_in_check(true, copy)) { // Is king in check?
                 updatedActualValid &= ~(1L << 6);
             } else { // Is king in attack range of opponent king?
-                if (((1L << 5) & calculators.kingCalculator.attack_coverage(false, copy)) != 0L) {
+                if (((1L << 5) & calculators.kingCalculator.attackCoverage(false, copy)) != 0L) {
                     updatedActualValid &= ~(1L << 6);
                 }
             }
@@ -198,7 +198,7 @@ public class ActualValidCalculator {
             if (checkCalc.is_in_check(false, copy)) { // Is king in check?
                 updatedActualValid &= ~(1L << 58);
             } else { // Is king in attack range of opponent king?
-                if (((1L << 59) & calculators.kingCalculator.attack_coverage(true, copy)) != 0L) {
+                if (((1L << 59) & calculators.kingCalculator.attackCoverage(true, copy)) != 0L) {
                     updatedActualValid &= ~(1L << 58);
                 }
             }
@@ -216,7 +216,7 @@ public class ActualValidCalculator {
             if (checkCalc.is_in_check(false, copy)) { // Is king in check?
                 updatedActualValid &= ~(1L << 62);
             } else { // Is king in attack range of opponent king?
-                if (((1L << 61) & calculators.kingCalculator.attack_coverage(true, copy)) != 0L) {
+                if (((1L << 61) & calculators.kingCalculator.attackCoverage(true, copy)) != 0L) {
                     updatedActualValid &= ~(1L << 62);
                 }
             }

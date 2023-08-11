@@ -16,7 +16,7 @@ public class CheckCalculator {
         opponentAttacks |= calculators.pawnCalculator.attack_coverage(!side, board);
         opponentAttacks |= calculators.rookCalculator.attack_coverage(!side, board);
         opponentAttacks |= calculators.knightCalculator.attack_coverage(!side, board);
-        opponentAttacks |= calculators.bishopCalculator.attack_coverage(!side, board);
+        opponentAttacks |= calculators.bishopCalculator.attackCoverage(!side, board);
         opponentAttacks |= calculators.queenCalculator.attack_coverage(!side, board);
 
         // No need to include the opponent's king in the attack coverage

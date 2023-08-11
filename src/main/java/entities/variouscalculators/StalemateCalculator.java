@@ -27,7 +27,7 @@ public class StalemateCalculator {
                 pieces ^= (1L << position); // Clear the least significant bit
                 // Get a Calculator for the piece at `position`
                 Calculator pieceCalculator = getPieceCalculator(position, board);
-                long validMoves = pieceCalculator.valid_moves(1L << position, side, board);
+                long validMoves = pieceCalculator.validMoves(1L << position, side, board);
                 while (validMoves != 0) {
                     long move = Long.lowestOneBit(validMoves); // Get a possible move
                     validMoves ^= move; // Remove this move from the list of valid moves

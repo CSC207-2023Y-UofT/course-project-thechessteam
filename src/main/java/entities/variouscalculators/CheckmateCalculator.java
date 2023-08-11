@@ -22,7 +22,7 @@ public class CheckmateCalculator {
         long kingPositions = side ? board.whiteKing[0] : board.blackKing[0];
         int kingPosition = Long.numberOfTrailingZeros(kingPositions);
         King king = new King();
-        if (king.valid_moves(1L << kingPosition, side, board) != 0) {
+        if (king.validMoves(1L << kingPosition, side, board) != 0) {
             return false; // Entities.Pieces.King can move out of check
         }
 

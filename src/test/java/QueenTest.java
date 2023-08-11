@@ -41,7 +41,7 @@ class QueenTest {
                 {0, 1, 1, 1, 1, 1, 1, 1}
         };
 
-        long validMove = queenCalculator.valid_moves(TestHelper.bitboard_representation(queenLocation), true, board);
+        long validMove = queenCalculator.validMoves(TestHelper.bitboard_representation(queenLocation), true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
     }
@@ -76,7 +76,7 @@ class QueenTest {
                 {0, 0, 0, 1, 0, 0, 0, 1}
         };
 
-        long validMove = queenCalculator.valid_moves(TestHelper.bitboard_representation(queenLocation), true, board);
+        long validMove = queenCalculator.validMoves(TestHelper.bitboard_representation(queenLocation), true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
     }
@@ -123,7 +123,7 @@ class QueenTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long validMove = queenCalculator.valid_moves(TestHelper.bitboard_representation(queenLocation), true, board);
+        long validMove = queenCalculator.validMoves(TestHelper.bitboard_representation(queenLocation), true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
     }
@@ -170,7 +170,7 @@ class QueenTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long validMove = queenCalculator.valid_moves(TestHelper.bitboard_representation(queenLocation), true, board);
+        long validMove = queenCalculator.validMoves(TestHelper.bitboard_representation(queenLocation), true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
     }
@@ -229,7 +229,7 @@ class QueenTest {
                 {0, 0, 0, 0, 0, 0, 0, 1}
         };
 
-        long validMove = queenCalculator.valid_moves(TestHelper.bitboard_representation(blackQueenLocation), false, board);
+        long validMove = queenCalculator.validMoves(TestHelper.bitboard_representation(blackQueenLocation), false, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
     }
@@ -267,7 +267,7 @@ class QueenTest {
                 {0, 1, 1, 1, 1, 1, 1, 1}
         };
 
-        long attackCoverage = queenCalculator.attack_coverage(true, board);
+        long attackCoverage = queenCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
     }
@@ -302,7 +302,7 @@ class QueenTest {
                 {0, 0, 0, 1, 0, 0, 0, 1}
         };
 
-        long attackCoverage = queenCalculator.attack_coverage(true, board);
+        long attackCoverage = queenCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
     }
@@ -349,7 +349,7 @@ class QueenTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long attackCoverage = queenCalculator.attack_coverage(true, board);
+        long attackCoverage = queenCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
     }
@@ -396,7 +396,7 @@ class QueenTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long attackCoverage = queenCalculator.attack_coverage(true, board);
+        long attackCoverage = queenCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
     }
@@ -455,7 +455,7 @@ class QueenTest {
                 {0, 0, 0, 0, 0, 0, 0, 1}
         };
 
-        long attackCoverage = queenCalculator.attack_coverage(false, board);
+        long attackCoverage = queenCalculator.attackCoverage(false, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
     }
@@ -490,7 +490,7 @@ class QueenTest {
                 {1, 1, 0, 1, 0, 0, 0, 1}
         };
 
-        long attackCoverage = queenCalculator.attack_coverage(false, board);
+        long attackCoverage = queenCalculator.attackCoverage(false, board);
         // Check if valid move is as expected
         assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
     }

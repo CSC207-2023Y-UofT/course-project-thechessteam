@@ -37,7 +37,7 @@ public class PawnTest{
         new_board.updateLocationVariables();
         long from = TestHelper.bitboard_representation(array_from);
         long expected_moves = TestHelper.bitboard_representation(array_to);
-        long test_moves = test_pawn.valid_moves(from, false, new_board);
+        long test_moves = test_pawn.validMoves(from, false, new_board);
         assertEquals(expected_moves, test_moves);
     }
 
@@ -72,7 +72,7 @@ public class PawnTest{
         new_board.updateLocationVariables();
         long from = TestHelper.bitboard_representation(array_from);
         long expected_moves = 0L;
-        long test_moves = test_pawn.valid_moves(from, false, new_board);
+        long test_moves = test_pawn.validMoves(from, false, new_board);
         assertEquals(expected_moves, test_moves);
     }
 
@@ -106,7 +106,7 @@ public class PawnTest{
         new_board.updateLocationVariables();
         long from = TestHelper.bitboard_representation(arrayfrom);
         long expected_moves = TestHelper.bitboard_representation(arrayto);
-        long test_moves = test_pawn.valid_moves(from, false, new_board);
+        long test_moves = test_pawn.validMoves(from, false, new_board);
         assertEquals(expected_moves, test_moves);
     }
 
@@ -151,7 +151,7 @@ public class PawnTest{
         new_board.updateLocationVariables();
         long from = TestHelper.bitboard_representation(arrayfrom);
         long expected_moves = TestHelper.bitboard_representation(arrayto);
-        long test_moves = test_pawn.valid_moves(from, false, new_board);
+        long test_moves = test_pawn.validMoves(from, false, new_board);
         assertEquals(expected_moves, test_moves);
     }
 
@@ -196,7 +196,7 @@ public class PawnTest{
         new_board.updateLocationVariables();
         long from = TestHelper.bitboard_representation(arrayfrom);
         long expected_moves = TestHelper.bitboard_representation(arrayto);
-        long test_moves = test_pawn.valid_moves(from, false, new_board);
+        long test_moves = test_pawn.validMoves(from, false, new_board);
         assertEquals(expected_moves, test_moves);
     }
 
@@ -220,7 +220,7 @@ public class PawnTest{
         new_board.updateLocationVariables();
         long from = TestHelper.bitboard_representation(arrayfrom);
         long expected_moves = 0L;
-        long test_moves = test_pawn.valid_moves(from, false, new_board);
+        long test_moves = test_pawn.validMoves(from, false, new_board);
         assertEquals(expected_moves, test_moves);
     }
 
@@ -278,7 +278,7 @@ public class PawnTest{
         new_board.movePiece(white_pawn_from_long, white_pawn_to_long, true);
         long from = TestHelper.bitboard_representation(arrayfrom);
         long expected_moves = TestHelper.bitboard_representation(arrayto);
-        long test_moves = test_pawn.valid_moves(from, false, new_board);
+        long test_moves = test_pawn.validMoves(from, false, new_board);
         assertEquals(expected_moves, test_moves);
     }
 
@@ -314,7 +314,7 @@ public class PawnTest{
         new_board.updateLocationVariables();
         long from = TestHelper.bitboard_representation(arrayfrom);
         long expected_moves = TestHelper.bitboard_representation(arrayto);
-        long test_moves = test_pawn.valid_moves(from, true, new_board);
+        long test_moves = test_pawn.validMoves(from, true, new_board);
         assertEquals(expected_moves, test_moves);
     }
 
@@ -349,7 +349,7 @@ public class PawnTest{
         new_board.updateLocationVariables();
         long from = TestHelper.bitboard_representation(arrayfrom);
         long expected_moves = 0L;
-        long test_moves = test_pawn.valid_moves(from, true, new_board);
+        long test_moves = test_pawn.validMoves(from, true, new_board);
         assertEquals(expected_moves, test_moves);
     }
 
@@ -383,7 +383,7 @@ public class PawnTest{
         new_board.updateLocationVariables();
         long from = TestHelper.bitboard_representation(arrayfrom);
         long expected_moves = TestHelper.bitboard_representation(arrayto);
-        long test_moves = test_pawn.valid_moves(from, true, new_board);
+        long test_moves = test_pawn.validMoves(from, true, new_board);
         assertEquals(expected_moves, test_moves);
     }
 
@@ -428,7 +428,7 @@ public class PawnTest{
         new_board.updateLocationVariables();
         long from = TestHelper.bitboard_representation(arrayfrom);
         long expected_moves = TestHelper.bitboard_representation(arrayto);
-        long test_moves = test_pawn.valid_moves(from, true, new_board);
+        long test_moves = test_pawn.validMoves(from, true, new_board);
         assertEquals(expected_moves, test_moves);
     }
 
@@ -473,7 +473,7 @@ public class PawnTest{
         new_board.updateLocationVariables();
         long from = TestHelper.bitboard_representation(arrayfrom);
         long expected_moves = TestHelper.bitboard_representation(arrayto);
-        long test_moves = test_pawn.valid_moves(from, true, new_board);
+        long test_moves = test_pawn.validMoves(from, true, new_board);
         assertEquals(expected_moves, test_moves);
     }
 
@@ -497,7 +497,7 @@ public class PawnTest{
         new_board.updateLocationVariables();
         long from = TestHelper.bitboard_representation(arrayfrom);
         long expected_moves = 0L;
-        long test_moves = test_pawn.valid_moves(from, true, new_board);
+        long test_moves = test_pawn.validMoves(from, true, new_board);
         assertEquals(expected_moves, test_moves);
     }
 
@@ -555,7 +555,7 @@ public class PawnTest{
         new_board.movePiece(black_pawn_from_long, black_pawn_to_long, false);
         long from = TestHelper.bitboard_representation(arrayfrom);
         long expected_moves = TestHelper.bitboard_representation(arrayto);
-        long test_moves = test_pawn.valid_moves(from, true, new_board);
+        long test_moves = test_pawn.validMoves(from, true, new_board);
         assertEquals(expected_moves, test_moves);
     }
 
@@ -590,7 +590,7 @@ public class PawnTest{
         new_board.updateLocationVariables();
         long from = TestHelper.bitboard_representation(array_from);
         long expected_moves = TestHelper.bitboard_representation(array_attacks);
-        long test_moves = test_pawn.valid_moves(from, true, new_board);
+        long test_moves = test_pawn.validMoves(from, true, new_board);
         assertEquals(expected_moves, test_moves);
     }
 
@@ -634,7 +634,7 @@ public class PawnTest{
         new_board.blackPawn[0] = TestHelper.bitboard_representation(enemy_positions);
         new_board.updateLocationVariables();
         long expected_moves = TestHelper.bitboard_representation(array_attacks);
-        long test_moves = test_pawn.attack_coverage(true, new_board);
+        long test_moves = test_pawn.attackCoverage(true, new_board);
         assertEquals(expected_moves, test_moves);
     }
 
@@ -678,7 +678,7 @@ public class PawnTest{
         new_board.blackPawn[0] = TestHelper.bitboard_representation(enemy_positions);
         new_board.updateLocationVariables();
         long expected_moves = TestHelper.bitboard_representation(array_attacks);
-        long test_moves = test_pawn.attack_coverage(true, new_board);
+        long test_moves = test_pawn.attackCoverage(true, new_board);
         assertEquals(expected_moves, test_moves);
     }
 }
