@@ -28,11 +28,11 @@ public class Pawn implements PieceCalculator {
             }
 
             // get possible attacks; there must be an opponent's piece to capture.
-            pawnValidMoves |= PreCalculatedAttacks.pawn_attacks[0][s] & board.getBlackLocations();
+            pawnValidMoves |= PreCalculatedAttacks.pawnAttacks[0][s] & board.getBlackLocations();
 
             // Add En passant moves
             if (board.locationBlackPawnMovedTwo() != 0L) {
-                pawnValidMoves |= PreCalculatedAttacks.pawn_attacks[0][s] & (board.locationBlackPawnMovedTwo() << 8);
+                pawnValidMoves |= PreCalculatedAttacks.pawnAttacks[0][s] & (board.locationBlackPawnMovedTwo() << 8);
             }
         }
         // black pawn
@@ -52,11 +52,11 @@ public class Pawn implements PieceCalculator {
             }
 
             // get possible attacks; there must be an opponent's piece to capture.
-            pawnValidMoves |= PreCalculatedAttacks.pawn_attacks[1][s] & board.getWhiteLocations();
+            pawnValidMoves |= PreCalculatedAttacks.pawnAttacks[1][s] & board.getWhiteLocations();
 
             // Add En passant moves
             if (board.locationWhitePawnMovedTwo() != 0L) {
-                pawnValidMoves |= PreCalculatedAttacks.pawn_attacks[1][s] & (board.locationWhitePawnMovedTwo() >>> 8);
+                pawnValidMoves |= PreCalculatedAttacks.pawnAttacks[1][s] & (board.locationWhitePawnMovedTwo() >>> 8);
             }
         }
 
@@ -72,14 +72,14 @@ public class Pawn implements PieceCalculator {
         if (side) {
             for (int i = 0; i < 64; i++) {
                 if ((board.whitePawn[0] & (1L << i)) != 0L) { // Check if there's a white pawn at 1L << i.
-                    pawnAttacks |= PreCalculatedAttacks.pawn_attacks[0][i];
+                    pawnAttacks |= PreCalculatedAttacks.pawnAttacks[0][i];
                 }
             }
         }
         else {
             for (int i = 0; i < 64; i++) {
                 if ((board.blackPawn[0] & (1L << i)) != 0L) { // Check if there's a black pawn at 1L << i.
-                    pawnAttacks |= PreCalculatedAttacks.pawn_attacks[1][i];
+                    pawnAttacks |= PreCalculatedAttacks.pawnAttacks[1][i];
                 }
             }
         }

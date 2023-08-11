@@ -17,7 +17,7 @@ public class Rook implements PieceCalculator {
         // tells you the number of trailing zeros from where the piece currently stands on the 64 bit array
         int s = Long.numberOfTrailingZeros(from);
         long horizontalMask = FileAndRank.RANK_MASKS_8[s / 8];
-        long verticalMask = FileAndRank.FileMasks8[s % 8];
+        long verticalMask = FileAndRank.FILE_MASKS_8[s % 8];
 
         // Candidate horizontal valid move positions. Apply horizontal mask to filter out relevant position.
         long horizontal = (occupied - 2 * from) ^ Long.reverse(

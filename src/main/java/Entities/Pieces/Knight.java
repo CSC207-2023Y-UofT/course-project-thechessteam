@@ -19,7 +19,7 @@ public class Knight implements PieceCalculator {
         this.sameColoredPieces = (side) ? board.getWhiteLocations() : board.getBlackLocations();
 
         // calculates the position of knight
-        return calculateFinalPosition(PreCalculatedAttacks.knight_attacks[s]);
+        return calculateFinalPosition(PreCalculatedAttacks.knightAttacks[s]);
     }
 
     public long calculateFinalPosition(long candidate) {

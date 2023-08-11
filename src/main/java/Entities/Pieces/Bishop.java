@@ -16,8 +16,8 @@ public class Bishop implements PieceCalculator {
         // numberOfTrailingZeros built-in method,
         // tells you the number of trailing zeros from where the piece currently stands on the 64 bit array
         int s = Long.numberOfTrailingZeros(from);
-        long diagonalMask = FileAndRank.DiagonalMasks8[(s / 8) + (s % 8)];
-        long antiDiagonalMask = FileAndRank.AntiDiagonalMasks8[(s / 8) + 7 - (s % 8)];
+        long diagonalMask = FileAndRank.DIAGONAL_MASKS_8[(s / 8) + (s % 8)];
+        long antiDiagonalMask = FileAndRank.ANTI_DIAGONAL_MASKS_8[(s / 8) + 7 - (s % 8)];
 
         // Candidate diagonal valid move positions.
         // Apply diagonal mask again to filter out relevant positions.

@@ -8,9 +8,9 @@ public class Queen implements PieceCalculator {
     public long valid_moves(long from, boolean side, LocationBitboard board) {
         // Hyperbola Quintessence Calculation
         int s = Long.numberOfTrailingZeros(from);
-        long diag_m = FileAndRank.DiagonalMasks8[(s / 8) + (s % 8)];
-        long anti_m = FileAndRank.AntiDiagonalMasks8[(s / 8) + 7 - (s % 8)];
-        long vertical_m = FileAndRank.FileMasks8[s % 8];
+        long diag_m = FileAndRank.DIAGONAL_MASKS_8[(s / 8) + (s % 8)];
+        long anti_m = FileAndRank.ANTI_DIAGONAL_MASKS_8[(s / 8) + 7 - (s % 8)];
+        long vertical_m = FileAndRank.FILE_MASKS_8[s % 8];
         long horizontal_m = FileAndRank.RANK_MASKS_8[s / 8];
         long o = board.getOccupied();
         // Diagonal valid move candidates calculation

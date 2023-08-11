@@ -122,28 +122,28 @@ public class TestForBitboards {
         System.out.println("WHITE PAWN ATTACKS");
         for(int i = 0; i < 64; i++){
             System.out.println("WHITE PAWN ATTACKS FROM SQUARE " + "#" + (i + 1));
-            print_2d_chessboard(array_representation(PreCalculatedAttacks.pawn_attacks[0][i]));
+            print_2d_chessboard(array_representation(PreCalculatedAttacks.pawnAttacks[0][i]));
             System.out.println();
         }
 
         System.out.println("BLACK PAWN ATTACKS");
         for(int i = 0; i < 64; i++){
             System.out.println("BLACK PAWN ATTACKS FROM SQUARE " + "#" + (i + 1));
-            print_2d_chessboard(array_representation(PreCalculatedAttacks.pawn_attacks[1][i]));
+            print_2d_chessboard(array_representation(PreCalculatedAttacks.pawnAttacks[1][i]));
             System.out.println();
         }
 
         System.out.println("KNIGHT ATTACKS (SAME FOR BOTH WHITE AND BLACK)");
         for(int i = 0; i < 64; i++){
             System.out.println("KNIGHT ATTACKS FROM SQUARE " + "#" + (i + 1));
-            print_2d_chessboard(array_representation(PreCalculatedAttacks.knight_attacks[i]));
+            print_2d_chessboard(array_representation(PreCalculatedAttacks.knightAttacks[i]));
             System.out.println();
         }
 
         System.out.println("KING ATTACKS (SAME FOR BOTH WHITE AND BLACK)");
         for(int i = 0; i < 64; i++){
             System.out.println("KING ATTACKS FROM SQUARE " + "#" + (i + 1));
-            print_2d_chessboard(array_representation(PreCalculatedAttacks.king_attacks[i]));
+            print_2d_chessboard(array_representation(PreCalculatedAttacks.kingAttacks[i]));
             System.out.println();
         }
         System.out.println();

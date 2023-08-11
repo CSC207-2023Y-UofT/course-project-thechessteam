@@ -7,7 +7,7 @@ public class King implements PieceCalculator {
 
     public long valid_moves(long from, boolean side, LocationBitboard board) {
         int position = Long.numberOfTrailingZeros(from);
-        long kingCoverage = PreCalculatedAttacks.king_attacks[position];
+        long kingCoverage = PreCalculatedAttacks.kingAttacks[position];
 
         // Get the bitboard for all pieces on the current side
         long allPieces = (side) ? board.getWhiteLocations() : board.getBlackLocations();
@@ -76,7 +76,7 @@ public class King implements PieceCalculator {
         for (int i = 0; i < 64; i++) {
             // Check if the bit at the i-th position is set
             if ((kingPositions & (1L << i)) != 0) {
-                coverage |= PreCalculatedAttacks.king_attacks[i];
+                coverage |= PreCalculatedAttacks.kingAttacks[i];
             }
         }
         return coverage;
