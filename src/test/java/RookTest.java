@@ -1,5 +1,5 @@
 import entities.locations.LocationBitboard;
-import entities.Pieces.Rook;
+import entities.pieces.Rook;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

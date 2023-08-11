@@ -1,6 +1,6 @@
 package entities.variouscalculators;
 
-import entities.Pieces.PieceCalculator;
+import entities.pieces.PieceCalculator;
 import entities.locations.LocationBitboard;
 
 public class ActualValidCalculator {
@@ -27,7 +27,7 @@ public class ActualValidCalculator {
         boolean fromIsKing = ((from & currentBoard.whiteKing[0]) != 0) || ((from & currentBoard.blackKing[0]) != 0);
 
         // Calculate candidate valid moves
-        long candidates = calculator.valid_moves(from, side, currentBoard);
+        long candidates = calculator.validMoves(from, side, currentBoard);
 
         // We will remove invalid moves from actualValid
         long actualValid = candidates;

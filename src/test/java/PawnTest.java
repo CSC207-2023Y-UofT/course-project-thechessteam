@@ -1,5 +1,5 @@
 import entities.locations.LocationBitboard;
-import entities.Pieces.Pawn;
+import entities.pieces.Pawn;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
