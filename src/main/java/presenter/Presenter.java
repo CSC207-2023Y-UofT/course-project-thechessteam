@@ -9,12 +9,12 @@ public class Presenter implements PresenterInterface {
     private final long[][] pieceLocations = new long[2][6];
     public Presenter() {}
 
-    public void set_view(ViewInterface view) {
+    public void setView(ViewInterface view) {
         this.view = view;
     }
 
     @Override
-    public void update_locations(int j, long bitboard, boolean color) {
+    public void updateLocations(int j, long bitboard, boolean color) {
         int i;
         if (color) {
             i = 0;
@@ -25,17 +25,17 @@ public class Presenter implements PresenterInterface {
     }
 
     @Override
-    public void set_location() {
+    public void setLocation() {
         view.setBoard(pieceLocations);
     }
 
     @Override
-    public void set_highlight(long highlight) {
+    public void setHighlight(long highlight) {
         view.setHighlights(highlight);
     }
 
     @Override
-    public void set_turn(boolean currentTurn) {
+    public void setTurn(boolean currentTurn) {
         view.setTurn(currentTurn);
     }
 }

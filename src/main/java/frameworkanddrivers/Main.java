@@ -41,10 +41,10 @@ public class Main {
         BoardUI ui = new BoardUI(clickController, presenter);
 
         // Need to set ViewInterface instance in Presenter because it depends on a view interface
-        presenter.set_view(ui);
+        presenter.setView(ui);
         // Need to set PresenterInterface instance in use case classes because it depends on a presenter interface
-        movePieceClass.set_presenter(presenter);
-        highlightClass.set_presenter(presenter);
+        movePieceClass.setPresenter(presenter);
+        highlightClass.setPresenter(presenter);
 
         // Start View.
         // MainMenu, LeaderBoardUI, and GameOver extends View.

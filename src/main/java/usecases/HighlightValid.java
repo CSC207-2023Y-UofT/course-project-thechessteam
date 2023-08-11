@@ -15,10 +15,10 @@ public class HighlightValid {
         this.actualValidCalc = actualValidCalc;
     }
 
-    public void set_presenter(PresenterInterface presenter) {
+    public void setPresenter(PresenterInterface presenter) {
         this.presenter = presenter;
     }
-    public boolean create_highlight(long from) {
+    public boolean createHighlight(long from) {
         LocationBitboard currentBoard = currentGame.getCurrentBoard();
         boolean turn = currentGame.getTurn();
         if (turn) { // White's turn
@@ -31,7 +31,7 @@ public class HighlightValid {
             }
         }
         long highlight = actualValidCalc.actualValidMoves(from, turn, currentBoard);
-        presenter.set_highlight(highlight);
+        presenter.setHighlight(highlight);
         return true;
     }
 }

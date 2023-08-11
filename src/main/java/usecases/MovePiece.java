@@ -15,31 +15,31 @@ public class MovePiece {
         this.currentGame = currentGame;
         this.actualValidCalc = actualValidCalc;
     }
-    public void set_presenter(PresenterInterface presenter) {
+    public void setPresenter(PresenterInterface presenter) {
         this.presenter = presenter;
     }
-    public void move_piece(long start, long end) {
+    public void movePiece(long start, long end) {
 
         boolean turn = currentGame.getTurn();
         LocationBitboard currentBoard = currentGame.getCurrentBoard();
-        boolean moveSuccessful = move_piece_helper(currentBoard, start, end, turn);
+        boolean moveSuccessful = movePieceHelper(currentBoard, start, end, turn);
 
         System.out.println(moveSuccessful);
         System.out.println();
 
         if (moveSuccessful) {
             for (int i = 0; i < 6; i++) {
-                presenter.update_locations(i, currentBoard.getWhitePieces()[i][0], true);
+                presenter.updateLocations(i, currentBoard.getWhitePieces()[i][0], true);
             }
             for (int i = 0; i < 6; i++) {
-                presenter.update_locations(i, currentBoard.getBlackPieces()[i][0], false);
+                presenter.updateLocations(i, currentBoard.getBlackPieces()[i][0], false);
             }
-            presenter.set_location();
-            presenter.set_turn(currentGame.changeTurn());
+            presenter.setLocation();
+            presenter.setTurn(currentGame.changeTurn());
         }
     }
 
-    public  boolean move_piece_helper(LocationBitboard currentBoard, long start, long end, boolean turn) {
+    public  boolean movePieceHelper(LocationBitboard currentBoard, long start, long end, boolean turn) {
         boolean canMove = false;
         if (turn) { // White's turn
             if ((start & currentBoard.getWhiteLocations()) != 0L) {

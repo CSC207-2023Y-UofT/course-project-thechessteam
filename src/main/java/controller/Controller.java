@@ -20,16 +20,16 @@ public class Controller {
         long from = 1L << twoClicks[0];
         long to = 1L << twoClicks[1];
 
-        movePieceClass.move_piece(from, to);
+        movePieceClass.movePiece(from, to);
     }
     // Returns false if there is no piece at clickIndex belonging to the player of current turn.
     public boolean processHighlight(int clickIndex) {
         long clicked = 1L << clickIndex;
-        return highlightValidClass.create_highlight(clicked);
+        return highlightValidClass.createHighlight(clicked);
     }
 
     // Calls NewGame use case class. if disposePrevious is true, we want to get rid of current JFrame.
     public void startNewGame() {
-        newGameClass.start_new_game();
+        newGameClass.startNewGame();
     }
 }

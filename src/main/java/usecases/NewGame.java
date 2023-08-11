@@ -7,7 +7,7 @@ public class NewGame {
     public NewGame(ChessGame currentGame) {
         this.currentGame = currentGame;
     }
-    public void start_new_game() {
+    public void startNewGame() {
         currentGame.newGame();
     }
 }
