@@ -35,7 +35,7 @@ public class MovePiece {
                 presenter.update_locations(i, currentBoard.getBlackPieces()[i][0], false);
             }
             presenter.set_location();
-            presenter.set_turn(currentGame.change_turn());
+            presenter.set_turn(currentGame.changeTurn());
         }
     }
 

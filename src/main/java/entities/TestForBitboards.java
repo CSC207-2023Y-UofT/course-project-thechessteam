@@ -8,10 +8,10 @@ import entities.locations.LocationBitboard;
 
 public class TestForBitboards {
     public static void main(String[] args){
-        print_board_state();
+        printBoardState();
     }
 
-    // array_representation follows standard bitboard representation where
+    // arrayRepresentation follows standard bitboard representation where
     // bit 0 represent square a1, bit 7 is square h1,
     // bit 56 is square a8, and bit 63 is square h8.
 
@@ -24,7 +24,7 @@ public class TestForBitboards {
     // [a2 b2 c2 d2 e2 f2 g2 h2]
     // [a1 b1 c1 d1 e1 f1 g1 h1]
 
-    public static int[][] array_representation(long bitboard) {
+    public static int[][] arrayRepresentation(long bitboard) {
         int[][] board = new int[8][8];
         for (int i = 0; i < 64; i++) {
             // Evaluate the value of i-th bit
@@ -33,17 +33,17 @@ public class TestForBitboards {
         return board;
     }
 
-    public static void print_2d_chessboard(int[][] chessboard_array){
+    public static void print2dChessboard(int[][] chessboardArray){
         // Print 2D chessboard from top to bottom
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                System.out.print(" " + chessboard_array[i][j] + " ");
+                System.out.print(" " + chessboardArray[i][j] + " ");
             }
             System.out.println();
         }
     }
 
-    public static void print_board_state(){
+    public static void printBoardState(){
         LocationBitboard locations = new LocationBitboard();
 
         // Print all white pieces
@@ -51,19 +51,19 @@ public class TestForBitboards {
         System.out.println();
 
         System.out.println("PAWN LOCATIONS");
-        print_2d_chessboard(array_representation(locations.whitePawn[0]));
+        print2dChessboard(arrayRepresentation(locations.whitePawn[0]));
         System.out.println("ROOK LOCATIONS");
-        print_2d_chessboard(array_representation(locations.whiteRook[0]));
+        print2dChessboard(arrayRepresentation(locations.whiteRook[0]));
         System.out.println("KNIGHT LOCATIONS");
-        print_2d_chessboard(array_representation(locations.whiteKnight[0]));
+        print2dChessboard(arrayRepresentation(locations.whiteKnight[0]));
         System.out.println("BISHOP LOCATIONS");
-        print_2d_chessboard(array_representation(locations.whiteBishop[0]));
+        print2dChessboard(arrayRepresentation(locations.whiteBishop[0]));
         System.out.println("QUEEN LOCATIONS");
-        print_2d_chessboard(array_representation(locations.whiteQueen[0]));
+        print2dChessboard(arrayRepresentation(locations.whiteQueen[0]));
         System.out.println("KING LOCATIONS");
-        print_2d_chessboard(array_representation(locations.whiteKing[0]));
+        print2dChessboard(arrayRepresentation(locations.whiteKing[0]));
         System.out.println("ALL WHITE PIECE LOCATIONS");
-        print_2d_chessboard(array_representation(
+        print2dChessboard(arrayRepresentation(
                 locations.whitePawn[0] | locations.whiteRook[0] | locations.whiteKnight[0]
                         | locations.whiteBishop[0] | locations.whiteQueen[0] | locations.whiteKing[0]));
         System.out.println();
@@ -73,19 +73,19 @@ public class TestForBitboards {
         System.out.println();
 
         System.out.println("PAWN LOCATIONS");
-        print_2d_chessboard(array_representation(locations.blackPawn[0]));
+        print2dChessboard(arrayRepresentation(locations.blackPawn[0]));
         System.out.println("ROOK LOCATIONS");
-        print_2d_chessboard(array_representation(locations.blackRook[0]));
+        print2dChessboard(arrayRepresentation(locations.blackRook[0]));
         System.out.println("KNIGHT LOCATIONS");
-        print_2d_chessboard(array_representation(locations.blackKnight[0]));
+        print2dChessboard(arrayRepresentation(locations.blackKnight[0]));
         System.out.println("BISHOP LOCATIONS");
-        print_2d_chessboard(array_representation(locations.blackBishop[0]));
+        print2dChessboard(arrayRepresentation(locations.blackBishop[0]));
         System.out.println("QUEEN LOCATIONS");
-        print_2d_chessboard(array_representation(locations.blackQueen[0]));
+        print2dChessboard(arrayRepresentation(locations.blackQueen[0]));
         System.out.println("KING LOCATIONS");
-        print_2d_chessboard(array_representation(locations.blackKing[0]));
+        print2dChessboard(arrayRepresentation(locations.blackKing[0]));
         System.out.println("ALL BLACK PIECE LOCATIONS");
-        print_2d_chessboard(array_representation(
+        print2dChessboard(arrayRepresentation(
                 locations.blackPawn[0] | locations.blackRook[0] | locations.blackKnight[0]
                         | locations.blackBishop[0] | locations.blackQueen[0] | locations.blackKing[0]));
         System.out.println();
@@ -95,25 +95,25 @@ public class TestForBitboards {
         System.out.println();
 
         System.out.println("FILE_A");
-        print_2d_chessboard(array_representation(FileAndRank.FILE_A));
+        print2dChessboard(arrayRepresentation(FileAndRank.FILE_A));
         System.out.println("FILE_H");
-        print_2d_chessboard(array_representation(FileAndRank.FILE_H));
+        print2dChessboard(arrayRepresentation(FileAndRank.FILE_H));
         System.out.println("FILE_AB");
-        print_2d_chessboard(array_representation(FileAndRank.FILE_AB));
+        print2dChessboard(arrayRepresentation(FileAndRank.FILE_AB));
         System.out.println("FILE_GH");
-        print_2d_chessboard(array_representation(FileAndRank.FILE_GH));
+        print2dChessboard(arrayRepresentation(FileAndRank.FILE_GH));
         System.out.println("RANK_1");
-        print_2d_chessboard(array_representation(FileAndRank.RANK_1));
+        print2dChessboard(arrayRepresentation(FileAndRank.RANK_1));
         System.out.println("RANK_2");
-        print_2d_chessboard(array_representation(FileAndRank.RANK_2));
+        print2dChessboard(arrayRepresentation(FileAndRank.RANK_2));
         System.out.println("RANK_7");
-        print_2d_chessboard(array_representation(FileAndRank.RANK_7));
+        print2dChessboard(arrayRepresentation(FileAndRank.RANK_7));
         System.out.println("RANK_8");
-        print_2d_chessboard(array_representation(FileAndRank.RANK_8));
+        print2dChessboard(arrayRepresentation(FileAndRank.RANK_8));
         System.out.println("KNIGHT_SPAN");
-        print_2d_chessboard(array_representation(FileAndRank.KNIGHT_SPAN));
+        print2dChessboard(arrayRepresentation(FileAndRank.KNIGHT_SPAN));
         System.out.println("KING_SPAN");
-        print_2d_chessboard(array_representation(FileAndRank.KING_SPAN));
+        print2dChessboard(arrayRepresentation(FileAndRank.KING_SPAN));
         System.out.println();
 
         System.out.println("PRE-CALCULATED ATTACKS");
@@ -122,39 +122,39 @@ public class TestForBitboards {
         System.out.println("WHITE PAWN ATTACKS");
         for(int i = 0; i < 64; i++){
             System.out.println("WHITE PAWN ATTACKS FROM SQUARE " + "#" + (i + 1));
-            print_2d_chessboard(array_representation(PreCalculatedAttacks.pawnAttacks[0][i]));
+            print2dChessboard(arrayRepresentation(PreCalculatedAttacks.pawnAttacks[0][i]));
             System.out.println();
         }
 
         System.out.println("BLACK PAWN ATTACKS");
         for(int i = 0; i < 64; i++){
             System.out.println("BLACK PAWN ATTACKS FROM SQUARE " + "#" + (i + 1));
-            print_2d_chessboard(array_representation(PreCalculatedAttacks.pawnAttacks[1][i]));
+            print2dChessboard(arrayRepresentation(PreCalculatedAttacks.pawnAttacks[1][i]));
             System.out.println();
         }
 
         System.out.println("KNIGHT ATTACKS (SAME FOR BOTH WHITE AND BLACK)");
         for(int i = 0; i < 64; i++){
             System.out.println("KNIGHT ATTACKS FROM SQUARE " + "#" + (i + 1));
-            print_2d_chessboard(array_representation(PreCalculatedAttacks.knightAttacks[i]));
+            print2dChessboard(arrayRepresentation(PreCalculatedAttacks.knightAttacks[i]));
             System.out.println();
         }
 
         System.out.println("KING ATTACKS (SAME FOR BOTH WHITE AND BLACK)");
         for(int i = 0; i < 64; i++){
             System.out.println("KING ATTACKS FROM SQUARE " + "#" + (i + 1));
-            print_2d_chessboard(array_representation(PreCalculatedAttacks.kingAttacks[i]));
+            print2dChessboard(arrayRepresentation(PreCalculatedAttacks.kingAttacks[i]));
             System.out.println();
         }
         System.out.println();
-        print_2d_chessboard(array_representation(
+        print2dChessboard(arrayRepresentation(
                 0b1000000000000000000000000000000000000000000000000000000000000000L));
         System.out.println();
-        print_2d_chessboard(array_representation(
+        print2dChessboard(arrayRepresentation(
                 0b1000000000000000000000000000000000010000000000000000000000000000L - 1));
         System.out.println();
-        print_2d_chessboard(array_representation(FileAndRank.RANK_2));
+        print2dChessboard(arrayRepresentation(FileAndRank.RANK_2));
         System.out.println();
-        print_2d_chessboard(array_representation(FileAndRank.RANK_7));
+        print2dChessboard(arrayRepresentation(FileAndRank.RANK_7));
     }
 }

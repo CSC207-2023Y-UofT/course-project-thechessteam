@@ -19,13 +19,13 @@ public class ChessGame {
     // ----------------------------------------------------------------------------------------------------------
 
     // Use this to change turn from White's turn to Black's turn, or vice versa
-    public boolean change_turn() {
+    public boolean changeTurn() {
         turn = !turn;
         return turn;
     }
 
     // Start a new game by setting a new location bitboard
-    public void new_game() {
+    public void newGame() {
         currentBoard = new LocationBitboard();
         turn = true; // Make sure to start with White's turn
     }

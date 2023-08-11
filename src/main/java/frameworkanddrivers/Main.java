@@ -9,8 +9,8 @@ import presenter.Presenter;
 import usecases.HighlightValid;
 import usecases.MovePiece;
 import usecases.NewGame;
-import View.BoardUI;
-import View.MenuUI;
+import view.BoardUI;
+import view.MenuUI;
 
 public class Main {
     public static void main(String[] args) {

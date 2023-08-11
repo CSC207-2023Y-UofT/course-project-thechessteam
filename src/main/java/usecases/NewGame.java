@@ -8,6 +8,6 @@ public class NewGame {
         this.currentGame = currentGame;
     }
     public void start_new_game() {
-        currentGame.new_game();
+        currentGame.newGame();
     }
 }

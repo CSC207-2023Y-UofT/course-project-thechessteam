@@ -1,4 +1,4 @@
-package entities.variouscalculators;
+/*package entities.variouscalculators;
 
 import entities.pieces.King;
 import entities.locations.LocationBitboard;
@@ -72,4 +72,4 @@ public class CheckmateCalculator {
             throw new RuntimeException("No piece found at position " + position);
         }
     }
-}
+}*/
