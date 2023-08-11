@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import Use_Cases.HighlightValid;
 import Use_Cases.MovePiece;

@@ -1,6 +1,6 @@
 package Framework_and_Drivers;
 
-import Controller.Controller;
+import controller.Controller;
 import Entities.VariousCalculators.ActualValidCalculator;
 import Entities.VariousCalculators.Calculators;
 import Entities.ChessGame;
