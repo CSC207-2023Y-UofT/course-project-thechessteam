@@ -1,7 +1,7 @@
-package Entities.Locations;
+package entities.locations;
 
-import Entities.Constants.FileAndRank;
-import Entities.Constants.InitialPositions;
+import entities.constants.FileAndRank;
+import entities.constants.InitialPositions;
 
 /**
  * This class represents a chessboard using bitboards for each pieces location

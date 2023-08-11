@@ -1,4 +1,4 @@
-package Presenter_Interface;
+package presenterinterface;
 
 public interface PresenterInterface {
 

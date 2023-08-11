@@ -1,9 +1,9 @@
-package Use_Cases;
+package usecases;
 
-import Entities.VariousCalculators.ActualValidCalculator;
-import Entities.ChessGame;
-import Entities.Locations.LocationBitboard;
-import Presenter_Interface.PresenterInterface;
+import entities.variouscalculators.ActualValidCalculator;
+import entities.ChessGame;
+import entities.locations.LocationBitboard;
+import presenterinterface.PresenterInterface;
 
 public class MovePiece {
     // Use case class for moving pieces, including castling.

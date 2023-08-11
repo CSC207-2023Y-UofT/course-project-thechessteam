@@ -1,4 +1,4 @@
-package Entities.Constants;
+package entities.constants;
 
 /**
  * This class defines the bitboard representations of the specific files, ranks, and possible moves of chess pieces.
@@ -37,7 +37,7 @@ public class FileAndRank {
             0b0000000000000000000000000000000000000000000001110000010100000111L;
 
     // Array of bitboards representing each rank on the board, from rank 1 to rank 8
-    public static long[] RankMasks8 =/*from rank1 to rank8*/
+    public static long[] RANK_MASKS_8 =/*from rank1 to rank8*/
             {
                     0xFFL, 0xFF00L, 0xFF0000L, 0xFF000000L,
                     0xFF00000000L, 0xFF0000000000L, 0xFF000000000000L, 0xFF00000000000000L

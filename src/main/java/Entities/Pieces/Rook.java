@@ -1,7 +1,7 @@
-package Entities.Pieces;
+package entities.Pieces;
 
-import Entities.Constants.FileAndRank;
-import Entities.Locations.LocationBitboard;
+import entities.constants.FileAndRank;
+import entities.locations.LocationBitboard;
 
 public class Rook implements PieceCalculator {
 
@@ -16,7 +16,7 @@ public class Rook implements PieceCalculator {
         // numberOfTrailingZeros built-in method,
         // tells you the number of trailing zeros from where the piece currently stands on the 64 bit array
         int s = Long.numberOfTrailingZeros(from);
-        long horizontalMask = FileAndRank.RankMasks8[s / 8];
+        long horizontalMask = FileAndRank.RANK_MASKS_8[s / 8];
         long verticalMask = FileAndRank.FileMasks8[s % 8];
 
         // Candidate horizontal valid move positions. Apply horizontal mask to filter out relevant position.

@@ -1,6 +1,6 @@
-package Entities.VariousCalculators;
+package entities.variouscalculators;
 
-import Entities.Locations.LocationBitboard;
+import entities.locations.LocationBitboard;
 
 public class CheckCalculator {
     private final Calculators calculators;

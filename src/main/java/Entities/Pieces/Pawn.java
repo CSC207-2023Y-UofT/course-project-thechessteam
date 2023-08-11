@@ -1,8 +1,8 @@
-package Entities.Pieces;
+package entities.Pieces;
 
-import Entities.Constants.FileAndRank;
-import Entities.Constants.PreCalculatedAttacks;
-import Entities.Locations.LocationBitboard;
+import entities.constants.FileAndRank;
+import entities.constants.PreCalculatedAttacks;
+import entities.locations.LocationBitboard;
 
 // pawn class
 public class Pawn implements PieceCalculator {

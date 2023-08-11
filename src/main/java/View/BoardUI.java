@@ -1,9 +1,9 @@
 package View;
 
-import Controller.Controller;
-import View_Interface.ViewInterface;
+import controller.Controller;
+import viewinterface.ViewInterface;
 
-import Presenter.Presenter; // Used for reestablishing framework after we create a new view class.
+import presenter.Presenter; // Used for reestablishing framework after we create a new view class.
 
 import javax.swing.*;
 import java.awt.*;
@@ -87,7 +87,7 @@ public class BoardUI extends JPanel implements ViewInterface {
                         // Want to check if there is a piece at where we clicked.
                         // We only need valid move highlight for first click.
                         if (numClicks == 0) {
-                            highlightPossible = clickController.process_highlight(index);
+                            highlightPossible = clickController.processHighlight(index);
                             if (highlightPossible) {
                                 twoClicks[numClicks] = index;
                                 numClicks += 1;
@@ -107,7 +107,7 @@ public class BoardUI extends JPanel implements ViewInterface {
                     // If this was the second click
                     if (numClicks == 2) {
                         // Process the two clicks for valid moves
-                        clickController.process_two_clicks(twoClicks);
+                        clickController.processTwoClicks(twoClicks);
                         numClicks = 0;
                         highlightSquares = 0L;
                     }
@@ -446,7 +446,7 @@ public class BoardUI extends JPanel implements ViewInterface {
 
         gameOver = true;
 
-        clickController.start_new_game(); // Resets board for next game
+        clickController.startNewGame(); // Resets board for next game
 
         if (gameOverScreen == null) {
             gameOverScreen = new GameOverUI(clickController,this, presenter);

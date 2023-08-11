@@ -1,5 +1,5 @@
-import Entities.Locations.LocationBitboard;
-import Entities.Pieces.King;
+import entities.locations.LocationBitboard;
+import entities.Pieces.King;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

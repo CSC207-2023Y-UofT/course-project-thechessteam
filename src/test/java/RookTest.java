@@ -1,5 +1,5 @@
-import Entities.Locations.LocationBitboard;
-import Entities.Pieces.Rook;
+import entities.locations.LocationBitboard;
+import entities.Pieces.Rook;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

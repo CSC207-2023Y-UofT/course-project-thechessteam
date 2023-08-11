@@ -1,4 +1,4 @@
-package Database;
+package database;
 
 import java.io.File;
 import java.util.*;
@@ -38,15 +38,15 @@ public class LeaderBoard{
         ArrayList<Player> leaderboard = new ArrayList<>(); // start with an empty array to populate
         try {
             // read file
-            Scanner player_read = new Scanner(new File("players.txt"));
-            while (player_read.hasNext()) {
+            Scanner playerRead = new Scanner(new File("players.txt"));
+            while (playerRead.hasNext()) {
                 // split line by comma into name and wins
-                String[] current_player = player_read.nextLine().split(",");
+                String[] currentPlayer = playerRead.nextLine().split(",");
                 // create new player with name and wins and add it to leaderboard
-                leaderboard.add(new Player(current_player[0], Integer.parseInt(current_player[1])));
+                leaderboard.add(new Player(currentPlayer[0], Integer.parseInt(currentPlayer[1])));
             }
             // close file
-            player_read.close();
+            playerRead.close();
         } catch (IOException e) {
             System.out.println("No Players in leaderboard yet");
         }
@@ -57,34 +57,34 @@ public class LeaderBoard{
     private static void writeData(ArrayList<Player> leaderboard) {
         try {
             // open players.txt to write in it
-            PrintWriter player_output = new PrintWriter("players.txt");
+            PrintWriter playerOutput = new PrintWriter("players.txt");
             for (Player p: leaderboard) {
                 // write each player in as you loop through it
-                player_output.println(p.getName() + "," + p.getWins());
+                playerOutput.println(p.getName() + "," + p.getWins());
             }
-            player_output.close(); //close file
+            playerOutput.close(); //close file
         } catch (IOException e) {
             System.out.println("Could not write to file 'players'");
         }
     }
 
     // add player
-    public static void addPlayer(String player_name) {
+    public static void addPlayer(String playerName) {
         // read file into leaderboard var
         ArrayList<Player> leaderboard = readData();
         // process name
         // check whether the player is already in leaderboard, add a win if it is
-        boolean existing_player = false;
+        boolean existingPlayer = false;
         for (Player p : leaderboard) {
-            if (Objects.equals(p.getName(), player_name)) {
-                existing_player = true;
+            if (Objects.equals(p.getName(), playerName)) {
+                existingPlayer = true;
                 p.addWins();
             }
         }
         // if new player, create new player and add to the leaderboard
-        if (!(existing_player)) {
-            Player new_player = new Player(player_name, 1);
-            leaderboard.add(new_player);
+        if (!(existingPlayer)) {
+            Player newPlayer = new Player(playerName, 1);
+            leaderboard.add(newPlayer);
         }
         //sort the leaderboard based on wins
         leaderboard.sort(Comparator.comparing(Player::getWins));
@@ -99,16 +99,16 @@ public class LeaderBoard{
         // sends a copy of the leaderboard
         ArrayList<Player> leaderboard = readData();
 
-        List<String> cloned_list = new ArrayList<>();
+        List<String> clonedList = new ArrayList<>();
 
         if (!leaderboard.isEmpty()) {
             // Adds the player and wins to the cloned list
             for (Player p: leaderboard) {
-                cloned_list.add(p.getName() + ": " + p.getWins());
+                clonedList.add(p.getName() + ": " + p.getWins());
             }
         }
 
-        return cloned_list;
+        return clonedList;
     }
 
     /*

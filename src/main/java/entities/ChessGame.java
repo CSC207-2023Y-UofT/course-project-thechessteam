@@ -1,6 +1,6 @@
-package Entities;
+package entities;
 
-import Entities.Locations.LocationBitboard;
+import entities.locations.LocationBitboard;
 
 public class ChessGame {
     // A class to represent the game board we are using. Keeps track whose turn it is as well.

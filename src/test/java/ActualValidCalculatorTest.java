@@ -1,7 +1,7 @@
-import Entities.Locations.LocationBitboard;
-import Entities.VariousCalculators.ActualValidCalculator;
-import Entities.VariousCalculators.Calculators;
-import Entities.VariousCalculators.CheckCalculator;
+import entities.locations.LocationBitboard;
+import entities.variouscalculators.ActualValidCalculator;
+import entities.variouscalculators.Calculators;
+import entities.variouscalculators.CheckCalculator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

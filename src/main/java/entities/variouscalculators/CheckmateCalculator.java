@@ -1,8 +1,8 @@
-/*package Entities.VariousCalculators;
+package entities.variouscalculators;
 
-import Entities.Pieces.Calculator;
-import Entities.Pieces.King;
-import Entities.Locations.LocationBitboard;
+import entities.pieces.Calculator;
+import entities.pieces.King;
+import entities.locations.LocationBitboard;
 
 public class CheckmateCalculator {
 
@@ -72,4 +72,4 @@ public class CheckmateCalculator {
             throw new RuntimeException("No piece found at position " + position);
         }
     }
-}*/
+}

@@ -1,6 +1,6 @@
-package Use_Cases;
+package usecases;
 
-import Entities.ChessGame;
+import entities.ChessGame;
 
 public class NewGame {
     private final ChessGame currentGame;

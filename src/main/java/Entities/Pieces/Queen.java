@@ -1,7 +1,7 @@
-package Entities.Pieces;
+package entities.Pieces;
 
-import Entities.Constants.FileAndRank;
-import Entities.Locations.LocationBitboard;
+import entities.constants.FileAndRank;
+import entities.locations.LocationBitboard;
 
 public class Queen implements PieceCalculator {
     public Queen(){}
@@ -11,7 +11,7 @@ public class Queen implements PieceCalculator {
         long diag_m = FileAndRank.DiagonalMasks8[(s / 8) + (s % 8)];
         long anti_m = FileAndRank.AntiDiagonalMasks8[(s / 8) + 7 - (s % 8)];
         long vertical_m = FileAndRank.FileMasks8[s % 8];
-        long horizontal_m = FileAndRank.RankMasks8[s / 8];
+        long horizontal_m = FileAndRank.RANK_MASKS_8[s / 8];
         long o = board.getOccupied();
         // Diagonal valid move candidates calculation
         long diagonalCandidate = (

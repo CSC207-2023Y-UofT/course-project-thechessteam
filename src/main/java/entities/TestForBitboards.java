@@ -1,8 +1,8 @@
-package Entities;
+package entities;
 
-import Entities.Constants.FileAndRank;
-import Entities.Constants.PreCalculatedAttacks;
-import Entities.Locations.LocationBitboard;
+import entities.constants.FileAndRank;
+import entities.constants.PreCalculatedAttacks;
+import entities.locations.LocationBitboard;
 
 // Used for debugging, not actually any component of our program
 

@@ -1,7 +1,7 @@
-package Entities.VariousCalculators;
+package entities.variouscalculators;
 
-import Entities.Pieces.PieceCalculator;
-import Entities.Locations.LocationBitboard;
+import entities.Pieces.PieceCalculator;
+import entities.locations.LocationBitboard;
 
 public class ActualValidCalculator {
     // A use case class that filters moves calculated by Entities.VariousCalculators.Calculators.

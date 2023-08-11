@@ -1,4 +1,4 @@
-import Entities.Locations.LocationBitboard;
+import entities.locations.LocationBitboard;
 /**
  * Holds helper methods for the test cases to visualize bitboard.
  */

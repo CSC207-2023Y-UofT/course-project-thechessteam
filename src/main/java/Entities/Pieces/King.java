@@ -1,7 +1,7 @@
-package Entities.Pieces;
+package entities.pieces;
 
-import Entities.Constants.PreCalculatedAttacks;
-import Entities.Locations.LocationBitboard;
+import entities.constants.PreCalculatedAttacks;
+import entities.locations.LocationBitboard;
 
 public class King implements PieceCalculator {
 

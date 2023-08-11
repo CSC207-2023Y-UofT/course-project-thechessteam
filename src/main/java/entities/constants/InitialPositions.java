@@ -1,4 +1,4 @@
-package Entities.Constants;
+package entities.constants;
 
 /**
  * This class provides constants for initializing a new chess game.

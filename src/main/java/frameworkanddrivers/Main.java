@@ -1,14 +1,14 @@
-package Framework_and_Drivers;
+package frameworkanddrivers;
 
 import controller.Controller;
-import Entities.VariousCalculators.ActualValidCalculator;
-import Entities.VariousCalculators.Calculators;
-import Entities.ChessGame;
-import Entities.VariousCalculators.CheckCalculator;
-import Presenter.Presenter;
-import Use_Cases.HighlightValid;
-import Use_Cases.MovePiece;
-import Use_Cases.NewGame;
+import entities.variouscalculators.ActualValidCalculator;
+import entities.variouscalculators.Calculators;
+import entities.ChessGame;
+import entities.variouscalculators.CheckCalculator;
+import presenter.Presenter;
+import usecases.HighlightValid;
+import usecases.MovePiece;
+import usecases.NewGame;
 import View.BoardUI;
 import View.MenuUI;
 

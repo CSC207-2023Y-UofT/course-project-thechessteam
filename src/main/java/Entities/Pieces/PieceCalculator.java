@@ -1,6 +1,6 @@
-package Entities.Pieces;
+package entities.pieces;
 
-import Entities.Locations.LocationBitboard;
+import entities.locations.LocationBitboard;
 
 /**
  * This interface is used to calculate valid moves and attack coverage for a chess piece on a chess board.

@@ -1,7 +1,7 @@
 package View;
 
-import Controller.Controller;
-import Presenter.Presenter;
+import controller.Controller;
+import presenter.Presenter;
 
 import javax.swing.*;
 import java.awt.*;

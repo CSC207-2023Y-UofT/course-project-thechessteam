@@ -1,7 +1,7 @@
-package Entities.Pieces;
+package entities.Pieces;
 
-import Entities.Constants.FileAndRank;
-import Entities.Locations.LocationBitboard;
+import entities.constants.FileAndRank;
+import entities.locations.LocationBitboard;
 
 public class Bishop implements PieceCalculator {
 

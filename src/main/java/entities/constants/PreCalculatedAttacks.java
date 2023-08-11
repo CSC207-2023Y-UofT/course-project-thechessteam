@@ -1,4 +1,4 @@
-package Entities.Constants;
+package entities.constants;
 
 public class PreCalculatedAttacks {
 

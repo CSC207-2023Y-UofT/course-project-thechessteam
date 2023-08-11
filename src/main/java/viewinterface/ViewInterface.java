@@ -1,4 +1,4 @@
-package View_Interface;
+package viewinterface;
 
 public interface ViewInterface {
     // Sets Presenter in View so that we can access it everytime we want to update UI.

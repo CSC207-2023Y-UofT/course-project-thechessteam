@@ -1,8 +1,8 @@
-package Presenter;
+package presenter;
 
 
-import Presenter_Interface.PresenterInterface;
-import View_Interface.ViewInterface;
+import presenterinterface.PresenterInterface;
+import viewinterface.ViewInterface;
 
 public class Presenter implements PresenterInterface {
     private ViewInterface view;

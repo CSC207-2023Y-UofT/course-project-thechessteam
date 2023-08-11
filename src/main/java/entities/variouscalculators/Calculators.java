@@ -1,6 +1,6 @@
-package Entities.VariousCalculators;
+package entities.variouscalculators;
 
-import Entities.Pieces.*;
+import entities.pieces.*;
 
 // Contains all the calculators for valid move calculations
 public class Calculators {
