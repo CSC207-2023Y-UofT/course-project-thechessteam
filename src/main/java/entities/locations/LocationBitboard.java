@@ -96,17 +96,17 @@ public class LocationBitboard {
     }
 
     // ----------------------------------------------------------------------------------------------------------
-    // move_piece method for updating location
+    // movePiece method for updating location
 
-    // move_piece updates all variables related to the move.
+    // movePiece updates all variables related to the move.
     // Returns true if move was successful, returns false if there was no piece at "from".
     // Assume moving piece from "from" to "to" is a valid move.
-    public boolean move_piece(long from, long to, boolean turn) {
+    public boolean movePiece(long from, long to, boolean turn) {
         boolean moved = false;
         if (turn) { // White's turn
             for (long[] pieceType : whitePieces) {
                 if ((pieceType[0] & from) != 0L) { // if from is in White's bitboard of this pieceType
-                    update_piece(pieceType, from, to, true); // Update location of the bitboard above
+                    updatePiece(pieceType, from, to, true); // Update location of the bitboard above
                     moved = true;
                     break;
                 }
@@ -115,7 +115,7 @@ public class LocationBitboard {
         else {
             for (long[] pieceType : blackPieces) {
                 if ((pieceType[0] & from) != 0L) { // if from is in Black's bitboard of this pieceType
-                    update_piece(pieceType, from, to, false); // Update location of the bitboard above
+                    updatePiece(pieceType, from, to, false); // Update location of the bitboard above
                     moved = true;
                     break;
                 }
@@ -142,18 +142,18 @@ public class LocationBitboard {
     // ----------------------------------------------------------------------------------------------------------
     // Helper methods
 
-    // Helper method for move_piece
-    private void update_piece(long[] pieceType, long from, long to, boolean turn) {
+    // Helper method for movePiece
+    private void updatePiece(long[] pieceType, long from, long to, boolean turn) {
         // These will be updated as true if we moved a pawn two spaces forward.
         whitePawnMovedTwo = 0L;
         blackPawnMovedTwo = 0L;
 
-        update_for_special_conditions(pieceType, from, to);
+        updateForSpecialConditions(pieceType, from, to);
 
         pieceType[0] = (pieceType[0] & ~from) | to; // Move the piece of pieceType
 
         // Remove opponent piece at to
-        remove_opponent_piece_at_to(turn, to);
+        removeOpponentPieceAtTo(turn, to);
 
         // Update all location variables: whiteLocations, blackLocations, occupied
         updateLocationVariables();
@@ -161,32 +161,32 @@ public class LocationBitboard {
 
     // Move pieces for special chess rules: Castling, En Passant.
     // Also updates instance variables in this class related to these rules.
-    private void update_for_special_conditions(long[] pieceType, long from, long to) {
-        if (!check_and_update_castling(pieceType, from, to)) {
-            if (!check_and_update_pawn(pieceType, from, to)) {
-                check_and_update_rook_moved(pieceType, from);
+    private void updateForSpecialConditions(long[] pieceType, long from, long to) {
+        if (!checkAndUpdateCastling(pieceType, from, to)) {
+            if (!checkAndUpdatePawn(pieceType, from, to)) {
+                checkAndUpdateRookMoved(pieceType, from);
             }
         }
     }
 
-    // Helper methods for update_piece
+    // Helper methods for updatePiece
 
     // Check if we are castling and update accordingly. Returns true if we castled.
-    private boolean check_and_update_castling(long[] pieceType, long from, long to) {
+    private boolean checkAndUpdateCastling(long[] pieceType, long from, long to) {
         boolean checkedCastling = false;
         if (pieceType[0] == whiteKing[0]) { // if we are moving a white king
             if (from >>> 2 == to) { // castling to queen side
-                update_rook_for_castling(whiteRook, true, true);
+                updateRookForCastling(whiteRook, true, true);
             } else if (from << 2 == to) { // castling to king side
-                update_rook_for_castling(whiteRook, false, true);
+                updateRookForCastling(whiteRook, false, true);
             }
             whiteKingMoved = true;
             checkedCastling = true;
         } else if (pieceType[0] == blackKing[0]) { // if we are moving a black king
             if (from >>> 2 == to) { // castling to queen side
-                update_rook_for_castling(blackRook, true, false);
+                updateRookForCastling(blackRook, true, false);
             } else if (from << 2 == to) { // castling to king side
-                update_rook_for_castling(blackRook, false, false);
+                updateRookForCastling(blackRook, false, false);
             }
             blackKingMoved = true;
             checkedCastling = true;
@@ -195,7 +195,7 @@ public class LocationBitboard {
     }
 
     // Check if we are performing en passant. Update if opponent will be able to perform en passant next turn.
-    private boolean check_and_update_pawn(long[] pieceType, long from, long to) {
+    private boolean checkAndUpdatePawn(long[] pieceType, long from, long to) {
         boolean movingPawn = false;
         if (pieceType[0] == whitePawn[0]) { // if we are moving a white pawn
             // if we are moving without capturing
@@ -203,7 +203,7 @@ public class LocationBitboard {
                     // if we are not moving straight forward when we are at Rank 5
                     ((from & FileAndRank.RANK_5) != 0L) && (to != (from << 8))) {
                 // then we perform en passant
-                update_en_passant(to, true);
+                updateEnPassant(to, true);
             }
             // Update whitePawnMovedTwo
             if (((from & FileAndRank.RANK_2) != 0L) && ((to & FileAndRank.RANK_4) != 0L)) {
@@ -216,7 +216,7 @@ public class LocationBitboard {
                     // if we are not moving straight forward when we are at Rank 4
                     ((from & FileAndRank.RANK_4) != 0L) && (to != (from >>> 8))) {
                 // then we perform en passant
-                update_en_passant(to, false);
+                updateEnPassant(to, false);
             }
             // Update blackPawnMovedTwo
             if (((from & FileAndRank.RANK_7) != 0L) && ((to & FileAndRank.RANK_5) != 0L)) {
@@ -228,7 +228,7 @@ public class LocationBitboard {
     }
 
     // Update boolean instance variables for whether a rook moved
-    private void check_and_update_rook_moved(long[] pieceType, long from) {
+    private void checkAndUpdateRookMoved(long[] pieceType, long from) {
         if (pieceType[0] == whiteRook[0]) { // if we are moving a white rook
             if (from == 1L) {
                 leftWhiteRookMoved = true;
@@ -244,7 +244,7 @@ public class LocationBitboard {
             }
         }
     }
-    private void update_rook_for_castling (long[] rookLocations, boolean direction, boolean color) {
+    private void updateRookForCastling(long[] rookLocations, boolean direction, boolean color) {
         // direction == true for queen side, direction == false for king side
         // color == true for White, color == false for Black
         if (color) { // if moving a white king
@@ -266,7 +266,7 @@ public class LocationBitboard {
         }
     }
 
-    private void update_en_passant (long to, boolean side) {
+    private void updateEnPassant(long to, boolean side) {
         if (side) {
             blackPawn[0] = blackPawn[0] & ~(to >>> 8);
         }
@@ -276,7 +276,7 @@ public class LocationBitboard {
     }
 
     // Remove opponent piece at to
-    private void remove_opponent_piece_at_to(boolean turn, long to) {
+    private void removeOpponentPieceAtTo(boolean turn, long to) {
         if (turn) { // White's turn
             for (long[] blackPieceType : getBlackPieces()) {
                 blackPieceType[0] &= ~to;

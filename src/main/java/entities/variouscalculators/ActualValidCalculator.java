@@ -38,7 +38,7 @@ public class ActualValidCalculator {
             if ((candidates & moveCandidate) != 0L) {
                 // Make a copy of currentBoard for testing if candidate position is valid
                 LocationBitboard copy = locations_copy(currentBoard);
-                copy.move_piece(from, moveCandidate, side);
+                copy.movePiece(from, moveCandidate, side);
                 copy.updateLocationVariables();
 
                 if (checkCalc.is_in_check(side, copy)) {
@@ -156,7 +156,7 @@ public class ActualValidCalculator {
         long updatedActualValid = actualValid;
         if ((from == (1L << 4)) && (((1L << 2) & actualValid) != 0L)) { // left castling valid candidate
             LocationBitboard copy = locations_copy(currentBoard);
-            copy.move_piece(from, 1L << 3, true); // Suppose king is at the square we cross over
+            copy.movePiece(from, 1L << 3, true); // Suppose king is at the square we cross over
             copy.updateLocationVariables();
 
             if (checkCalc.is_in_check(true, copy)) { // Is king in check?
@@ -174,7 +174,7 @@ public class ActualValidCalculator {
         long updatedActualValid = actualValid;
         if ((from == (1L << 4)) && (((1L << 6) & actualValid) != 0L)) { // right castling valid candidate
             LocationBitboard copy = locations_copy(currentBoard);
-            copy.move_piece(from, 1L << 5, true); // Suppose king is at the square we cross over
+            copy.movePiece(from, 1L << 5, true); // Suppose king is at the square we cross over
             copy.updateLocationVariables();
 
             if (checkCalc.is_in_check(true, copy)) { // Is king in check?
@@ -192,7 +192,7 @@ public class ActualValidCalculator {
         long updatedActualValid = actualValid;
         if ((from == (1L << 60)) && (((1L << 58) & actualValid) != 0L)) { // left castling valid candidate
             LocationBitboard copy = locations_copy(currentBoard);
-            copy.move_piece(from, 1L << 59, false); // Suppose king is at the square we cross over
+            copy.movePiece(from, 1L << 59, false); // Suppose king is at the square we cross over
             copy.updateLocationVariables();
 
             if (checkCalc.is_in_check(false, copy)) { // Is king in check?
@@ -210,7 +210,7 @@ public class ActualValidCalculator {
         long updatedActualValid = actualValid;
         if ((from == (1L << 60)) && (((1L << 62) & actualValid) != 0L)) { // right castling valid candidate
             LocationBitboard copy = locations_copy(currentBoard);
-            copy.move_piece(from, 1L << 61, false); // Suppose king is at the square we cross over
+            copy.movePiece(from, 1L << 61, false); // Suppose king is at the square we cross over
             copy.updateLocationVariables();
 
             if (checkCalc.is_in_check(false, copy)) { // Is king in check?

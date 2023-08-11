@@ -33,7 +33,7 @@ public class StalemateCalculator {
                     validMoves ^= move; // Remove this move from the list of valid moves
                     // Simulate the move and check if it would leave the king in check
                     LocationBitboard clonedBoard = new LocationBitboard();
-                    clonedBoard.move_piece(1L << position, move, side);
+                    clonedBoard.movePiece(1L << position, move, side);
                     if (!CheckCalculator.is_in_check(side, clonedBoard)) {
                         return false; // Found a move that would not leave the player in check
                     }

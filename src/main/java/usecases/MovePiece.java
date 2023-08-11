@@ -53,7 +53,7 @@ public class MovePiece {
         if (canMove) {
             // Check if end is a valid move
             if ((end & actualValidCalc.actual_valid_moves(start, turn, currentBoard)) != 0) {
-                return currentBoard.move_piece(start, end, turn);
+                return currentBoard.movePiece(start, end, turn);
             } else { // If end is not a valid move, do not move piece.
                 return false;
             }

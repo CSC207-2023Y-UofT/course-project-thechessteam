@@ -38,10 +38,10 @@ public class CheckmateCalculator {
                 pieces ^= (1L << position); // Clear the least significant bit
                 // Assuming we have a generic function `getPieceCalculator` that returns a Entities.Pieces.Calculator for the piece at `position`
                 Calculator pieceCalculator = getPieceCalculator(position, board);
-                if (pieceCalculator.valid_moves(1L << position, side, board) != 0) {
+                if (pieceCalculator.validMoves(1L << position, side, board) != 0) {
                     // Simulate the move and check if it would leave the king in check
                     LocationBitboard clonedBoard = new LocationBitboard();
-                    clonedBoard.move_piece(1L << position, pieceCalculator.valid_moves(1L << position, side, clonedBoard), side);
+                    clonedBoard.movePiece(1L << position, pieceCalculator.validMoves(1L << position, side, clonedBoard), side);
                     if (!CheckCalculator.is_in_check(side, clonedBoard)) {
                         return false; // Found a piece that can move to block the check or capture the checking piece
                     }
