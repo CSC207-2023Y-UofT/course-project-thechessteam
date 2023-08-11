@@ -1,4 +1,4 @@
-package entities.Pieces;
+package entities.pieces;
 
 import entities.constants.FileAndRank;
 import entities.locations.LocationBitboard;
@@ -9,7 +9,7 @@ public class Rook implements PieceCalculator {
 
     public Rook() {}
 
-    public long valid_moves(long from, boolean side, LocationBitboard board) {
+    public long validMoves(long from, boolean side, LocationBitboard board) {
         // occupied provides occupied places on the board.
         long occupied = board.getOccupied();
 
@@ -40,7 +40,7 @@ public class Rook implements PieceCalculator {
         return candidate & ~this.sameColoredPieces;
     }
 
-    public long attack_coverage(boolean side, LocationBitboard board) {
+    public long attackCoverage(boolean side, LocationBitboard board) {
         long attacked = 0L;  // bits where rook is attacking
         long rookLocations;  // rook locations based on side/color
 
@@ -57,7 +57,7 @@ public class Rook implements PieceCalculator {
             // shift rook locations i bits to the right, if it == 1, means rook is in the ith position
             // if rook is in the ith position, add that to the attacked bits
             if ((int) ((rookLocations >>> i) & 1) == 1) {
-                attacked |= valid_moves(1L << i, side, board);
+                attacked |= validMoves(1L << i, side, board);
             }
         }
 

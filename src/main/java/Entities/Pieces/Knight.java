@@ -1,4 +1,4 @@
-package entities.Pieces;
+package entities.pieces;
 
 import entities.constants.PreCalculatedAttacks;
 import entities.locations.LocationBitboard;
@@ -10,7 +10,7 @@ public class Knight implements PieceCalculator {
     public Knight() {}
 
     // method that calculates valid moves for knight
-    public long valid_moves(long from, boolean side, LocationBitboard board) {
+    public long validMoves(long from, boolean side, LocationBitboard board) {
 
         // Amount of empty bits in front of piece
         int s = Long.numberOfTrailingZeros(from);
@@ -26,20 +26,20 @@ public class Knight implements PieceCalculator {
         return candidate & ~this.sameColoredPieces;
     }
 
-    public long attack_coverage(boolean side, LocationBitboard board) {
+    public long attackCoverage(boolean side, LocationBitboard board) {
         long attacked = 0L;  // bits where knight is attacking
-        long knights_location;  // knights location based on team
+        long knightsLocation;  // knights location based on team
 
         if (side) {  // white side
-            knights_location = board.whiteKnight[0];
+            knightsLocation = board.whiteKnight[0];
         } else {  // black side
-            knights_location = board.blackKnight[0];
+            knightsLocation = board.blackKnight[0];
         }
 
         for (int i = 0; i < 64; i++) {
             // Shifting knight location
-            if ((int) ((knights_location >>> i) & 1) == 1) {
-                attacked |= valid_moves(1L << i, side, board);
+            if ((int) ((knightsLocation >>> i) & 1) == 1) {
+                attacked |= validMoves(1L << i, side, board);
             }
         }
 

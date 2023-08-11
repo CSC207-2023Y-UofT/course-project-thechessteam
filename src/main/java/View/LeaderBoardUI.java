@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import controller.Controller;
 import database.LeaderBoard;
@@ -14,7 +14,7 @@ import java.util.Objects;
 public class LeaderBoardUI implements ActionListener {
     private final Controller clickController;
     private final Presenter presenter;
-    JFrame leaderboard_frame = new JFrame("Database.LeaderBoard");
+    JFrame leaderboardFrame = new JFrame("Database.LeaderBoard");
     JLabel frameBackground = new JLabel("Background");
     JLabel leaderBackground = new JLabel("buttonBackground");
     JLabel nameSort = new JLabel("Name");
@@ -100,7 +100,7 @@ public class LeaderBoardUI implements ActionListener {
         }
 
         // Adding components to frame
-        leaderboard_frame.add(frameBackground);
+        leaderboardFrame.add(frameBackground);
         frameBackground.add(leaderBackground);
         leaderBackground.add(backButton);
         leaderBackground.add(scrollingScore);
@@ -109,21 +109,21 @@ public class LeaderBoardUI implements ActionListener {
 
 
         // Creates the leaderboard Frame
-        leaderboard_frame.setLayout(null);
-        leaderboard_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        leaderboard_frame.setSize(400, 500);
-        leaderboard_frame.setResizable(false);
+        leaderboardFrame.setLayout(null);
+        leaderboardFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        leaderboardFrame.setSize(400, 500);
+        leaderboardFrame.setResizable(false);
 
-        leaderboard_frame.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width-leaderboard_frame.getWidth())/2,
-                (Toolkit.getDefaultToolkit().getScreenSize().height-leaderboard_frame.getHeight())/2);
+        leaderboardFrame.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width- leaderboardFrame.getWidth())/2,
+                (Toolkit.getDefaultToolkit().getScreenSize().height- leaderboardFrame.getHeight())/2);
 
-        leaderboard_frame.setVisible(true);
+        leaderboardFrame.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backButton) {
-            leaderboard_frame.dispose();
+            leaderboardFrame.dispose();
             new MenuUI(clickController, presenter);
         }
     }

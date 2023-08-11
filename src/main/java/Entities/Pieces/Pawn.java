@@ -1,4 +1,4 @@
-package entities.Pieces;
+package entities.pieces;
 
 import entities.constants.FileAndRank;
 import entities.constants.PreCalculatedAttacks;
@@ -6,7 +6,7 @@ import entities.locations.LocationBitboard;
 
 // pawn class
 public class Pawn implements PieceCalculator {
-    public long valid_moves(long from, boolean side, LocationBitboard board){
+    public long validMoves(long from, boolean side, LocationBitboard board){
 
         long pawnValidMoves = 0L;
         int s = Long.numberOfTrailingZeros(from); // index to use Entities.Constants.PreCalculatedAttacks
@@ -64,7 +64,7 @@ public class Pawn implements PieceCalculator {
         return pawnValidMoves;
     }
 
-    public long attack_coverage(boolean side, LocationBitboard board) {
+    public long attackCoverage(boolean side, LocationBitboard board) {
         long pawnAttacks = 0L;
 
         // Add up all the attacks in Entities.Constants.PreCalculatedAttacks table that is possible,

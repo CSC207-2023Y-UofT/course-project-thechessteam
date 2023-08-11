@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import controller.Controller;
 import presenter.Presenter;
@@ -12,11 +12,11 @@ import java.util.Objects;
 public class MenuUI implements ActionListener {
     private final Controller clickController;
     private final Presenter presenter;
-    JFrame menu_frame = new JFrame("Main Menu");
+    JFrame menuFrame = new JFrame("Main Menu");
     JLabel menuBackground = new JLabel("Background");
     JLabel logoBackground = new JLabel("logoBackground");
     JLabel buttonBackground = new JLabel("buttonBackground");
-    JLabel chessTeam_logo = new JLabel("theChessTeam");
+    JLabel chessTeamLogo = new JLabel("theChessTeam");
     JButton playButton = new JButton("playButton");
     JButton preferencesButton = new JButton("preferencesButton");
     JButton leaderBoardButton = new JButton("leaderBoardButton");
@@ -47,9 +47,9 @@ public class MenuUI implements ActionListener {
         Image unscaledIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/projectimages/Logo.png"))).getImage();
         Image gameOverIcon = unscaledIcon.getScaledInstance(350 ,60, java.awt.Image.SCALE_SMOOTH);
 
-        chessTeam_logo.setText("");
-        chessTeam_logo.setBounds(0, 0, 350, 60);
-        chessTeam_logo.setIcon(new ImageIcon(gameOverIcon));
+        chessTeamLogo.setText("");
+        chessTeamLogo.setBounds(0, 0, 350, 60);
+        chessTeamLogo.setIcon(new ImageIcon(gameOverIcon));
 
         // Configuring the background for buttons
         Image unscaledBBackground = new ImageIcon(Objects.requireNonNull(getClass().getResource(
@@ -92,34 +92,34 @@ public class MenuUI implements ActionListener {
         // All added components
         menuBackground.add(logoBackground);
         menuBackground.add(buttonBackground);
-        logoBackground.add(chessTeam_logo);
+        logoBackground.add(chessTeamLogo);
         buttonBackground.add(playButton);
         buttonBackground.add(preferencesButton);
         buttonBackground.add(leaderBoardButton);
         buttonBackground.add(tutorialButton);
-        menu_frame.add(menuBackground);
+        menuFrame.add(menuBackground);
 
         // configuring the window
-        menu_frame.setLayout(null);
-        menu_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        menu_frame.setSize(500, 350);
-        menu_frame.setResizable(false);
+        menuFrame.setLayout(null);
+        menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        menuFrame.setSize(500, 350);
+        menuFrame.setResizable(false);
 
-        menu_frame.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width-menu_frame.getWidth())/2,
-                (Toolkit.getDefaultToolkit().getScreenSize().height-menu_frame.getHeight())/2);
+        menuFrame.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width- menuFrame.getWidth())/2,
+                (Toolkit.getDefaultToolkit().getScreenSize().height- menuFrame.getHeight())/2);
 
-        menu_frame.setVisible(true);
+        menuFrame.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playButton) { // Starts a new game instance
-            menu_frame.dispose();
+            menuFrame.dispose();
             BoardUI board = new BoardUI(clickController, presenter);
-            presenter.set_view(board);
+            presenter.setView(board);
             board.newBoard();
         } else if (e.getSource() == leaderBoardButton) {
-            menu_frame.dispose();
+            menuFrame.dispose();
             new LeaderBoardUI(clickController, presenter);
         }
     }

@@ -19,7 +19,7 @@ public interface PieceCalculator {
      * @param board The current state of the chess board. (Entities.Locations.LocationBitboard object)
      * @return A bitboard with 1-bits at the locations of valid moves and 0-bits elsewhere. (long)
      */
-    long valid_moves(long from, boolean side, LocationBitboard board);
+    long validMoves(long from, boolean side, LocationBitboard board);
 
     /**
      * Calculates the attack coverage of the chess piece type that is implementing this interface.
@@ -30,7 +30,7 @@ public interface PieceCalculator {
      * @param board The current state of the chess board
      * @return A bitboard with 1-bits at the locations that the piece can attack and 0-bits otherwise
      */
-    long attack_coverage(boolean side, LocationBitboard board);
+    long attackCoverage(boolean side, LocationBitboard board);
 
     // Entities.Pieces.Pawn, Entities.Pieces.Rook, Entities.Pieces.Knight, Entities.Pieces.Bishop, Entities.Pieces.Queen, and Entities.Pieces.King Class
     // implement Entities.Pieces.Calculator.

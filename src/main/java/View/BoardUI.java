@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import controller.Controller;
 import viewinterface.ViewInterface;
@@ -128,18 +128,18 @@ public class BoardUI extends JPanel implements ViewInterface {
             }
         });
         drawBoard(g);
-        draw_pieces(g, pieceLocations[0][0], PieceRendering.whitePawn);
-        draw_pieces(g, pieceLocations[0][1], PieceRendering.whiteRook);
-        draw_pieces(g, pieceLocations[0][2], PieceRendering.whiteKnight);
-        draw_pieces(g, pieceLocations[0][3], PieceRendering.whiteBishop);
-        draw_pieces(g, pieceLocations[0][4], PieceRendering.whiteQueen);
-        draw_pieces(g, pieceLocations[0][5], PieceRendering.whiteKing);
-        draw_pieces(g, pieceLocations[1][0], PieceRendering.blackPawn);
-        draw_pieces(g, pieceLocations[1][1], PieceRendering.blackRook);
-        draw_pieces(g, pieceLocations[1][2], PieceRendering.blackKnight);
-        draw_pieces(g, pieceLocations[1][3], PieceRendering.blackBishop);
-        draw_pieces(g, pieceLocations[1][4], PieceRendering.blackQueen);
-        draw_pieces(g, pieceLocations[1][5], PieceRendering.blackKing);
+        drawPieces(g, pieceLocations[0][0], PieceRendering.whitePawn);
+        drawPieces(g, pieceLocations[0][1], PieceRendering.whiteRook);
+        drawPieces(g, pieceLocations[0][2], PieceRendering.whiteKnight);
+        drawPieces(g, pieceLocations[0][3], PieceRendering.whiteBishop);
+        drawPieces(g, pieceLocations[0][4], PieceRendering.whiteQueen);
+        drawPieces(g, pieceLocations[0][5], PieceRendering.whiteKing);
+        drawPieces(g, pieceLocations[1][0], PieceRendering.blackPawn);
+        drawPieces(g, pieceLocations[1][1], PieceRendering.blackRook);
+        drawPieces(g, pieceLocations[1][2], PieceRendering.blackKnight);
+        drawPieces(g, pieceLocations[1][3], PieceRendering.blackBishop);
+        drawPieces(g, pieceLocations[1][4], PieceRendering.blackQueen);
+        drawPieces(g, pieceLocations[1][5], PieceRendering.blackKing);
         drawBorders(g);
         drawBlackTeam(g);
         drawWhiteTeam(g);
@@ -206,7 +206,7 @@ public class BoardUI extends JPanel implements ViewInterface {
         g.fill3DRect((8*squareSize) +2*border, (8*squareSize) +border, 200, border, true);
     }
     // Draws pieces
-    public void draw_pieces(Graphics g, long bitboard, Image pieceImage) {
+    public void drawPieces(Graphics g, long bitboard, Image pieceImage) {
         for (int i = 0; i < 64; i++) {
             if ((bitboard & (1L << i)) != 0) {
                 int x = i % 8;
@@ -451,7 +451,7 @@ public class BoardUI extends JPanel implements ViewInterface {
         if (gameOverScreen == null) {
             gameOverScreen = new GameOverUI(clickController,this, presenter);
         } else {
-            gameOverScreen.window_frame.setVisible(true);
+            gameOverScreen.windowFrame.setVisible(true);
         }
     }
 

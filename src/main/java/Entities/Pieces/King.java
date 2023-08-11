@@ -5,7 +5,7 @@ import entities.locations.LocationBitboard;
 
 public class King implements PieceCalculator {
 
-    public long valid_moves(long from, boolean side, LocationBitboard board) {
+    public long validMoves(long from, boolean side, LocationBitboard board) {
         int position = Long.numberOfTrailingZeros(from);
         long kingCoverage = PreCalculatedAttacks.kingAttacks[position];
 
@@ -69,7 +69,7 @@ public class King implements PieceCalculator {
         return updatedKingCoverage;
     }
 
-    public long attack_coverage(boolean side, LocationBitboard board) {
+    public long attackCoverage(boolean side, LocationBitboard board) {
         long coverage = 0L;
         long kingPositions = side ? board.whiteKing[0] : board.blackKing[0];
 
