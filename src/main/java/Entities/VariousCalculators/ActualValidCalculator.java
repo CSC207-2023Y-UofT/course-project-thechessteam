@@ -11,9 +11,12 @@ import Entities.Locations.LocationBitboard;
  * side == true for white, side == false for black.
  */
 public class ActualValidCalculator {
-<<<<<<< HEAD
-    private Calculators calculators;
-    private CheckCalculator checkCalc;
+
+    // A use case class that filters moves calculated by Entities.VariousCalculators.Calculators.
+    // Filters moves that would put side's Entities.Pieces.King in check (Illegal moves).
+    // side == true for white, side == false for black.
+    private final Calculators calculators;
+    private final CheckCalculator checkCalc;
 
     /**
      * Constructor for the ActualValidCalculator.
@@ -21,13 +24,6 @@ public class ActualValidCalculator {
      * @param calculators Reference to the various piece calculators.
      * @param checkCalc   Reference to the check calculator.
      */
-=======
-    // A use case class that filters moves calculated by Entities.VariousCalculators.Calculators.
-    // Filters moves that would put side's Entities.Pieces.King in check (Illegal moves).
-    // side == true for white, side == false for black.
-    private final Calculators calculators;
-    private final CheckCalculator checkCalc;
->>>>>>> origin/main
     public ActualValidCalculator(Calculators calculators, CheckCalculator checkCalc) {
         this.calculators = calculators;
         this.checkCalc = checkCalc;
@@ -94,7 +90,9 @@ public class ActualValidCalculator {
         return actualValid;
     }
 
-<<<<<<< HEAD
+    // ----------------------------------------------------------------------------------------------------------
+    // Helper Methods
+
     /**
      * Helper method to identify the type of piece at a given position.
      * Throws a RuntimeException if the side does not have any piece at the given position.
@@ -103,19 +101,8 @@ public class ActualValidCalculator {
      * @param currentBoard The current state of the chessboard.
      * @return             The calculator corresponding to the identified piece.
      */
-    private Calculator identify_calculator(long from, LocationBitboard currentBoard) {
-        Calculator calculator;
-=======
-
-
-    // ----------------------------------------------------------------------------------------------------------
-    // Helper Methods
-
-    // Helper method for finding piece type
-    // Throws RuntimeException if side does not have any piece at from
     private PieceCalculator identify_calculator(long from, LocationBitboard currentBoard) {
         PieceCalculator calculator;
->>>>>>> origin/main
 
         if (((from & currentBoard.whitePawn[0]) != 0L) || ((from & currentBoard.blackPawn[0]) != 0L)) {
             calculator = calculators.pawnCalculator;
@@ -140,7 +127,6 @@ public class ActualValidCalculator {
         return calculator;
     }
 
-<<<<<<< HEAD
     /**
      * Helper method to create a copy of a LocationBitboard.
      * Useful for making hypothetical moves and checking their legality.
@@ -148,9 +134,6 @@ public class ActualValidCalculator {
      * @param currentBoard The current state of the chessboard.
      * @return             A new LocationBitboard object that is a copy of 'currentBoard'.
      */
-=======
-    // Helper method for creating a copy of Entities.Locations.LocationBitboard
->>>>>>> origin/main
     private static LocationBitboard locations_copy(LocationBitboard currentBoard) {
         LocationBitboard copy = new LocationBitboard();
         copy.whitePawn[0] = currentBoard.whitePawn[0];
