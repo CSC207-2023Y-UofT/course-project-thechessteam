@@ -5,7 +5,7 @@ import entities.locations.LocationBitboard;
 public class TestHelper {
 
     // Remove all pieces from board
-    public static void remove_all_pieces(LocationBitboard board) {
+    public static void removeAllPieces(LocationBitboard board) {
         board.whitePawn[0] = 0L;
         board.whiteRook[0] = 0L;
         board.whiteKnight[0] = 0L;
@@ -24,7 +24,7 @@ public class TestHelper {
     }
 
     // Array into Bitboard
-    public static long bitboard_representation(int[][] arrayRepresentation) {
+    public static long bitboardRepresentation(int[][] arrayRepresentation) {
         long bitboard = 0L;
         int rowBitShift;
         for (int i = 0; i < 8; i++) {

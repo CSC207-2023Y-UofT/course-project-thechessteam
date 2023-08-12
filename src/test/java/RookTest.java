@@ -27,8 +27,8 @@ class RookTest {
         };
 
         // Remove all pieces from board.
-        TestHelper.remove_all_pieces(board);
-        board.blackRook[0] = TestHelper.bitboard_representation(rookLocation);
+        TestHelper.removeAllPieces(board);
+        board.blackRook[0] = TestHelper.bitboardRepresentation(rookLocation);
         board.updateLocationVariables();
 
         int[][] expectedValidMove = {
@@ -42,9 +42,9 @@ class RookTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long validMove = rookCalculator.validMoves(TestHelper.bitboard_representation(rookLocation), false, board);
+        long validMove = rookCalculator.validMoves(TestHelper.bitboardRepresentation(rookLocation), false, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
+        assertEquals(TestHelper.bitboardRepresentation(expectedValidMove), validMove);
     }
 
 
@@ -63,7 +63,7 @@ class RookTest {
         };
 
         // We don't remove all pieces here because we want the pieces that can block its original movement.
-        board.whiteRook[0] = TestHelper.bitboard_representation(rookLocation);
+        board.whiteRook[0] = TestHelper.bitboardRepresentation(rookLocation);
         board.updateLocationVariables();
 
         int[][] expectedValidMove = {
@@ -77,9 +77,9 @@ class RookTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long validMove = rookCalculator.validMoves(TestHelper.bitboard_representation(rookLocation), true, board);
+        long validMove = rookCalculator.validMoves(TestHelper.bitboardRepresentation(rookLocation), true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
+        assertEquals(TestHelper.bitboardRepresentation(expectedValidMove), validMove);
     }
 
     @Test
@@ -97,8 +97,8 @@ class RookTest {
         };
 
         // Remove all pieces from board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteRook[0] = TestHelper.bitboard_representation(rookLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteRook[0] = TestHelper.bitboardRepresentation(rookLocation);
         board.updateLocationVariables();
 
         int[][] expectedValidMove = {
@@ -112,9 +112,9 @@ class RookTest {
                 {1, 1, 1, 1, 1, 1, 1, 0}
         };
 
-        long validMove = rookCalculator.validMoves(TestHelper.bitboard_representation(rookLocation), true, board);
+        long validMove = rookCalculator.validMoves(TestHelper.bitboardRepresentation(rookLocation), true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
+        assertEquals(TestHelper.bitboardRepresentation(expectedValidMove), validMove);
     }
 
 
@@ -136,8 +136,8 @@ class RookTest {
         };
 
         // Remove all pieces from board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteRook[0] = TestHelper.bitboard_representation(rookLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteRook[0] = TestHelper.bitboardRepresentation(rookLocation);
         board.updateLocationVariables();
 
         int[][] expectedAttackCoverage = {
@@ -153,6 +153,6 @@ class RookTest {
 
         long attackCoverage = rookCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
+        assertEquals(TestHelper.bitboardRepresentation(expectedAttackCoverage), attackCoverage);
     }
 }
