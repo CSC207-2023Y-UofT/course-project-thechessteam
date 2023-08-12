@@ -4,8 +4,8 @@ import entities.pieces.PieceCalculator;
 import entities.locations.LocationBitboard;
 
 public class ActualValidCalculator {
-    // A use case class that filters moves calculated by Entities.VariousCalculators.Calculators.
-    // Filters moves that would put side's Entities.Pieces.King in check (Illegal moves).
+    // A use case class that filters moves calculated by entities.VariousCalculators.Calculators.
+    // Filters moves that would put side's entities.pieces.King in check (Illegal moves).
     // side == true for white, side == false for black.
     private final Calculators calculators;
     private final CheckCalculator checkCalc;
@@ -95,7 +95,7 @@ public class ActualValidCalculator {
         return calculator;
     }
 
-    // Helper method for creating a copy of Entities.Locations.LocationBitboard
+    // Helper method for creating a copy of entities.Locations.LocationBitboard
     private static LocationBitboard locationsCopy(LocationBitboard currentBoard) {
         LocationBitboard copy = new LocationBitboard();
         copy.whitePawn[0] = currentBoard.whitePawn[0];
