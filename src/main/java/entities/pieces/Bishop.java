@@ -34,7 +34,7 @@ public class Bishop implements PieceCalculator {
                 board.getWhiteLocations() :
                 board.getBlackLocations();
 
-        // return long, of the valid moves this specific Entities.Pieces.Bishop may take
+        // return long, of the valid moves this specific entities.pieces.Bishop may take
         return calculateFinalPosition((diagonal& diagonalMask)) |
                 calculateFinalPosition(antiDiagonal& antiDiagonalMask);
     }

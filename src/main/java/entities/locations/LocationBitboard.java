@@ -9,7 +9,7 @@ import entities.constants.InitialPositions;
  * Each type of piece (for both white and black) is represented by a long array, where each element
  * is a bitboard that represents the locations of pieces of that type.
  * Array of longs for flexibility. (long[])
- * Castling will be tied to Entities.Pieces.King valid moves. We assume that if Entities.Pieces.King moves two spaces, we are castling.
+ * Castling will be tied to entities.pieces.King valid moves. We assume that if entities.pieces.King moves two spaces, we are castling.
  */
 public class LocationBitboard {
     public long[] whitePawn = new long[]{InitialPositions.WHITE_PAWN};
@@ -290,7 +290,7 @@ public class LocationBitboard {
     // ----------------------------------------------------------------------------------------------------------
 
     /**
-     * Constructor for creating an instance of Entities.Locations.LocationBitboard.
+     * Constructor for creating an instance of entities.Locations.LocationBitboard.
      * Initializes all the bitboards to the starting positions of the pieces
      */
     public LocationBitboard(){}
