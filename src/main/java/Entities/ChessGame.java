@@ -35,7 +35,8 @@ public class ChessGame {
      * Changes the turn from White's turn to Black's turn, or vice versa.
      *
      * @return The updated turn (true for White's turn, false for Black's turn).
-     */    public boolean change_turn() {
+     */    
+    public boolean change_turn() {
         turn = !turn;
         return turn;
     }
