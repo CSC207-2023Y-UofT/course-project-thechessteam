@@ -9,6 +9,7 @@ import Entities.Locations.LocationBitboard;
  * of the opponent's pieces and checks if the king of the given side is under attack.
  */
 public class CheckCalculator {
+<<<<<<< HEAD
 
     private Calculators calculators;
 
@@ -17,6 +18,9 @@ public class CheckCalculator {
      *
      * @param calculators The Calculators instance containing the piece calculators.
      */
+=======
+    private final Calculators calculators;
+>>>>>>> origin/main
     public CheckCalculator(Calculators calculators) {
         this.calculators = calculators;
     }

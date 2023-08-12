@@ -8,7 +8,7 @@ import Entities.ChessGame;
  *
  */
 public class NewGame {
-    private ChessGame currentGame;
+    private final ChessGame currentGame;
 
     /**
      * Constructs a new NewGame object.

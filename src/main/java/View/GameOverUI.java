@@ -1,7 +1,9 @@
 package View;
 
 import Controller.Controller;
-import Presenter.Presenter;
+import Database.LeaderBoard;
+
+import Presenter.Presenter; // Used for reestablishing framework after we create a new view class.
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,15 +12,15 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 /**
- * GameOver class provides the graphical user interface for displaying the game over screen.
+ * GameOverUI class provides the graphical user interface for displaying the game over screen.
  * It presents the user with options to play again, navigate to the main menu, or submit their name.
  * The class implements ActionListener to handle user interactions with the buttons on the screen.
  *
  */
-public class GameOver implements ActionListener {
-    private Controller clickController;
-    private ChessBoardUI ui;
-    private Presenter presenter;
+public class GameOverUI implements ActionListener {
+    private final Controller clickController;
+    private final BoardUI ui;
+    private final Presenter presenter;
     JFrame window_frame = new JFrame();
     JLabel game_overLabel = new JLabel("Game Over!");
     JButton playAgain = new JButton("Play Again");
@@ -33,7 +35,7 @@ public class GameOver implements ActionListener {
      * @param ui The ChessBoardUI object representing the current user interface.
      * @param presenter The Presenter object responsible for handling the display logic.
      */
-    GameOver(Controller clickController, ChessBoardUI ui, Presenter presenter) {
+    GameOverUI(Controller clickController, BoardUI ui, Presenter presenter) {
         this.clickController = clickController;
         this.ui = ui;
         this.presenter = presenter;
@@ -102,17 +104,18 @@ public class GameOver implements ActionListener {
         if (e.getSource() == menuButton) { // Opens the menu screen
             window_frame.dispose();
             ui.disposeFrame();
-            new MainMenu(clickController, presenter);
+            new MenuUI(clickController, presenter);
         } else if (e.getSource() == playAgain) { // Starts a new game instance
             window_frame.dispose();
             ui.disposeFrame();
-            ChessBoardUI board = new ChessBoardUI(clickController, presenter);
+            BoardUI board = new BoardUI(clickController, presenter);
             presenter.set_view(board);
-            board.newGame();
+            board.newBoard();
         } else if (e.getSource() == submitButton) {
-            if (!Objects.equals(nameBox.getText(), "Record Name")) {
-                // TODO Put leaderboard insertion code here, use "nameBox.getText()" to get the contents of the inputed text
-                System.out.println(nameBox.getText());
+            if (!Objects.equals(nameBox.getText(), "Record Name") && !nameBox.getText().contains(",") && !nameBox.getText().contains(":")) {
+                LeaderBoard.addPlayer(nameBox.getText());
+                submitButton.setEnabled(false);
+                nameBox.setEnabled(false);
             }
         }
     }

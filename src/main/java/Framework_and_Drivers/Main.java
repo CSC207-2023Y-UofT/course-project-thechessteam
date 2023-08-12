@@ -9,8 +9,8 @@ import Presenter.Presenter;
 import Use_Cases.HighlightValid;
 import Use_Cases.MovePiece;
 import Use_Cases.NewGame;
-import View.ChessBoardUI;
-import View.MainMenu;
+import View.BoardUI;
+import View.MenuUI;
 
 /**
  * This is the main entry point for the Chess Game application.
@@ -50,7 +50,7 @@ public class Main {
         // View.
         // Our main UI called ChessBoardUI.
         // Implements ViewInterface and depends on Controller. Also depends on GameOver view class.
-        ChessBoardUI ui = new ChessBoardUI(clickController, presenter);
+        BoardUI ui = new BoardUI(clickController, presenter);
 
         // Need to set ViewInterface instance in Presenter because it depends on a view interface
         presenter.set_view(ui);
@@ -60,6 +60,6 @@ public class Main {
 
         // Start View.
         // MainMenu, LeaderBoardUI, and GameOver extends View.
-        new MainMenu(clickController, presenter);
+        new MenuUI(clickController, presenter);
     }
 }

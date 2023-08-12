@@ -33,17 +33,8 @@ public interface ViewInterface {
      */
     void setTurn(boolean turn);
 
-    /**
-     * Sets the white player's points in the View.
-     *
-     * @param whtPoints Integer representing white player's points.
-     */
+    /* Unused code for now
+    // Sets the white points and black points in View.
     void setWhtPoints(int whtPoints);
-
-    /**
-     * Sets the black player's points in the View.
-     *
-     * @param blkPoints Integer representing black player's points.
-     */
-    void setBlkPoints(int blkPoints);
+    void setBlkPoints(int blkPoints); */
 }

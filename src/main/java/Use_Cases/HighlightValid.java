@@ -13,8 +13,8 @@ import Presenter_Interface.PresenterInterface;
  */
 public class HighlightValid {
     private PresenterInterface presenter;
-    private ChessGame currentGame;
-    private ActualValidCalculator actualValidCalc;
+    private final ChessGame currentGame;
+    private final ActualValidCalculator actualValidCalc;
 
     /**
      * Constructs a new HighlightValid object.

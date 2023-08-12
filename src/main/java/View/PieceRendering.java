@@ -11,7 +11,7 @@ import java.util.Objects;
  * This class contains static references to white and black chess pieces' images,
  * and it initializes these images by reading from a given source.
  */
-public class ImageRendering {
+public class PieceRendering {
     public static Image whitePawn;
     public static Image whiteRook;
     public static Image whiteKnight;
@@ -29,7 +29,7 @@ public class ImageRendering {
     static BufferedImage img;
     static {
         try {
-            img = ImageIO.read(Objects.requireNonNull(ImageRendering.class.getClassLoader().getResource("projectimages/ChessPieces.png")));
+            img = ImageIO.read(Objects.requireNonNull(PieceRendering.class.getClassLoader().getResource("projectimages/ChessPieces.png")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -38,7 +38,6 @@ public class ImageRendering {
     static int imgH = img.getHeight();
     static int OPW = imgW/6;
     static int OPH = imgH/2;
-    public static Image pieceImg;
 
     static {
         whitePawn = img.getSubimage(OPW*5, 0, OPW, OPH);

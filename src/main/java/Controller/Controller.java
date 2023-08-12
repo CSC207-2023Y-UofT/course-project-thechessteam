@@ -9,9 +9,9 @@ import Use_Cases.NewGame;
  * It acts as a bridge, passing information between the classes involved in handling game logic.
  */
 public class Controller {
-    private MovePiece movePieceClass;
-    private HighlightValid highlightValidClass;
-    private NewGame newGameClass;
+    private final MovePiece movePieceClass;
+    private final HighlightValid highlightValidClass;
+    private final NewGame newGameClass;
 
     /**
      * Constructor to initialize the Controller class with the relevant use case classes.

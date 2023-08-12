@@ -10,8 +10,7 @@ import Entities.Locations.LocationBitboard;
  * Note: The Entities.Pieces.King class that implements this does not use the attack coverage for opponents pieces.
  *
  */
-public interface Calculator {
-
+public interface PieceCalculator {
     /**
      * Calculates all valid moves a player can make for the piece at the given location.
      *

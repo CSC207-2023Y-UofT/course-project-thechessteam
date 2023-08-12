@@ -5,12 +5,12 @@ package Entities.Constants;
  * Each constant represents the initial position of the corresponding piece on a chessboard, with the white pieces at the bottom and the black pieces at the top!
  * The constants are long values that represent bitboards, with each bit corresponding to a square on the chessboard
  * The bitboards are read from right to left and top to bottom (top right square is the most significant bit) (i.e., top right hand side of chess board, h8)
- *
+ * <p>
  * Chessboard for reference:
  *   Most significant bit (left-most bit) represents h8. Least significant bit (right-most bit) represents a1.
  *   e.g., Black Entities.Pieces.King on square e8 (file 'e', rank '8')
  *   e.g., White Entities.Pieces.King on square e1 (file 'e', rank '1')
- *
+ * <p>
  *      [a8 b8 c8 d8 e8 f8 g8 h8]
  *      [a7 b7 c7 d7 e7 f7 g7 h7]
  *      [a6 b6 c6 d6 e6 f6 g6 h6]

@@ -5,7 +5,7 @@ import Entities.Constants.PreCalculatedAttacks;
 import Entities.Locations.LocationBitboard;
 
 // pawn class
-public class Pawn implements Calculator {
+public class Pawn implements PieceCalculator {
     public long valid_moves(long from, boolean side, LocationBitboard board){
 
         long pawnValidMoves = 0L;

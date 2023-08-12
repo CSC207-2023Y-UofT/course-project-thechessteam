@@ -7,7 +7,7 @@ import Entities.Locations.LocationBitboard;
  * Class representing a Bishop piece in a chess game.
  * Implements the Calculator interface to determine valid moves and attack coverage.
  */
-public class Bishop implements Calculator {
+public class Bishop implements PieceCalculator {
 
     private long sameColoredPieces;
 

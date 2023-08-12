@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 public class LeaderBoard{
     public LeaderBoard(){}
-    // has 4 methods - readData, writeData, addPlayer and printData
+    // has 5 methods - readData, writeData, addPlayer, sendData and printData
     // readData and writeData are private methods for use within class only
     // addPlayer is public, adds a player given their name
     // printData is public, used to print the leaderboard
@@ -23,7 +23,7 @@ public class LeaderBoard{
      * Represents a Player with a name and a number of wins.
      */
     protected static class Player {
-        private String name;
+        private final String name;
         private int wins;
 
         /**
@@ -116,22 +116,21 @@ public class LeaderBoard{
         // read file into leaderboard var
         ArrayList<Player> leaderboard = readData();
         // process name
-        String input = player_name.trim().toLowerCase();
         // check whether the player is already in leaderboard, add a win if it is
         boolean existing_player = false;
         for (Player p : leaderboard) {
-            if (Objects.equals(p.getName(), input)) {
+            if (Objects.equals(p.getName(), player_name)) {
                 existing_player = true;
                 p.addWins();
             }
         }
         // if new player, create new player and add to the leaderboard
         if (!(existing_player)) {
-            Player new_player = new Player(input, 1);
+            Player new_player = new Player(player_name, 1);
             leaderboard.add(new_player);
         }
         //sort the leaderboard based on wins
-        Collections.sort(leaderboard, Comparator.comparing(Player::getWins));
+        leaderboard.sort(Comparator.comparing(Player::getWins));
         //descending order
         Collections.reverse(leaderboard);
         // Save leaderboard with new player
@@ -139,18 +138,34 @@ public class LeaderBoard{
     }
 
     /**
-     * Prints the current leaderboard to the standard output, listing player names and wins.
+     * Sends a List<String> representation of the leaderboard
      */
+    public static List<String> sendData() {
+        // sends a copy of the leaderboard
+        ArrayList<Player> leaderboard = readData();
+
+        List<String> cloned_list = new ArrayList<>();
+
+        if (!leaderboard.isEmpty()) {
+            // Adds the player and wins to the cloned list
+            for (Player p: leaderboard) {
+                cloned_list.add(p.getName() + ": " + p.getWins());
+            }
+        }
+
+        return cloned_list;
+    }
+
+    /*
+    // print leaderboard (was used for testing)
     public static void printData() {
         // read file
         ArrayList<Player> leaderboard = readData();
-        if (leaderboard.size() > 0) {
-            System.out.println("Leaderboard");
-            System.out.println("Player Name -> Wins");
+        if (!leaderboard.isEmpty()) {
             // print each player and wins
             for (Player p: leaderboard) {
                 System.out.println(p.getName() + " -> " + p.getWins());
             }
         }
-    }
+    } */
 }

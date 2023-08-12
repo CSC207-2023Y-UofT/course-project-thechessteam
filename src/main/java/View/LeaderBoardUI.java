@@ -1,7 +1,9 @@
 package View;
 
 import Controller.Controller;
-import Presenter.Presenter;
+import Database.LeaderBoard;
+
+import Presenter.Presenter; // Used for reestablishing framework after we create a new view class.
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,8 +18,8 @@ import java.util.Objects;
  *
  */
 public class LeaderBoardUI implements ActionListener {
-    private Controller clickController;
-    private Presenter presenter;
+    private final Controller clickController;
+    private final Presenter presenter;
     JFrame leaderboard_frame = new JFrame("Database.LeaderBoard");
     JLabel frameBackground = new JLabel("Background");
     JLabel leaderBackground = new JLabel("buttonBackground");
@@ -85,17 +87,22 @@ public class LeaderBoardUI implements ActionListener {
         backButton.addActionListener(this);
 
         // adds each saved score from the leaderboardTable
-        // TODO replace for loop with code to create new labels into table
         int iteration = 0;
-        for (int i = 5; i >= 0; i--) {
+
+        for (String i: LeaderBoard.sendData()) {
             iteration += 1;
-            JLabel tempName = new JLabel("Temp Name");
+
+            String[] string_split = i.split(":");
+            String name = string_split[0];
+            String wins = string_split[1];
+
+            JLabel tempName = new JLabel(name);
             tempName.setOpaque(true);
             tempName.setBackground(new Color(176, 174, 232));
             tempName.setBounds(0,iteration*25,171,25);
 
 
-            JLabel tempWins = new JLabel(Integer.toString(i));
+            JLabel tempWins = new JLabel(wins);
             tempWins.setOpaque(true);
             tempWins.setBackground(new Color(191, 133, 253));
             tempWins.setBounds(171,iteration*25,171,25);
@@ -134,7 +141,7 @@ public class LeaderBoardUI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backButton) {
             leaderboard_frame.dispose();
-            new MainMenu(clickController, presenter);
+            new MenuUI(clickController, presenter);
         }
     }
 }

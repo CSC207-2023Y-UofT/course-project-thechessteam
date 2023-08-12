@@ -3,7 +3,7 @@ package Entities.Pieces;
 import Entities.Constants.FileAndRank;
 import Entities.Locations.LocationBitboard;
 
-public class Rook implements Calculator {
+public class Rook implements PieceCalculator {
 
     private long sameColoredPieces;
 
