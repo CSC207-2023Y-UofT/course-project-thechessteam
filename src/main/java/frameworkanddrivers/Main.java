@@ -14,7 +14,7 @@ import view.MenuUI;
 
 public class Main {
     public static void main(String[] args) {
-        // Entities.
+        // entities.
         // Dependencies are non-cyclical and within the same entity layer
         ChessGame game = new ChessGame();
         Calculators calculators = new Calculators();
@@ -35,7 +35,7 @@ public class Main {
         // Depends on MovePiece(Use Case), HighlightValid(Use Case), and NewGame(Use Case)
         Controller clickController = new Controller(movePieceClass, highlightClass, newGameClass);
 
-        // View.
+        // view.
         // Our main UI called ChessBoardUI.
         // Implements ViewInterface and depends on Controller. Also depends on GameOver view class.
         BoardUI ui = new BoardUI(clickController, presenter);
@@ -46,8 +46,8 @@ public class Main {
         movePieceClass.setPresenter(presenter);
         highlightClass.setPresenter(presenter);
 
-        // Start View.
-        // MainMenu, LeaderBoardUI, and GameOver extends View.
+        // Start view.
+        // MainMenu, LeaderBoardUI, and GameOver extends view.
         new MenuUI(clickController, presenter);
     }
 }

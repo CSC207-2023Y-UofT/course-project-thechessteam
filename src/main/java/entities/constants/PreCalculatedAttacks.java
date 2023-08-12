@@ -2,7 +2,7 @@ package entities.constants;
 
 public class PreCalculatedAttacks {
 
-    // [color][square number] for all arrays in Entities.Constants.PreCalculatedAttacks
+    // [color][square number] for all arrays in entities.Constants.PreCalculatedAttacks
     // 0 for White; 1 for Black
     public static long[][] pawnAttacks = new long[2][64];
     static {

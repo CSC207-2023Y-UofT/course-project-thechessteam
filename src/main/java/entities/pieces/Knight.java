@@ -4,7 +4,7 @@ import entities.constants.PreCalculatedAttacks;
 import entities.locations.LocationBitboard;
 
 public class Knight implements PieceCalculator {
-    // Entities.Pieces.Knight Class intended to hold the calculations for knight piece movements
+    // entities.pieces.Knight Class intended to hold the calculations for knight piece movements
     private long sameColoredPieces;
 
     public Knight() {}
