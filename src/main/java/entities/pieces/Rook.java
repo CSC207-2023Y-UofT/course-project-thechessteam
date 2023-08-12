@@ -30,7 +30,7 @@ public class Rook implements PieceCalculator {
         // generates the pieces that are the same color as the piece in question (i.e., can't step on your own pieces).
         this.sameColoredPieces = (side) ? board.getWhiteLocations() : board.getBlackLocations();
 
-        // Return long, of the valid moves this specific Entities.Pieces.Rook may take
+        // Return long, of the valid moves this specific entities.pieces.Rook may take
         // Applies corresponding masks again to filter out relevant positions.
         return calculateFinalPosition(horizontal & horizontalMask)
                 | calculateFinalPosition(vertical& verticalMask);

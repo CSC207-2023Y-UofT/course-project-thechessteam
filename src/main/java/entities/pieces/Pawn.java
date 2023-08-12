@@ -9,7 +9,7 @@ public class Pawn implements PieceCalculator {
     public long validMoves(long from, boolean side, LocationBitboard board){
 
         long pawnValidMoves = 0L;
-        int s = Long.numberOfTrailingZeros(from); // index to use Entities.Constants.PreCalculatedAttacks
+        int s = Long.numberOfTrailingZeros(from); // index to use entities.Constants.PreCalculatedAttacks
 
         // white pawn
         if (side) {
@@ -67,7 +67,7 @@ public class Pawn implements PieceCalculator {
     public long attackCoverage(boolean side, LocationBitboard board) {
         long pawnAttacks = 0L;
 
-        // Add up all the attacks in Entities.Constants.PreCalculatedAttacks table that is possible,
+        // Add up all the attacks in entities.Constants.PreCalculatedAttacks table that is possible,
         // i.e. there's a pawn in location i.
         if (side) {
             for (int i = 0; i < 64; i++) {

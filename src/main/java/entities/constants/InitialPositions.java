@@ -8,8 +8,8 @@ package entities.constants;
  * <p>
  * Chessboard for reference:
  *   Most significant bit (left-most bit) represents h8. Least significant bit (right-most bit) represents a1.
- *   e.g., Black Entities.Pieces.King on square e8 (file 'e', rank '8')
- *   e.g., White Entities.Pieces.King on square e1 (file 'e', rank '1')
+ *   e.g., Black entities.pieces.King on square e8 (file 'e', rank '8')
+ *   e.g., White entities.pieces.King on square e1 (file 'e', rank '1')
  * <p>
  *      [a8 b8 c8 d8 e8 f8 g8 h8]
  *      [a7 b7 c7 d7 e7 f7 g7 h7]

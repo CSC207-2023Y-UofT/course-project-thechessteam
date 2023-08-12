@@ -11,7 +11,7 @@ public class ChessGame {
 
     // ----------------------------------------------------------------------------------------------------------
     // Getter methods
-    public LocationBitboard getCurrentBoard() { // returns the board this Entities.ChessGame is using
+    public LocationBitboard getCurrentBoard() { // returns the board this entities.ChessGame is using
         return currentBoard;
     }
     public boolean getTurn() { return turn; }

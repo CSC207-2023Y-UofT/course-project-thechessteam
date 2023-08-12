@@ -1,7 +1,7 @@
-/*package Entities.VariousCalculators;
+/*package entities.VariousCalculators;
 
-import Entities.Pieces.Calculator;
-import Entities.Locations.LocationBitboard;
+import entities.pieces.Calculator;
+import entities.Locations.LocationBitboard;
 
 public class StalemateCalculator {
 
