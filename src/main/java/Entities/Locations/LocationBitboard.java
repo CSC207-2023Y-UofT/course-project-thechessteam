@@ -4,12 +4,8 @@ import Entities.Constants.FileAndRank;
 import Entities.Constants.InitialPositions;
 
 /**
- * This class represents a chessboard using bitboards for each pieces location
- * A new instance of this class should be created at the beginning of each game
- * Each type of piece (for both white and black) is represented by a long array, where each element
- * is a bitboard that represents the locations of pieces of that type.
- * Array of longs for flexibility. (long[])
- * Castling will be tied to Entities.Pieces.King valid moves. We assume that if Entities.Pieces.King moves two spaces, we are castling.
+ * Represents the chessboard using bitboards to store the locations of each chess piece.
+ * It includes attributes and methods to manage and manipulate piece locations.
  */
 public class LocationBitboard {
     public long[] whitePawn = new long[]{InitialPositions.WHITE_PAWN};
@@ -56,8 +52,10 @@ public class LocationBitboard {
         }
     }
     private long occupied = whiteLocations | blackLocations;
-    // ----------------------------------------------------------------------------------------------------------
-    // Getter methods
+
+    /**
+     * Getters returns the specified attributes
+     */
     public long[][] getWhitePieces() {return whitePieces; }
     public long[][] getBlackPieces() {return blackPieces; }
     public long getWhiteLocations() { // returns a bitboard showing all squares occupied by White
@@ -95,12 +93,13 @@ public class LocationBitboard {
         return rightBlackRookMoved;
     }
 
-    // ----------------------------------------------------------------------------------------------------------
-    // move_piece method for updating location
-
-    // move_piece updates all variables related to the move.
-    // Returns true if move was successful, returns false if there was no piece at "from".
-    // Assume moving piece from "from" to "to" is a valid move.
+    /**
+     * Moves a piece from one location to another.
+     * @param from the source location.
+     * @param to the destination location.
+     * @param turn true for White's turn, false for Black's turn.
+     * @return true if the move was successful, false if there was no piece at "from".
+     */
     public boolean move_piece(long from, long to, boolean turn) {
         boolean moved = false;
         if (turn) { // White's turn
@@ -123,7 +122,10 @@ public class LocationBitboard {
         }
         return moved;
     }
-    // Method for updating all location variables
+
+    /**
+     * Method for updating all location variables.
+     */
     public void updateLocationVariables(){
         long newWhiteLocations = 0L;
         for (long[] pieceType : whitePieces) {
@@ -139,10 +141,16 @@ public class LocationBitboard {
 
         occupied = whiteLocations | blackLocations;
     }
-    // ----------------------------------------------------------------------------------------------------------
-    // Helper methods
 
-    // Helper method for move_piece
+    /**
+     * Updates the state of a chess piece on the board after a move has been made.
+     * Takes into account special moves like castling and en passant.
+     *
+     * @param pieceType An array containing the piece's type.
+     * @param from      The starting location of the piece.
+     * @param to        The destination location of the piece.
+     * @param turn      A boolean value representing whose turn it is (true for White, false for Black).
+     */
     private void update_piece(long[] pieceType, long from, long to, boolean turn) {
         // These will be updated as true if we moved a pawn two spaces forward.
         whitePawnMovedTwo = 0L;
@@ -244,6 +252,15 @@ public class LocationBitboard {
             }
         }
     }
+
+    /**
+     * Updates the rook's position when castling.
+     * This method handles both king side and queen side castling for both colors.
+     *
+     * @param rookLocations An array representing the rook's current locations.
+     * @param direction     A boolean value representing the direction of castling (true for queen side, false for king side).
+     * @param color         A boolean value representing the color of the rook (true for White, false for Black).
+     */
     private void update_rook_for_castling (long[] rookLocations, boolean direction, boolean color) {
         // direction == true for queen side, direction == false for king side
         // color == true for White, color == false for Black
@@ -266,6 +283,12 @@ public class LocationBitboard {
         }
     }
 
+    /**
+     * Executes the en passant move by updating the pawn's location.
+     *
+     * @param to   The destination location of the pawn that performed en passant.
+     * @param side A boolean value representing the side that performed en passant (true for White, false for Black).
+     */
     private void update_en_passant (long to, boolean side) {
         if (side) {
             blackPawn[0] = blackPawn[0] & ~(to >>> 8);
@@ -287,7 +310,6 @@ public class LocationBitboard {
             }
         }
     }
-    // ----------------------------------------------------------------------------------------------------------
 
     /**
      * Constructor for creating an instance of Entities.Locations.LocationBitboard.

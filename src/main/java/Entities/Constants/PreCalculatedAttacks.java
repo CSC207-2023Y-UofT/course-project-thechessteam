@@ -1,9 +1,13 @@
 package Entities.Constants;
 
+/**
+ * The PreCalculatedAttacks class precomputes and stores the attack patterns for different chess pieces.
+ * It provides three different sets of arrays for pawn, knight, and king attack patterns, separately for each square on the board.
+ * The class also encapsulates methods to calculate the attack patterns for white and black pawns, knights, and kings.
+ *
+ * The class relies on constants defined in FileAndRank to perform bitwise manipulations to determine the attack patterns.
+ */
 public class PreCalculatedAttacks {
-
-    // [color][square number] for all arrays in Entities.Constants.PreCalculatedAttacks
-    // 0 for White; 1 for Black
     public static long[][] pawn_attacks = new long[2][64];
     static {
         for (int i = 0; i < 64; i++) {
@@ -24,12 +28,24 @@ public class PreCalculatedAttacks {
         }
     }
 
+    /**
+     * Calculates the attack pattern for a white pawn at a given location.
+     *
+     * @param from Position of the pawn represented as a bitboard.
+     * @return Bitboard representing the attack pattern.
+     */
     private static long white_pawn_attacks(long from) {
         long attacks_right = (from & ~FileAndRank.RANK_8 & ~FileAndRank.FILE_A)<<7; // capture right
         long attacks_left = (from & ~FileAndRank.RANK_8 & ~FileAndRank.FILE_H)<<9; // capture left
         return attacks_right|attacks_left;
     }
 
+    /**
+     * Calculates the attack pattern for a black pawn at a given location.
+     *
+     * @param from Position of the pawn represented as a bitboard.
+     * @return Bitboard representing the attack pattern.
+     */
     private static long black_pawn_attacks(long from) {
         // Need to use >>> to fill 0s on the left.
         // Java uses signed two's complement integer to represent long data type.
@@ -38,6 +54,12 @@ public class PreCalculatedAttacks {
         return attacks_left|attacks_right;
     }
 
+    /**
+     * Calculates the attack pattern for a knight at a given location.
+     *
+     * @param from Position of the knight represented as a bitboard.
+     * @return Bitboard representing the attack pattern.
+     */
     private static long knight_attacks(long from) {
         long attacks;
         int bit_location = Long.numberOfTrailingZeros(from);
@@ -59,6 +81,12 @@ public class PreCalculatedAttacks {
         return attacks;
     }
 
+    /**
+     * Calculates the attack pattern for a king at a given location.
+     *
+     * @param from Position of the king represented as a bitboard.
+     * @return Bitboard representing the attack pattern.
+     */
     private static long king_attacks(long from) {
         long attacks;
         int bit_location = Long.numberOfTrailingZeros(from);
