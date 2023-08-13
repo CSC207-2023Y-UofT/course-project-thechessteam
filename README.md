@@ -11,6 +11,8 @@ The Chess Team is a two player bitboard based chess game engine.
   - [Capture](#capture-pieces)
   - [Castling](#castling)
   - [Check](#check)
+  - [Checkmate](#checkmate)
+  - [Stalemate](#stalemate)
   - [Draw](#draw)
   - [Forfeit](#forfeit)
   - [Leaderboard](#leaderboard)
@@ -30,6 +32,11 @@ It features all common chess mechanisms, including move generation, move validat
 
 This project uses MVC pattern to deploy clean architecture. While some interdependency is unavoidable due to the nature of chess as a game, all such dependencies are contained within each layer and adhere to SOLID principles.
 ![MVC](https://i.imgur.com/fJ5qtHP.png)
+
+
+Use Case example: Select piece and highlight valid moves
+![MVC](https://i.imgur.com/3yfcyCc.jpg)
+As illustrated in the image, once the user clicks, the controller registers the click and calls the use case method createHighlights(Model). This returns the spots to be highlighted, which is then passed onto the outer layers of presenter and view using interfaces for dependency injection. The user can then see the highlighted valid moves for the selected piece.
 
 ## Features
 
@@ -80,6 +87,12 @@ When the king is in check, only moves to get out of the check are allowed.
     <img src="https://i.imgur.com/9mP2Xcu.png" width="49%" />
     <img src="https://i.imgur.com/MqN837b.png" width="49%" />
 </p>
+
+### Checkmate
+When the king cannot get out of a check, game is forfeit.
+
+### Stalemate
+When no further progress us possible from either player, a stalemate is reached and the conclusion is a draw.
 
 
 ### Draw
