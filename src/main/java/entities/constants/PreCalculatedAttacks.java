@@ -4,6 +4,7 @@ package entities.constants;
  * The PreCalculatedAttacks class precomputes and stores the attack patterns for different chess pieces.
  * It provides three different sets of arrays for pawn, knight, and king attack patterns, separately for each square on the board.
  * The class also encapsulates methods to calculate the attack patterns for white and black pawns, knights, and kings.
+ *
  * The class relies on constants defined in FileAndRank to perform bitwise manipulations to determine the attack patterns.
  */
 public class PreCalculatedAttacks {
