@@ -6,12 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Test class for validating the behavior of ActualValidCalculator.
- * This class ensures that the actual valid moves are computed correctly
- * according to chess rules, including complex situations where the king is
- * in check or might be put in check by a move.
- */
 class ActualValidCalculatorTest {
 
     Calculators calculators = new Calculators();

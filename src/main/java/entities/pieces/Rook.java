@@ -9,14 +9,6 @@ public class Rook implements PieceCalculator {
 
     public Rook() {}
 
-    /**
-     * Calculates the valid moves for a Rook from a given position on the board.
-     *
-     * @param from The bitboard representation of the Rook's current position.
-     * @param side The color of the Rook, true for white and false for black.
-     * @param board The current board state as a LocationBitboard object.
-     * @return A bitboard representation of the valid moves the Rook can make.
-     */
     public long validMoves(long from, boolean side, LocationBitboard board) {
         // occupied provides occupied places on the board.
         long occupied = board.getOccupied();
@@ -44,23 +36,10 @@ public class Rook implements PieceCalculator {
                 | calculateFinalPosition(vertical& verticalMask);
     }
 
-    /**
-     * Helper method to calculate the final valid position, filtering out same-colored pieces.
-     *
-     * @param candidate The candidate bitboard positions for a valid move.
-     * @return A bitboard with the final valid positions after filtering out same-colored pieces.
-     */
     private long calculateFinalPosition(long candidate) {
         return candidate & ~this.sameColoredPieces;
     }
 
-    /**
-     * Calculates the attack coverage for Rooks of a given side on the current board.
-     *
-     * @param side The color of the Rooks, true for white and false for black.
-     * @param board The current board state as a LocationBitboard object.
-     * @return A bitboard representing all squares attacked by the Rooks of the given side.
-     */
     public long attackCoverage(boolean side, LocationBitboard board) {
         long attacked = 0L;  // bits where rook is attacking
         long rookLocations;  // rook locations based on side/color

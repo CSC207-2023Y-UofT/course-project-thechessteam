@@ -9,12 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-/**
- * MainMenu class provides the graphical user interface for the main menu screen of a chess game.
- * It includes buttons for starting a new game, viewing preferences, displaying the leaderboard, and accessing tutorials.
- * The class implements ActionListener to handle user interactions with these buttons.
- *
- */
 public class MenuUI implements ActionListener {
     private final Controller clickController;
     private final Presenter presenter;
@@ -28,12 +22,7 @@ public class MenuUI implements ActionListener {
     JButton leaderBoardButton = new JButton("leaderBoardButton");
     JButton tutorialButton = new JButton("tutorialButton");
 
-    /**
-     * Constructs a new MenuUI object.
-     *
-     * @param clickController The Controller object responsible for handling user clicks.
-     * @param presenter The Presenter object responsible for handling the display logic.
-     */
+
     public MenuUI(Controller clickController, Presenter presenter) {
         this.clickController = clickController;
         this.presenter = presenter;
@@ -122,12 +111,6 @@ public class MenuUI implements ActionListener {
         menuFrame.setVisible(true);
     }
 
-    /**
-     * Handles button clicks from the user, providing functionality to start a new game,
-     * view preferences, display the leaderboard, and access tutorials.
-     *
-     * @param e The ActionEvent object containing information about the event.
-     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playButton) { // Starts a new game instance
