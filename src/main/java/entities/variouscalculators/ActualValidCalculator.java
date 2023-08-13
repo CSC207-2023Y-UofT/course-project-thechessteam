@@ -3,18 +3,44 @@ package entities.variouscalculators;
 import entities.pieces.PieceCalculator;
 import entities.locations.LocationBitboard;
 
+/**
+ * Class responsible for filtering valid moves calculated by various calculators.
+ * Filters moves that would put the side's king in check (illegal moves).
+ * Provides functionality to calculate valid moves considering the rules of chess.
+ * Can handle the complexities of castling and en passant.
+ * side == true for white, side == false for black.
+ */
 public class ActualValidCalculator {
     // A use case class that filters moves calculated by entities.VariousCalculators.Calculators.
     // Filters moves that would put side's entities.pieces.King in check (Illegal moves).
     // side == true for white, side == false for black.
     private final Calculators calculators;
     private final CheckCalculator checkCalc;
+
+    /**
+     * Constructor for the ActualValidCalculator.
+     *
+     * @param calculators Reference to the various piece calculators.
+     * @param checkCalc   Reference to the check calculator.
+     */
     public ActualValidCalculator(Calculators calculators, CheckCalculator checkCalc) {
         this.calculators = calculators;
         this.checkCalc = checkCalc;
     }
 
-    // ----------------------------------------------------------------------------------------------------------
+    /**
+     * Calculates the actual valid moves for a piece at a given position.
+     * This method filters out moves that would put the side's king in check.
+     * Ensures that the king does not move into, out of, or across a check.
+     * Precondition: There is a piece at 'from' inside 'currentBoard'.
+     * Precondition: The piece is on the given 'side'.
+     * Precondition: There cannot be two pieces in the same location of 'currentBoard'.
+     *
+     * @param from          The starting position of the piece.
+     * @param side          The side of the piece (true for white, false for black).
+     * @param currentBoard  The current state of the chessboard.
+     * @return              A bitboard representing all actual valid moves for the piece.
+     */
     public long actualValidMoves(long from, boolean side, LocationBitboard currentBoard) {
         // Precondition: There is a piece at from inside currentBoard.
         // Precondition: The piece is on side.
@@ -62,13 +88,17 @@ public class ActualValidCalculator {
         return actualValid;
     }
 
-
-
     // ----------------------------------------------------------------------------------------------------------
     // Helper Methods
 
-    // Helper method for finding piece type
-    // Throws RuntimeException if side does not have any piece at from
+    /**
+     * Helper method to identify the type of piece at a given position.
+     * Throws a RuntimeException if the side does not have any piece at the given position.
+     *
+     * @param from         The position to identify the piece.
+     * @param currentBoard The current state of the chessboard.
+     * @return             The calculator corresponding to the identified piece.
+     */
     private PieceCalculator identifyCalculator(long from, LocationBitboard currentBoard) {
         PieceCalculator calculator;
 
@@ -95,7 +125,13 @@ public class ActualValidCalculator {
         return calculator;
     }
 
-    // Helper method for creating a copy of entities.Locations.LocationBitboard
+    /**
+     * Helper method to create a copy of a LocationBitboard.
+     * Useful for making hypothetical moves and checking their legality.
+     *
+     * @param currentBoard The current state of the chessboard.
+     * @return             A new LocationBitboard object that is a copy of 'currentBoard'.
+     */
     private static LocationBitboard locationsCopy(LocationBitboard currentBoard) {
         LocationBitboard copy = new LocationBitboard();
         copy.whitePawn[0] = currentBoard.whitePawn[0];
