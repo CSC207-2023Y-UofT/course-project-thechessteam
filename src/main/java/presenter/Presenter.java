@@ -4,32 +4,15 @@ package presenter;
 import presenterinterface.PresenterInterface;
 import viewinterface.ViewInterface;
 
-/**
- * The Presenter class implements the PresenterInterface and acts as an intermediary
- * between the View and the Model. It handles the updating of the view when changes
- * to the data model occur.
- */
 public class Presenter implements PresenterInterface {
     private ViewInterface view;
     private final long[][] pieceLocations = new long[2][6];
     public Presenter() {}
 
-    /**
-     * Sets the view interface.
-     *
-     * @param view Reference to the view interface.
-     */
     public void setView(ViewInterface view) {
         this.view = view;
     }
 
-    /**
-     * Updates the locations of the chess pieces.
-     *
-     * @param j        Index to identify the type of piece.
-     * @param bitboard Bitboard representing the piece locations.
-     * @param color    Boolean indicating the color of the piece (true for white, false for black).
-     */
     @Override
     public void updateLocations(int j, long bitboard, boolean color) {
         int i;
@@ -41,29 +24,16 @@ public class Presenter implements PresenterInterface {
         pieceLocations[i][j] = bitboard;
     }
 
-    /**
-     * Notifies the view to set the chessboard based on the piece locations.
-     */
     @Override
     public void setLocation() {
         view.setBoard(pieceLocations);
     }
 
-    /**
-     * Notifies the view to highlight specific locations on the board.
-     *
-     * @param highlight Bitboard representing the locations to be highlighted.
-     */
     @Override
     public void setHighlight(long highlight) {
         view.setHighlights(highlight);
     }
 
-    /**
-     * Notifies the view to display the current turn.
-     *
-     * @param currentTurn Boolean indicating the current turn (true for white, false for black).
-     */
     @Override
     public void setTurn(boolean currentTurn) {
         view.setTurn(currentTurn);

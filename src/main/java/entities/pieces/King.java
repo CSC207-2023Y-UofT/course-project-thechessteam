@@ -3,22 +3,8 @@ package entities.pieces;
 import entities.constants.PreCalculatedAttacks;
 import entities.locations.LocationBitboard;
 
-/**
- * Class representing a King piece in a chess game.
- * Implements the Calculator interface to determine valid moves and attack coverage.
- */
 public class King implements PieceCalculator {
 
-    /**
-     * Calculates the valid moves for a King from a given position.
-     * This includes normal King moves and also special castling moves,
-     * considering the King's and Rook's move history and the occupancy of the board.
-     *
-     * @param from  The starting position of the King.
-     * @param side  The side of the King (true for white, false for black).
-     * @param board The current state of the chessboard.
-     * @return      A bitboard representing all valid moves for the King.
-     */
     public long validMoves(long from, boolean side, LocationBitboard board) {
         int position = Long.numberOfTrailingZeros(from);
         long kingCoverage = PreCalculatedAttacks.kingAttacks[position];
@@ -83,13 +69,6 @@ public class King implements PieceCalculator {
         return updatedKingCoverage;
     }
 
-    /**
-     * Calculates the attack coverage for the Kings of a given side on the current board.
-     *
-     * @param side  The side of the King (true for white, false for black).
-     * @param board The current state of the chessboard.
-     * @return      A bitboard representing all squares attacked by the Kings of the given side.
-     */
     public long attackCoverage(boolean side, LocationBitboard board) {
         long coverage = 0L;
         long kingPositions = side ? board.whiteKing[0] : board.blackKing[0];
