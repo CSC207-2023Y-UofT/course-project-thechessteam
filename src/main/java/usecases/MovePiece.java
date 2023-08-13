@@ -50,9 +50,6 @@ public class MovePiece {
         LocationBitboard currentBoard = currentGame.getCurrentBoard();
         boolean moveSuccessful = movePieceHelper(currentBoard, start, end, turn);
 
-        System.out.println(moveSuccessful);
-        System.out.println();
-
         if (moveSuccessful) {
             for (int i = 0; i < 6; i++) {
                 presenter.updateLocations(i, currentBoard.getWhitePieces()[i][0], true);
