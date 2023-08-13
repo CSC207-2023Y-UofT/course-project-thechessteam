@@ -4,7 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
+/**
+ * Test class for Bishop behavior in a chess game.
+ * Tests include various scenarios such as different positions,
+ * possible moves, attacking coverages, and how the bishop's moves are affected
+ * by ally and enemy pieces on the board.
+ */
 class BishopTest {
 
     Bishop bishopCalculator = new Bishop();

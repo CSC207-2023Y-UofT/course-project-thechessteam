@@ -1,18 +1,39 @@
 package presenterinterface;
 
+/**
+ * PresenterInterface defines the contract for the Presenter class.
+ * It declares methods for updating and setting various view components,
+ * such as the locations of chess pieces, highlights on the board, and the current turn.
+ *
+ */
 public interface PresenterInterface {
 
-    // Updates locations of pieces held in an instance variable of presenter.
-    // It will be an array of bitboards in order of: [white, black] [Pawn, Rook, Knight, Bishop. Queen, King]
+    /**
+     * Updates the locations of chess pieces held in an instance variable of the presenter.
+     * The information is stored as an array of bitboards in the order: [white, black] [Pawn, Rook, Knight, Bishop, Queen, King].
+     *
+     * @param j        Index to identify the type of piece.
+     * @param bitboard Bitboard representing the piece locations.
+     * @param color    Boolean indicating the color of the piece (true for white, false for black).
+     */
     void updateLocations(int j, long bitboard, boolean color);
 
-    // Sets the locations of pieces in view implementing view interface
+    /**
+     * Instructs the view to set the chessboard based on the locations of the pieces.
+     */
     void setLocation();
 
-    // Sets the locations of highlight in view implementing view interface
+    /**
+     * Instructs the view to highlight specific locations on the chessboard.
+     *
+     * @param highlight Bitboard representing the locations to be highlighted.
+     */
     void setHighlight(long highlight);
 
-    // Sets the current turn in view implementing view interface
-    // currentTurn is true for white and false for black
+    /**
+     * Instructs the view to display the current turn.
+     *
+     * @param currentTurn Boolean indicating the current turn (true for white, false for black).
+     */
     void setTurn(boolean currentTurn);
 }

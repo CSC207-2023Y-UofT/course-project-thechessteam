@@ -11,6 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
+/**
+ * LeaderBoardUI class provides the graphical user interface for displaying the leaderboard screen.
+ * It shows the leaderboard sorted by names and wins, and provides a button to navigate back to the main menu.
+ * The class implements ActionListener to handle user interactions with the buttons on the screen.
+ *
+ */
 public class LeaderBoardUI implements ActionListener {
     private final Controller clickController;
     private final Presenter presenter;
@@ -23,6 +29,12 @@ public class LeaderBoardUI implements ActionListener {
     JScrollPane scrollingScore = new JScrollPane(scoresPanel);
     JButton backButton = new JButton("Back");
 
+    /**
+     * Constructs a new LeaderBoardUI object.
+     *
+     * @param clickController The Controller object responsible for handling user clicks.
+     * @param presenter The Presenter object responsible for handling the display logic.
+     */
     public LeaderBoardUI(Controller clickController, Presenter presenter) {
         this.clickController = clickController;
         this.presenter = presenter;
@@ -120,6 +132,11 @@ public class LeaderBoardUI implements ActionListener {
         leaderboardFrame.setVisible(true);
     }
 
+    /**
+     * Handles button clicks from the user, providing functionality to go back to the main menu.
+     *
+     * @param e The ActionEvent object containing information about the event.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backButton) {

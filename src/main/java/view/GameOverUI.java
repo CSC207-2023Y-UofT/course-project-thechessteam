@@ -11,6 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
+/**
+ * GameOverUI class provides the graphical user interface for displaying the game over screen.
+ * It presents the user with options to play again, navigate to the main menu, or submit their name.
+ * The class implements ActionListener to handle user interactions with the buttons on the screen.
+ *
+ */
 public class GameOverUI implements ActionListener {
     private final Controller clickController;
     private final BoardUI ui;
@@ -22,6 +28,13 @@ public class GameOverUI implements ActionListener {
     JButton submitButton = new JButton("Submit Name");
     JTextField nameBox = new JTextField("Winner's Name");
 
+    /**
+     * Constructs a new GameOver object.
+     *
+     * @param clickController The Controller object responsible for handling user clicks.
+     * @param ui The ChessBoardUI object representing the current user interface.
+     * @param presenter The Presenter object responsible for handling the display logic.
+     */
     GameOverUI(Controller clickController, BoardUI ui, Presenter presenter) {
         this.clickController = clickController;
         this.ui = ui;
@@ -81,6 +94,11 @@ public class GameOverUI implements ActionListener {
         windowFrame.setVisible(true);
     }
 
+    /**
+     * Handles button clicks from the user, providing functionality to play again, go to the main menu, or submit their name.
+     *
+     * @param e The ActionEvent object containing information about the event.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == menuButton) { // Opens the menu screen
