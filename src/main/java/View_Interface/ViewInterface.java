@@ -22,4 +22,6 @@ public interface ViewInterface {
     // Sets the white points and black points in View.
     void setWhtPoints(int whtPoints);
     void setBlkPoints(int blkPoints); */
+
+    void drawEndScreen();
 }

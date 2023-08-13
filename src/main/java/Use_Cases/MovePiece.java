@@ -39,6 +39,26 @@ public class MovePiece {
         }
     }
 
+    public LocationBitboard getCurrentBoard() {
+        return this.currentGame.getCurrentBoard();
+    }
+
+    public boolean getCurrentTurn() {
+        return this.currentGame.getTurn();
+    }
+
+    public void handleGameOver() {
+        presenter.notifyGameOver();
+        // You can add any other game-over related logic here, if needed.
+    }
+
+    public void handleStalemate() {
+        presenter.notifyGameOver();
+        // You can add any other stalemate-related logic here, if needed.
+    }
+
+
+
     public  boolean move_piece_helper(LocationBitboard currentBoard, long start, long end, boolean turn) {
         boolean canMove = false;
         if (turn) { // White's turn
