@@ -4,12 +4,8 @@ import entities.constants.FileAndRank;
 import entities.constants.InitialPositions;
 
 /**
- * This class represents a chessboard using bitboards for each pieces location
- * A new instance of this class should be created at the beginning of each game
- * Each type of piece (for both white and black) is represented by a long array, where each element
- * is a bitboard that represents the locations of pieces of that type.
- * Array of longs for flexibility. (long[])
- * Castling will be tied to entities.pieces.King valid moves. We assume that if entities.pieces.King moves two spaces, we are castling.
+ * Represents the chessboard using bitboards to store the locations of each chess piece.
+ * It includes attributes and methods to manage and manipulate piece locations.
  */
 public class LocationBitboard {
     public long[] whitePawn = new long[]{InitialPositions.WHITE_PAWN};

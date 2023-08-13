@@ -5,6 +5,12 @@ import java.util.*;
 import java.io.PrintWriter;
 import java.io.IOException;
 
+/**
+ * LeaderBoard class manages the leaderboard functionality for a game, including reading and writing
+ * player data to a file, adding new players, and printing the leaderboard. It stores players as a
+ * custom class with attributes for name and wins.
+ *
+ */
 public class LeaderBoard{
     public LeaderBoard(){}
     // has 5 methods - readData, writeData, addPlayer, sendData and printData
@@ -13,27 +19,55 @@ public class LeaderBoard{
     // printData is public, used to print the leaderboard
 
 
-    //leaderboard will hold custom class player with attributes for name and wins
+    /**
+     * Represents a Player with a name and a number of wins.
+     */
     protected static class Player {
         private final String name;
         private int wins;
+
+        /**
+         * Constructs a new Player object with the given name and wins.
+         *
+         * @param name The name of the player.
+         * @param wins The number of wins for the player.
+         */
         protected Player(String name, int wins){
             this.name = name;
             this.wins = wins;
         }
-        // Good coding practice blah blah getter functions
+
+        /**
+         * Retrieves the name of the player.
+         *
+         * @return The player's name.
+         */
         protected String getName() {
             return this.name;
         }
+
+        /**
+         * Retrieves the number of wins for the player.
+         *
+         * @return The player's number of wins.
+         */
         protected int getWins() {
             return this.wins;
         }
+
+        /**
+         * Increments the player's win count by 1.
+         */
         protected void addWins() {
             this.wins += 1;
         }
     }
 
-    // read file
+    /**
+     * Reads the player data from the file "players.txt" and returns an ArrayList of Player objects.
+     *
+     * @return An ArrayList containing Player objects representing the current leaderboard.
+     */
     private static ArrayList<Player> readData() {
         ArrayList<Player> leaderboard = new ArrayList<>(); // start with an empty array to populate
         try {
@@ -53,7 +87,11 @@ public class LeaderBoard{
         return leaderboard;
     }
 
-    // write file
+    /**
+     * Writes the given ArrayList of Player objects to the file "players.txt."
+     *
+     * @param leaderboard The ArrayList of Player objects to write to the file.
+     */
     private static void writeData(ArrayList<Player> leaderboard) {
         try {
             // open players.txt to write in it
@@ -68,7 +106,12 @@ public class LeaderBoard{
         }
     }
 
-    // add player
+    /**
+     * Adds a new player to the leaderboard or increments the win count of an existing player.
+     * The leaderboard is sorted by wins in descending order.
+     *
+     * @param playerName The name of the player to add or update.
+     */
     public static void addPlayer(String playerName) {
         // read file into leaderboard var
         ArrayList<Player> leaderboard = readData();
@@ -94,7 +137,9 @@ public class LeaderBoard{
         writeData(leaderboard); // writeData method defined above
     }
 
-    // Sends a List<String> representation of the leaderboard
+    /**
+     * Sends a List<String> representation of the leaderboard
+     */
     public static List<String> sendData() {
         // sends a copy of the leaderboard
         ArrayList<Player> leaderboard = readData();
