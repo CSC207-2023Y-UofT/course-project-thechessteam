@@ -26,8 +26,8 @@ class QueenTest {
         };
 
         // Remove all pieces from board. Only have white queen on board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteQueen[0] = TestHelper.bitboard_representation(queenLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteQueen[0] = TestHelper.bitboardRepresentation(queenLocation);
         board.updateLocationVariables();
 
         int[][] expectedValidMove = {
@@ -41,9 +41,9 @@ class QueenTest {
                 {0, 1, 1, 1, 1, 1, 1, 1}
         };
 
-        long validMove = queenCalculator.validMoves(TestHelper.bitboard_representation(queenLocation), true, board);
+        long validMove = queenCalculator.validMoves(TestHelper.bitboardRepresentation(queenLocation), true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
+        assertEquals(TestHelper.bitboardRepresentation(expectedValidMove), validMove);
     }
 
     @org.junit.jupiter.api.Test
@@ -61,8 +61,8 @@ class QueenTest {
         };
 
         // Remove all pieces from board. Only have white queen on board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteQueen[0] = TestHelper.bitboard_representation(queenLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteQueen[0] = TestHelper.bitboardRepresentation(queenLocation);
         board.updateLocationVariables();
 
         int[][] expectedValidMove = {
@@ -76,9 +76,9 @@ class QueenTest {
                 {0, 0, 0, 1, 0, 0, 0, 1}
         };
 
-        long validMove = queenCalculator.validMoves(TestHelper.bitboard_representation(queenLocation), true, board);
+        long validMove = queenCalculator.validMoves(TestHelper.bitboardRepresentation(queenLocation), true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
+        assertEquals(TestHelper.bitboardRepresentation(expectedValidMove), validMove);
     }
 
     @org.junit.jupiter.api.Test
@@ -107,9 +107,9 @@ class QueenTest {
         };
 
         // Remove all pieces from board. Only have white queen on board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteQueen[0] = TestHelper.bitboard_representation(queenLocation);
-        board.whitePawn[0] = TestHelper.bitboard_representation(pawnLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteQueen[0] = TestHelper.bitboardRepresentation(queenLocation);
+        board.whitePawn[0] = TestHelper.bitboardRepresentation(pawnLocation);
         board.updateLocationVariables();
 
         int[][] expectedValidMove = {
@@ -123,9 +123,9 @@ class QueenTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long validMove = queenCalculator.validMoves(TestHelper.bitboard_representation(queenLocation), true, board);
+        long validMove = queenCalculator.validMoves(TestHelper.bitboardRepresentation(queenLocation), true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
+        assertEquals(TestHelper.bitboardRepresentation(expectedValidMove), validMove);
     }
 
     @Test
@@ -154,9 +154,9 @@ class QueenTest {
         };
 
         // Remove all pieces from board. Only have white queen on board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteQueen[0] = TestHelper.bitboard_representation(queenLocation);
-        board.blackPawn[0] = TestHelper.bitboard_representation(pawnLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteQueen[0] = TestHelper.bitboardRepresentation(queenLocation);
+        board.blackPawn[0] = TestHelper.bitboardRepresentation(pawnLocation);
         board.updateLocationVariables();
 
         int[][] expectedValidMove = {
@@ -170,9 +170,9 @@ class QueenTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long validMove = queenCalculator.validMoves(TestHelper.bitboard_representation(queenLocation), true, board);
+        long validMove = queenCalculator.validMoves(TestHelper.bitboardRepresentation(queenLocation), true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
+        assertEquals(TestHelper.bitboardRepresentation(expectedValidMove), validMove);
     }
 
     @org.junit.jupiter.api.Test
@@ -212,10 +212,10 @@ class QueenTest {
         };
 
         // Remove all pieces from board. Only have white queen on board.
-        TestHelper.remove_all_pieces(board);
-        board.blackQueen[0] = TestHelper.bitboard_representation(blackQueenLocation);
-        board.whiteBishop[0] = TestHelper.bitboard_representation(whiteBishopLocation);
-        board.blackKnight[0] = TestHelper.bitboard_representation(blackKnightLocation);
+        TestHelper.removeAllPieces(board);
+        board.blackQueen[0] = TestHelper.bitboardRepresentation(blackQueenLocation);
+        board.whiteBishop[0] = TestHelper.bitboardRepresentation(whiteBishopLocation);
+        board.blackKnight[0] = TestHelper.bitboardRepresentation(blackKnightLocation);
         board.updateLocationVariables();
 
         int[][] expectedValidMove = {
@@ -229,9 +229,9 @@ class QueenTest {
                 {0, 0, 0, 0, 0, 0, 0, 1}
         };
 
-        long validMove = queenCalculator.validMoves(TestHelper.bitboard_representation(blackQueenLocation), false, board);
+        long validMove = queenCalculator.validMoves(TestHelper.bitboardRepresentation(blackQueenLocation), false, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
+        assertEquals(TestHelper.bitboardRepresentation(expectedValidMove), validMove);
     }
 
     // ----------------------------------------------------------------------------------------------------------
@@ -252,8 +252,8 @@ class QueenTest {
         };
 
         // Remove all pieces from board. Only have white queen on board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteQueen[0] = TestHelper.bitboard_representation(queenLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteQueen[0] = TestHelper.bitboardRepresentation(queenLocation);
         board.updateLocationVariables();
 
         int[][] expectedAttackCoverage = {
@@ -269,7 +269,7 @@ class QueenTest {
 
         long attackCoverage = queenCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
+        assertEquals(TestHelper.bitboardRepresentation(expectedAttackCoverage), attackCoverage);
     }
 
     @org.junit.jupiter.api.Test
@@ -287,8 +287,8 @@ class QueenTest {
         };
 
         // Remove all pieces from board. Only have white queen on board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteQueen[0] = TestHelper.bitboard_representation(queenLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteQueen[0] = TestHelper.bitboardRepresentation(queenLocation);
         board.updateLocationVariables();
 
         int[][] expectedAttackCoverage = {
@@ -304,7 +304,7 @@ class QueenTest {
 
         long attackCoverage = queenCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
+        assertEquals(TestHelper.bitboardRepresentation(expectedAttackCoverage), attackCoverage);
     }
 
     @org.junit.jupiter.api.Test
@@ -333,9 +333,9 @@ class QueenTest {
         };
 
         // Remove all pieces from board. Only have white queen on board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteQueen[0] = TestHelper.bitboard_representation(queenLocation);
-        board.whitePawn[0] = TestHelper.bitboard_representation(pawnLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteQueen[0] = TestHelper.bitboardRepresentation(queenLocation);
+        board.whitePawn[0] = TestHelper.bitboardRepresentation(pawnLocation);
         board.updateLocationVariables();
 
         int[][] expectedAttackCoverage = {
@@ -351,7 +351,7 @@ class QueenTest {
 
         long attackCoverage = queenCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
+        assertEquals(TestHelper.bitboardRepresentation(expectedAttackCoverage), attackCoverage);
     }
 
     @org.junit.jupiter.api.Test
@@ -380,9 +380,9 @@ class QueenTest {
         };
 
         // Remove all pieces from board. Only have white queen on board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteQueen[0] = TestHelper.bitboard_representation(queenLocation);
-        board.blackPawn[0] = TestHelper.bitboard_representation(pawnLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteQueen[0] = TestHelper.bitboardRepresentation(queenLocation);
+        board.blackPawn[0] = TestHelper.bitboardRepresentation(pawnLocation);
         board.updateLocationVariables();
 
         int[][] expectedAttackCoverage = {
@@ -398,7 +398,7 @@ class QueenTest {
 
         long attackCoverage = queenCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
+        assertEquals(TestHelper.bitboardRepresentation(expectedAttackCoverage), attackCoverage);
     }
 
     @org.junit.jupiter.api.Test
@@ -438,10 +438,10 @@ class QueenTest {
         };
 
         // Remove all pieces from board. Only have white queen on board.
-        TestHelper.remove_all_pieces(board);
-        board.blackQueen[0] = TestHelper.bitboard_representation(blackQueenLocation);
-        board.whiteBishop[0] = TestHelper.bitboard_representation(whiteBishopLocation);
-        board.blackKnight[0] = TestHelper.bitboard_representation(blackKnightLocation);
+        TestHelper.removeAllPieces(board);
+        board.blackQueen[0] = TestHelper.bitboardRepresentation(blackQueenLocation);
+        board.whiteBishop[0] = TestHelper.bitboardRepresentation(whiteBishopLocation);
+        board.blackKnight[0] = TestHelper.bitboardRepresentation(blackKnightLocation);
         board.updateLocationVariables();
 
         int[][] expectedAttackCoverage = {
@@ -457,7 +457,7 @@ class QueenTest {
 
         long attackCoverage = queenCalculator.attackCoverage(false, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
+        assertEquals(TestHelper.bitboardRepresentation(expectedAttackCoverage), attackCoverage);
     }
 
     @org.junit.jupiter.api.Test
@@ -475,8 +475,8 @@ class QueenTest {
         };
 
         // Remove all pieces from board. Only have white queen on board.
-        TestHelper.remove_all_pieces(board);
-        board.blackQueen[0] = TestHelper.bitboard_representation(blackQueenLocation);
+        TestHelper.removeAllPieces(board);
+        board.blackQueen[0] = TestHelper.bitboardRepresentation(blackQueenLocation);
         board.updateLocationVariables();
 
         int[][] expectedAttackCoverage = {
@@ -492,6 +492,6 @@ class QueenTest {
 
         long attackCoverage = queenCalculator.attackCoverage(false, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
+        assertEquals(TestHelper.bitboardRepresentation(expectedAttackCoverage), attackCoverage);
     }
 }

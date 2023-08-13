@@ -50,10 +50,10 @@ class ActualValidCalculatorTest {
         };
 
         // Remove all pieces from board. Only have white queen on board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteQueen[0] = TestHelper.bitboard_representation(whiteQueenLocation);
-        board.whiteKing[0] = TestHelper.bitboard_representation(whiteKingLocation);
-        board.blackRook[0] = TestHelper.bitboard_representation(blackRookLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteQueen[0] = TestHelper.bitboardRepresentation(whiteQueenLocation);
+        board.whiteKing[0] = TestHelper.bitboardRepresentation(whiteKingLocation);
+        board.blackRook[0] = TestHelper.bitboardRepresentation(blackRookLocation);
         board.updateLocationVariables();
 
         // Only moves that does not put the king in check should be valid
@@ -69,9 +69,9 @@ class ActualValidCalculatorTest {
         };
 
         long actualValidMove = actualValidCalculator.actualValidMoves(
-                TestHelper.bitboard_representation(whiteQueenLocation), true, board);
+                TestHelper.bitboardRepresentation(whiteQueenLocation), true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedActualValidMove), actualValidMove);
+        assertEquals(TestHelper.bitboardRepresentation(expectedActualValidMove), actualValidMove);
     }
 
     // pawn movement when king would be in check
@@ -112,10 +112,10 @@ class ActualValidCalculatorTest {
         };
 
         // Remove all pieces from board. Only have white pawn, king and black rook on board.
-        TestHelper.remove_all_pieces(board);
-        board.whitePawn[0] = TestHelper.bitboard_representation(whitePawnLocation);
-        board.whiteKing[0] = TestHelper.bitboard_representation(whiteKingLocation);
-        board.blackRook[0] = TestHelper.bitboard_representation(blackRookLocation);
+        TestHelper.removeAllPieces(board);
+        board.whitePawn[0] = TestHelper.bitboardRepresentation(whitePawnLocation);
+        board.whiteKing[0] = TestHelper.bitboardRepresentation(whiteKingLocation);
+        board.blackRook[0] = TestHelper.bitboardRepresentation(blackRookLocation);
         board.updateLocationVariables();
 
         // Only moves that does not put the king in check should be valid
@@ -131,9 +131,9 @@ class ActualValidCalculatorTest {
         };
 
         long actualValidMove = actualValidCalculator.actualValidMoves(
-                TestHelper.bitboard_representation(whitePawnLocation), true, board);
+                TestHelper.bitboardRepresentation(whitePawnLocation), true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedActualValidMove), actualValidMove);
+        assertEquals(TestHelper.bitboardRepresentation(expectedActualValidMove), actualValidMove);
     }
 
     // pawn movement when king would be in check, but enemy in front
@@ -184,15 +184,15 @@ class ActualValidCalculatorTest {
         };
 
         // Remove all pieces from board. Only have white pawn, king and black rook on board.
-        TestHelper.remove_all_pieces(board);
-        board.whitePawn[0] = TestHelper.bitboard_representation(whitePawnLocation);
-        board.whiteKing[0] = TestHelper.bitboard_representation(whiteKingLocation);
-        board.blackRook[0] = TestHelper.bitboard_representation(blackRookLocation);
-        board.blackPawn[0] = TestHelper.bitboard_representation(blackPawnLocation);
+        TestHelper.removeAllPieces(board);
+        board.whitePawn[0] = TestHelper.bitboardRepresentation(whitePawnLocation);
+        board.whiteKing[0] = TestHelper.bitboardRepresentation(whiteKingLocation);
+        board.blackRook[0] = TestHelper.bitboardRepresentation(blackRookLocation);
+        board.blackPawn[0] = TestHelper.bitboardRepresentation(blackPawnLocation);
         board.updateLocationVariables();
 
         long actualValidMove = actualValidCalculator.actualValidMoves(
-                TestHelper.bitboard_representation(whitePawnLocation), true, board);
+                TestHelper.bitboardRepresentation(whitePawnLocation), true, board);
         // Check if valid move is as expected
         assertEquals(0L, actualValidMove);
     }
@@ -245,11 +245,11 @@ class ActualValidCalculatorTest {
         };
 
         // Remove all pieces from board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteKnight[0] = TestHelper.bitboard_representation(whiteKnightLocation);
-        board.whiteKing[0] = TestHelper.bitboard_representation(whiteKingLocation);
-        board.blackQueen[0] = TestHelper.bitboard_representation(blackQueenLocation);
-        board.blackRook[0] = TestHelper.bitboard_representation(blackRookLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteKnight[0] = TestHelper.bitboardRepresentation(whiteKnightLocation);
+        board.whiteKing[0] = TestHelper.bitboardRepresentation(whiteKingLocation);
+        board.blackQueen[0] = TestHelper.bitboardRepresentation(blackQueenLocation);
+        board.blackRook[0] = TestHelper.bitboardRepresentation(blackRookLocation);
         board.updateLocationVariables();
 
         // Only moves that does not put the king in check should be valid
@@ -265,8 +265,8 @@ class ActualValidCalculatorTest {
         };
 
         long actualValidMove = actualValidCalculator.actualValidMoves(
-                TestHelper.bitboard_representation(whiteKnightLocation), true, board);
+                TestHelper.bitboardRepresentation(whiteKnightLocation), true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedActualValidMove), actualValidMove);
+        assertEquals(TestHelper.bitboardRepresentation(expectedActualValidMove), actualValidMove);
     }
 }

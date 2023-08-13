@@ -26,8 +26,8 @@ class KnightTest {
         };
 
         // Remove all pieces from board.
-        TestHelper.remove_all_pieces(board);
-        board.blackKnight[0] = TestHelper.bitboard_representation(knightLocation);
+        TestHelper.removeAllPieces(board);
+        board.blackKnight[0] = TestHelper.bitboardRepresentation(knightLocation);
         board.updateLocationVariables();
 
         int[][] expectedValidMove = {
@@ -41,9 +41,9 @@ class KnightTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long validMove = knightCalculator.validMoves(TestHelper.bitboard_representation(knightLocation), false, board);
+        long validMove = knightCalculator.validMoves(TestHelper.bitboardRepresentation(knightLocation), false, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
+        assertEquals(TestHelper.bitboardRepresentation(expectedValidMove), validMove);
     }
 
 
@@ -62,7 +62,7 @@ class KnightTest {
         };
 
         // We don't remove all pieces here because we want the pieces that can block its original movement.
-        board.whiteKnight[0] = TestHelper.bitboard_representation(knightLocation);
+        board.whiteKnight[0] = TestHelper.bitboardRepresentation(knightLocation);
         board.updateLocationVariables();
 
         int[][] expectedValidMove = {
@@ -76,9 +76,9 @@ class KnightTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long validMove = knightCalculator.validMoves(TestHelper.bitboard_representation(knightLocation), true, board);
+        long validMove = knightCalculator.validMoves(TestHelper.bitboardRepresentation(knightLocation), true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
+        assertEquals(TestHelper.bitboardRepresentation(expectedValidMove), validMove);
     }
 
     @Test
@@ -96,8 +96,8 @@ class KnightTest {
         };
 
         // Remove all pieces from board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteKnight[0] = TestHelper.bitboard_representation(knightLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteKnight[0] = TestHelper.bitboardRepresentation(knightLocation);
         board.updateLocationVariables();
 
         int[][] expectedValidMove = {
@@ -111,9 +111,9 @@ class KnightTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long validMove = knightCalculator.validMoves(TestHelper.bitboard_representation(knightLocation), true, board);
+        long validMove = knightCalculator.validMoves(TestHelper.bitboardRepresentation(knightLocation), true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
+        assertEquals(TestHelper.bitboardRepresentation(expectedValidMove), validMove);
     }
 
 
@@ -135,8 +135,8 @@ class KnightTest {
         };
 
         // Remove all pieces from board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteKnight[0] = TestHelper.bitboard_representation(knightLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteKnight[0] = TestHelper.bitboardRepresentation(knightLocation);
         board.updateLocationVariables();
 
         int[][] expectedAttackCoverage = {
@@ -152,7 +152,7 @@ class KnightTest {
 
         long attackCoverage = knightCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
+        assertEquals(TestHelper.bitboardRepresentation(expectedAttackCoverage), attackCoverage);
     }
 
     @Test
@@ -181,9 +181,9 @@ class KnightTest {
         };
 
         // Remove all pieces from board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteKnight[0] = TestHelper.bitboard_representation(knightLocation);
-        board.whitePawn[0] = TestHelper.bitboard_representation(pawnLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteKnight[0] = TestHelper.bitboardRepresentation(knightLocation);
+        board.whitePawn[0] = TestHelper.bitboardRepresentation(pawnLocation);
         board.updateLocationVariables();
 
         int[][] expectedAttackCoverage = {
@@ -199,7 +199,7 @@ class KnightTest {
 
         long attackCoverage = knightCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
+        assertEquals(TestHelper.bitboardRepresentation(expectedAttackCoverage), attackCoverage);
     }
 
     @Test
@@ -228,9 +228,9 @@ class KnightTest {
         };
 
         // Remove all pieces from board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteKnight[0] = TestHelper.bitboard_representation(knightLocation);
-        board.blackPawn[0] = TestHelper.bitboard_representation(pawnLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteKnight[0] = TestHelper.bitboardRepresentation(knightLocation);
+        board.blackPawn[0] = TestHelper.bitboardRepresentation(pawnLocation);
         board.updateLocationVariables();
 
         int[][] expectedAttackCoverage = {
@@ -246,7 +246,7 @@ class KnightTest {
 
         long attackCoverage = knightCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
+        assertEquals(TestHelper.bitboardRepresentation(expectedAttackCoverage), attackCoverage);
     }
 
     @Test
@@ -286,10 +286,10 @@ class KnightTest {
         };
 
         // Remove all pieces from board.
-        TestHelper.remove_all_pieces(board);
-        board.blackKnight[0] = TestHelper.bitboard_representation(blackKnightLocation);
-        board.whitePawn[0] = TestHelper.bitboard_representation(whitePawnLocation);
-        board.blackPawn[0] = TestHelper.bitboard_representation(blackPawnLocation);
+        TestHelper.removeAllPieces(board);
+        board.blackKnight[0] = TestHelper.bitboardRepresentation(blackKnightLocation);
+        board.whitePawn[0] = TestHelper.bitboardRepresentation(whitePawnLocation);
+        board.blackPawn[0] = TestHelper.bitboardRepresentation(blackPawnLocation);
         board.updateLocationVariables();
 
         int[][] expectedAttackCoverage = {
@@ -305,6 +305,6 @@ class KnightTest {
 
         long attackCoverage = knightCalculator.attackCoverage(false, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
+        assertEquals(TestHelper.bitboardRepresentation(expectedAttackCoverage), attackCoverage);
     }
 }

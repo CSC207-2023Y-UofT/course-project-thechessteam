@@ -1,4 +1,7 @@
+package usecases;
+
 import entities.locations.LocationBitboard;
+
 /**
  * Holds helper methods for the test cases to visualize bitboard.
  */
