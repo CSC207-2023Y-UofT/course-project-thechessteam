@@ -1,5 +1,5 @@
-import Entities.Locations.LocationBitboard;
-import Entities.Pieces.Bishop;
+import entities.locations.LocationBitboard;
+import entities.pieces.Bishop;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,8 +32,8 @@ class BishopTest {
         };
 
         // Remove all pieces from board.
-        TestHelper.remove_all_pieces(board);
-        board.blackBishop[0] = TestHelper.bitboard_representation(bishopLocation);
+        TestHelper.removeAllPieces(board);
+        board.blackBishop[0] = TestHelper.bitboardRepresentation(bishopLocation);
         board.updateLocationVariables();
 
         int[][] expectedValidMove = {
@@ -47,9 +47,9 @@ class BishopTest {
                 {0, 0, 0, 0, 0, 0, 0, 1}
         };
 
-        long validMove = bishopCalculator.valid_moves(TestHelper.bitboard_representation(bishopLocation), false, board);
+        long validMove = bishopCalculator.validMoves(TestHelper.bitboardRepresentation(bishopLocation), false, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
+        assertEquals(TestHelper.bitboardRepresentation(expectedValidMove), validMove);
     }
 
 
@@ -68,7 +68,7 @@ class BishopTest {
         };
 
         // We don't remove all pieces here because we want the pieces that can block its original movement.
-        board.whiteBishop[0] = TestHelper.bitboard_representation(bishopLocation);
+        board.whiteBishop[0] = TestHelper.bitboardRepresentation(bishopLocation);
         board.updateLocationVariables();
 
         int[][] expectedValidMove = {
@@ -82,9 +82,9 @@ class BishopTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long validMove = bishopCalculator.valid_moves(TestHelper.bitboard_representation(bishopLocation), true, board);
+        long validMove = bishopCalculator.validMoves(TestHelper.bitboardRepresentation(bishopLocation), true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
+        assertEquals(TestHelper.bitboardRepresentation(expectedValidMove), validMove);
     }
 
 
@@ -106,8 +106,8 @@ class BishopTest {
         };
 
         // Remove all pieces from board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteBishop[0] = TestHelper.bitboard_representation(bishopLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteBishop[0] = TestHelper.bitboardRepresentation(bishopLocation);
         board.updateLocationVariables();
 
         int[][] expectedAttackCoverage = {
@@ -121,9 +121,9 @@ class BishopTest {
                 {1, 0, 0, 0, 0, 0, 1, 0}
         };
 
-        long attackCoverage = bishopCalculator.attack_coverage(true, board);
+        long attackCoverage = bishopCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
+        assertEquals(TestHelper.bitboardRepresentation(expectedAttackCoverage), attackCoverage);
     }
 
     @Test
@@ -152,9 +152,9 @@ class BishopTest {
         };
 
         // Remove all pieces from board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteBishop[0] = TestHelper.bitboard_representation(bishopLocation);
-        board.whitePawn[0] = TestHelper.bitboard_representation(pawnLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteBishop[0] = TestHelper.bitboardRepresentation(bishopLocation);
+        board.whitePawn[0] = TestHelper.bitboardRepresentation(pawnLocation);
         board.updateLocationVariables();
 
         int[][] expectedAttackCoverage = {
@@ -168,9 +168,9 @@ class BishopTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long attackCoverage = bishopCalculator.attack_coverage(true, board);
+        long attackCoverage = bishopCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
+        assertEquals(TestHelper.bitboardRepresentation(expectedAttackCoverage), attackCoverage);
     }
 
     @Test
@@ -199,9 +199,9 @@ class BishopTest {
         };
 
         // Remove all pieces from board.
-        TestHelper.remove_all_pieces(board);
-        board.whiteBishop[0] = TestHelper.bitboard_representation(bishopLocation);
-        board.blackPawn[0] = TestHelper.bitboard_representation(pawnLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteBishop[0] = TestHelper.bitboardRepresentation(bishopLocation);
+        board.blackPawn[0] = TestHelper.bitboardRepresentation(pawnLocation);
         board.updateLocationVariables();
 
         int[][] expectedAttackCoverage = {
@@ -215,9 +215,9 @@ class BishopTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long attackCoverage = bishopCalculator.attack_coverage(true, board);
+        long attackCoverage = bishopCalculator.attackCoverage(true, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
+        assertEquals(TestHelper.bitboardRepresentation(expectedAttackCoverage), attackCoverage);
     }
 
     @Test
@@ -257,10 +257,10 @@ class BishopTest {
         };
 
         // Remove all pieces from board.
-        TestHelper.remove_all_pieces(board);
-        board.blackBishop[0] = TestHelper.bitboard_representation(blackBishopLocation);
-        board.whitePawn[0] = TestHelper.bitboard_representation(whitePawnLocation);
-        board.blackPawn[0] = TestHelper.bitboard_representation(blackPawnLocation);
+        TestHelper.removeAllPieces(board);
+        board.blackBishop[0] = TestHelper.bitboardRepresentation(blackBishopLocation);
+        board.whitePawn[0] = TestHelper.bitboardRepresentation(whitePawnLocation);
+        board.blackPawn[0] = TestHelper.bitboardRepresentation(blackPawnLocation);
         board.updateLocationVariables();
 
         int[][] expectedAttackCoverage = {
@@ -274,9 +274,9 @@ class BishopTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        long attackCoverage = bishopCalculator.attack_coverage(false, board);
+        long attackCoverage = bishopCalculator.attackCoverage(false, board);
         // Check if valid move is as expected
-        assertEquals(TestHelper.bitboard_representation(expectedAttackCoverage), attackCoverage);
+        assertEquals(TestHelper.bitboardRepresentation(expectedAttackCoverage), attackCoverage);
     }
 
 }

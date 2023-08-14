@@ -1,5 +1,5 @@
-import Entities.Locations.LocationBitboard;
-import Entities.Pieces.King;
+import entities.locations.LocationBitboard;
+import entities.pieces.King;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,8 +23,8 @@ class KingTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        TestHelper.remove_all_pieces(board);
-        board.whiteKing[0] = TestHelper.bitboard_representation(kingLocation);
+        TestHelper.removeAllPieces(board);
+        board.whiteKing[0] = TestHelper.bitboardRepresentation(kingLocation);
         board.updateLocationVariables();
 
         int[][] expectedValidMove = {
@@ -38,8 +38,8 @@ class KingTest {
                 {0, 1, 0, 0, 0, 0, 0, 0}
         };
 
-        long validMove = kingCalculator.valid_moves(TestHelper.bitboard_representation(kingLocation), true, board);
-        assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
+        long validMove = kingCalculator.validMoves(TestHelper.bitboardRepresentation(kingLocation), true, board);
+        assertEquals(TestHelper.bitboardRepresentation(expectedValidMove), validMove);
     }
 
 
@@ -56,8 +56,8 @@ class KingTest {
                     {0, 0, 0, 0, 0, 0, 0, 0},
             };
 
-            TestHelper.remove_all_pieces(board);
-            board.whiteKing[0] = TestHelper.bitboard_representation(kingLocation);
+            TestHelper.removeAllPieces(board);
+            board.whiteKing[0] = TestHelper.bitboardRepresentation(kingLocation);
             board.updateLocationVariables();
 
             int[][] expectedValidMove = {
@@ -72,8 +72,8 @@ class KingTest {
 
             };
 
-            long validMove = kingCalculator.valid_moves(TestHelper.bitboard_representation(kingLocation), true, board);
-            assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
+            long validMove = kingCalculator.validMoves(TestHelper.bitboardRepresentation(kingLocation), true, board);
+            assertEquals(TestHelper.bitboardRepresentation(expectedValidMove), validMove);
         }
 
         @Test
@@ -100,9 +100,9 @@ class KingTest {
                     {0, 0, 0, 0, 0, 0, 0, 0},
             };
 
-            TestHelper.remove_all_pieces(board);
-            board.whiteKing[0] = TestHelper.bitboard_representation(kingLocation);
-            board.blackPawn[0] = TestHelper.bitboard_representation(enemyPawns);
+            TestHelper.removeAllPieces(board);
+            board.whiteKing[0] = TestHelper.bitboardRepresentation(kingLocation);
+            board.blackPawn[0] = TestHelper.bitboardRepresentation(enemyPawns);
             board.updateLocationVariables();
 
             int[][] expectedValidMove = {
@@ -116,8 +116,8 @@ class KingTest {
                     {0, 0, 0, 0, 0, 0, 0, 0},
             };
 
-            long validMove = kingCalculator.valid_moves(TestHelper.bitboard_representation(kingLocation), true, board);
-            assertEquals(TestHelper.bitboard_representation(expectedValidMove), validMove);
+            long validMove = kingCalculator.validMoves(TestHelper.bitboardRepresentation(kingLocation), true, board);
+            assertEquals(TestHelper.bitboardRepresentation(expectedValidMove), validMove);
         }
 
         // Add more tests: Edge cases, surrounded by allies, in check scenarios, etc.
