@@ -18,8 +18,11 @@ public interface ViewInterface {
     // Sets the turn in view. The turn argument must be true for white and false for black
     void setTurn(boolean turn);
 
+    void drawEndScreen();
+
     /* Unused code for now
     // Sets the white points and black points in view.
     void setWhtPoints(int whtPoints);
     void setBlkPoints(int blkPoints); */
+    
 }
