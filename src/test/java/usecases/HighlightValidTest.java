@@ -34,6 +34,11 @@ class HighlightValidTest {
         public void setTurn(boolean currentTurn) {
             // Method not needed for test
         }
+
+        @Override
+        public void notifyGameOver() {
+            // Method not needed for test
+        }
     }
 
     ChessGame game;
