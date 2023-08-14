@@ -6,20 +6,28 @@ import entities.locations.LocationBitboard;
 import presenterinterface.PresenterInterface;
 
 public class MovePiece {
-    // Use case class for moving pieces, including castling.
-    // Returns true if there's a piece at start and end is a valid move of that piece.
     private PresenterInterface presenter;
     private final ChessGame currentGame;
     private final ActualValidCalculator actualValidCalc;
+
     public MovePiece(ChessGame currentGame, ActualValidCalculator actualValidCalc) {
         this.currentGame = currentGame;
         this.actualValidCalc = actualValidCalc;
     }
+
     public void setPresenter(PresenterInterface presenter) {
         this.presenter = presenter;
     }
-    public void movePiece(long start, long end) {
 
+    public LocationBitboard getCurrentBoard() {
+        return this.currentGame.getCurrentBoard();
+    }
+
+    public boolean getCurrentTurn() {
+        return this.currentGame.getTurn();
+    }
+
+    public void movePiece(long start, long end) {
         boolean turn = currentGame.getTurn();
         LocationBitboard currentBoard = currentGame.getCurrentBoard();
         boolean moveSuccessful = movePieceHelper(currentBoard, start, end, turn);
@@ -39,7 +47,7 @@ public class MovePiece {
         }
     }
 
-    public  boolean movePieceHelper(LocationBitboard currentBoard, long start, long end, boolean turn) {
+    public boolean movePieceHelper(LocationBitboard currentBoard, long start, long end, boolean turn) {
         boolean canMove = false;
         if (turn) { // White's turn
             if ((start & currentBoard.getWhiteLocations()) != 0L) {
@@ -51,15 +59,23 @@ public class MovePiece {
             }
         }
         if (canMove) {
-            // Check if end is a valid move
             if ((end & actualValidCalc.actualValidMoves(start, turn, currentBoard)) != 0) {
                 return currentBoard.movePiece(start, end, turn);
-            } else { // If end is not a valid move, do not move piece.
+            } else {
                 return false;
             }
-        }
-        else { // We do not move piece.
+        } else {
             return false;
         }
+    }
+
+    public void handleGameOver() {
+        presenter.notifyGameOver();
+        // You can add any other game-over related logic here, if needed.
+    }
+
+    public void handleStalemate() {
+        presenter.notifyGameOver();
+        // You can add any other stalemate-related logic here, if needed.
     }
 }
