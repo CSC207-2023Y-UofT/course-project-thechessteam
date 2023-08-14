@@ -3,19 +3,11 @@ package Entities.Locations;
 import Entities.Constants.FileAndRank;
 import Entities.Constants.InitialPositions;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * This class represents a chessboard using bitboards for each pieces location
- * A new instance of this class should be created at the beginning of each game
- * Each type of piece (for both white and black) is represented by a long array, where each element
- * is a bitboard that represents the locations of pieces of that type.
- * Array of longs for flexibility. (long[])
- * Castling will be tied to Entities.Pieces.King valid moves. We assume that if Entities.Pieces.King moves two spaces, we are castling.
+ * Represents the chessboard using bitboards to store the locations of each chess piece.
+ * It includes attributes and methods to manage and manipulate piece locations.
  */
 public class LocationBitboard {
-    private final Map<String, long[]> pieceBitboards = new HashMap<>();
     public long[] whitePawn = new long[]{InitialPositions.WHITE_PAWN};
     public long[] whiteRook = new long[]{InitialPositions.WHITE_ROOK};
     public long[] whiteKnight = new long[]{InitialPositions.WHITE_KNIGHT};
@@ -60,8 +52,10 @@ public class LocationBitboard {
         }
     }
     private long occupied = whiteLocations | blackLocations;
-    // ----------------------------------------------------------------------------------------------------------
-    // Getter methods
+
+    /**
+     * Getters returns the specified attributes
+     */
     public long[][] getWhitePieces() {return whitePieces; }
     public long[][] getBlackPieces() {return blackPieces; }
     public long getWhiteLocations() { // returns a bitboard showing all squares occupied by White
@@ -80,10 +74,10 @@ public class LocationBitboard {
         return blackPawnMovedTwo;
     }
     // Moved booleans for kings and rooks
-    public boolean getWhiteKingMoved(){
+    public boolean getWhiteKingNotMoved(){
         return !whiteKingMoved;
     }
-    public boolean getBlackKingMoved(){
+    public boolean getBlackKingNotMoved(){
         return !blackKingMoved;
     }
     public boolean getLeftRookMovedW(){
@@ -99,12 +93,13 @@ public class LocationBitboard {
         return rightBlackRookMoved;
     }
 
-    // ----------------------------------------------------------------------------------------------------------
-    // move_piece method for updating location
-
-    // move_piece updates all variables related to the move.
-    // Returns true if move was successful, returns false if there was no piece at "from".
-    // Assume moving piece from "from" to "to" is a valid move.
+    /**
+     * Moves a piece from one location to another.
+     * @param from the source location.
+     * @param to the destination location.
+     * @param turn true for White's turn, false for Black's turn.
+     * @return true if the move was successful, false if there was no piece at "from".
+     */
     public boolean move_piece(long from, long to, boolean turn) {
         boolean moved = false;
         if (turn) { // White's turn
@@ -127,7 +122,10 @@ public class LocationBitboard {
         }
         return moved;
     }
-    // Method for updating all location variables
+
+    /**
+     * Method for updating all location variables.
+     */
     public void updateLocationVariables(){
         long newWhiteLocations = 0L;
         for (long[] pieceType : whitePieces) {
@@ -143,15 +141,47 @@ public class LocationBitboard {
 
         occupied = whiteLocations | blackLocations;
     }
-    // ----------------------------------------------------------------------------------------------------------
-    // Helper methods
 
-    // Helper method for move_piece
+    /**
+     * Updates the state of a chess piece on the board after a move has been made.
+     * Takes into account special moves like castling and en passant.
+     *
+     * @param pieceType An array containing the piece's type.
+     * @param from      The starting location of the piece.
+     * @param to        The destination location of the piece.
+     * @param turn      A boolean value representing whose turn it is (true for White, false for Black).
+     */
     private void update_piece(long[] pieceType, long from, long to, boolean turn) {
         // These will be updated as true if we moved a pawn two spaces forward.
         whitePawnMovedTwo = 0L;
         blackPawnMovedTwo = 0L;
 
+        update_for_special_conditions(pieceType, from, to);
+
+        pieceType[0] = (pieceType[0] & ~from) | to; // Move the piece of pieceType
+
+        // Remove opponent piece at to
+        remove_opponent_piece_at_to(turn, to);
+
+        // Update all location variables: whiteLocations, blackLocations, occupied
+        updateLocationVariables();
+    }
+
+    // Move pieces for special chess rules: Castling, En Passant.
+    // Also updates instance variables in this class related to these rules.
+    private void update_for_special_conditions(long[] pieceType, long from, long to) {
+        if (!check_and_update_castling(pieceType, from, to)) {
+            if (!check_and_update_pawn(pieceType, from, to)) {
+                check_and_update_rook_moved(pieceType, from);
+            }
+        }
+    }
+
+    // Helper methods for update_piece
+
+    // Check if we are castling and update accordingly. Returns true if we castled.
+    private boolean check_and_update_castling(long[] pieceType, long from, long to) {
+        boolean checkedCastling = false;
         if (pieceType[0] == whiteKing[0]) { // if we are moving a white king
             if (from >>> 2 == to) { // castling to queen side
                 update_rook_for_castling(whiteRook, true, true);
@@ -159,6 +189,7 @@ public class LocationBitboard {
                 update_rook_for_castling(whiteRook, false, true);
             }
             whiteKingMoved = true;
+            checkedCastling = true;
         } else if (pieceType[0] == blackKing[0]) { // if we are moving a black king
             if (from >>> 2 == to) { // castling to queen side
                 update_rook_for_castling(blackRook, true, false);
@@ -166,10 +197,18 @@ public class LocationBitboard {
                 update_rook_for_castling(blackRook, false, false);
             }
             blackKingMoved = true;
-        } else if (pieceType[0] == whitePawn[0]) { // if we are moving a white pawn
+            checkedCastling = true;
+        }
+        return checkedCastling;
+    }
+
+    // Check if we are performing en passant. Update if opponent will be able to perform en passant next turn.
+    private boolean check_and_update_pawn(long[] pieceType, long from, long to) {
+        boolean movingPawn = false;
+        if (pieceType[0] == whitePawn[0]) { // if we are moving a white pawn
             // if we are moving without capturing
             if (((to & blackLocations) == 0L) &&
-            // if we are not moving straight forward when we are at Rank 5
+                    // if we are not moving straight forward when we are at Rank 5
                     ((from & FileAndRank.RANK_5) != 0L) && (to != (from << 8))) {
                 // then we perform en passant
                 update_en_passant(to, true);
@@ -178,6 +217,7 @@ public class LocationBitboard {
             if (((from & FileAndRank.RANK_2) != 0L) && ((to & FileAndRank.RANK_4) != 0L)) {
                 whitePawnMovedTwo = to;
             }
+            movingPawn = true;
         } else if (pieceType[0] == blackPawn[0]) { // if we are moving a black pawn
             // if we are moving without capturing
             if (((to & whiteLocations) == 0L) &&
@@ -190,7 +230,14 @@ public class LocationBitboard {
             if (((from & FileAndRank.RANK_7) != 0L) && ((to & FileAndRank.RANK_5) != 0L)) {
                 blackPawnMovedTwo = to;
             }
-        } else if (pieceType[0] == whiteRook[0]) { // if we are moving a white rook
+            movingPawn = true;
+        }
+        return movingPawn;
+    }
+
+    // Update boolean instance variables for whether a rook moved
+    private void check_and_update_rook_moved(long[] pieceType, long from) {
+        if (pieceType[0] == whiteRook[0]) { // if we are moving a white rook
             if (from == 1L) {
                 leftWhiteRookMoved = true;
             }
@@ -204,24 +251,17 @@ public class LocationBitboard {
                 rightBlackRookMoved = true;
             }
         }
-
-        pieceType[0] = (pieceType[0] & ~from) | to; // Move the piece of pieceType
-
-        // Remove opponent piece at to
-        if (turn) { // White's turn
-            for (long[] blackPieceType : getBlackPieces()) {
-                blackPieceType[0] &= ~to;
-            }
-        } else {
-            for (long[] whitePieceType : getWhitePieces()) {
-                whitePieceType[0] &= ~to;
-            }
-        }
-        updateLocationVariables(); // Update all location variables: whiteLocations, blackLocations, occupied
     }
 
-    // Helper methods for update_piece
-    private void update_rook_for_castling (long[] rookLocations, boolean direction, boolean color){
+    /**
+     * Updates the rook's position when castling.
+     * This method handles both king side and queen side castling for both colors.
+     *
+     * @param rookLocations An array representing the rook's current locations.
+     * @param direction     A boolean value representing the direction of castling (true for queen side, false for king side).
+     * @param color         A boolean value representing the color of the rook (true for White, false for Black).
+     */
+    private void update_rook_for_castling (long[] rookLocations, boolean direction, boolean color) {
         // direction == true for queen side, direction == false for king side
         // color == true for White, color == false for Black
         if (color) { // if moving a white king
@@ -243,6 +283,12 @@ public class LocationBitboard {
         }
     }
 
+    /**
+     * Executes the en passant move by updating the pawn's location.
+     *
+     * @param to   The destination location of the pawn that performed en passant.
+     * @param side A boolean value representing the side that performed en passant (true for White, false for Black).
+     */
     private void update_en_passant (long to, boolean side) {
         if (side) {
             blackPawn[0] = blackPawn[0] & ~(to >>> 8);
@@ -251,42 +297,23 @@ public class LocationBitboard {
             whitePawn[0] = whitePawn[0] & ~(to << 8);
         }
     }
-    // ----------------------------------------------------------------------------------------------------------
+
+    // Remove opponent piece at to
+    private void remove_opponent_piece_at_to(boolean turn, long to) {
+        if (turn) { // White's turn
+            for (long[] blackPieceType : getBlackPieces()) {
+                blackPieceType[0] &= ~to;
+            }
+        } else {
+            for (long[] whitePieceType : getWhitePieces()) {
+                whitePieceType[0] &= ~to;
+            }
+        }
+    }
 
     /**
      * Constructor for creating an instance of Entities.Locations.LocationBitboard.
      * Initializes all the bitboards to the starting positions of the pieces
      */
-    public LocationBitboard(){
-        pieceBitboards.put("whitePawn", whitePawn);
-        pieceBitboards.put("whiteRook", whiteRook);
-        pieceBitboards.put("whiteKnight", whiteKnight);
-        pieceBitboards.put("whiteBishop", whiteBishop);
-        pieceBitboards.put("whiteQueen", whiteQueen);
-        pieceBitboards.put("whiteKing", whiteKing);
-        pieceBitboards.put("blackPawn", blackPawn);
-        pieceBitboards.put("blackRook", blackRook);
-        pieceBitboards.put("blackKnight", blackKnight);
-        pieceBitboards.put("blackBishop", blackBishop);
-        pieceBitboards.put("blackQueen", blackQueen);
-        pieceBitboards.put("blackKing", blackKing);
-    }
-
-    /* Unused Methods ->
-
-    public Map<String, Long> getAllPieces() {
-        Map<String, Long> bitboards = new HashMap<>();
-        for (Map.Entry<String, long[]> entry : pieceBitboards.entrySet()) {
-            bitboards.put(entry.getKey(), entry.getValue()[0]);
-        }
-        return bitboards;
-    }
-
-    public long getBitboard(String pieceType) {
-        return pieceBitboards.get(pieceType)[0];
-    }
-
-    public void setBitboard(String pieceType, long bitboard) {
-        pieceBitboards.get(pieceType)[0] = bitboard;
-    } */
+    public LocationBitboard(){}
 }

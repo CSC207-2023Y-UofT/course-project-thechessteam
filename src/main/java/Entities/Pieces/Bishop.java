@@ -3,12 +3,27 @@ package Entities.Pieces;
 import Entities.Constants.FileAndRank;
 import Entities.Locations.LocationBitboard;
 
+/**
+ * Class representing a Bishop piece in a chess game.
+ * Implements the Calculator interface to determine valid moves and attack coverage.
+ */
 public class Bishop implements PieceCalculator {
 
     private long sameColoredPieces;
 
+    /**
+     * Default constructor for the Bishop class.
+     */
     public Bishop(){}
 
+    /**
+     * Calculates the valid moves for a Bishop from a given position.
+     *
+     * @param from  The starting position of the Bishop.
+     * @param side  The side of the Bishop (true for white, false for black).
+     * @param board The current state of the chessboard.
+     * @return      A bitboard representing all valid moves for the Bishop.
+     */
     public long valid_moves(long from, boolean side, LocationBitboard board) {
         // occupied provides occupied places on the board.
         long occupied = board.getOccupied();
@@ -39,11 +54,23 @@ public class Bishop implements PieceCalculator {
                 calculateFinalPosition(antiDiagonal& antiDiagonalMask);
     }
 
-    // helper, to calculate the final position (makes sure piece in question can't step on their own colored pieces)
+    /**
+     * Helper method to calculate the final position of the Bishop, excluding its own colored pieces.
+     *
+     * @param candidate The candidate positions for the Bishop's move.
+     * @return          A bitboard representing the final valid positions.
+     */
     private long calculateFinalPosition(long candidate) {
         return candidate & ~this.sameColoredPieces;
     }
 
+    /**
+     * Calculates the attack coverage for the Bishops of a given side on the current board.
+     *
+     * @param side  The side of the Bishop (true for white, false for black).
+     * @param board The current state of the chessboard.
+     * @return      A bitboard representing all squares attacked by the Bishops of the given side.
+     */
     public long attack_coverage(boolean side, LocationBitboard board) {
         long attacked = 0L;  // bits where bishop is attacking
         long bishopLocations;  // bishop locations based on side/color
