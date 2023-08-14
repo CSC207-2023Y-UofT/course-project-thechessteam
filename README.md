@@ -92,7 +92,7 @@ When the king is in check, only moves to get out of the check are allowed.
 When the king cannot get out of a check, game is forfeit.
 
 ### Stalemate
-When no further progress us possible from either player, a stalemate is reached and the conclusion is a draw.
+When no further progress is possible from either player, a stalemate is reached and the conclusion is a draw.
 
 
 ### Draw
