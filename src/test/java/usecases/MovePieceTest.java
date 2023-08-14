@@ -860,4 +860,73 @@ class MovePieceTest {
         // Should be still white's turn
         assertTrue(game.getTurn());
     }
+
+    @Test
+    void enPassantWhite() {
+        // Initialize empty chessboard
+        TestHelper.removeAllPieces(game.getCurrentBoard());
+
+        int[][] blackPawn = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+
+        int[][] whitePawn = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 1, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+
+        int[][] blackTo = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+
+        int[][] whiteTo = {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+
+        // Place the pieces and update the board
+        game.getCurrentBoard().blackPawn[0] = TestHelper.bitboardRepresentation(blackPawn);
+        game.getCurrentBoard().whitePawn[0] = TestHelper.bitboardRepresentation(whitePawn);
+        game.getCurrentBoard().updateLocationVariables();
+        // Change to black's turn
+        game.changeTurn();
+
+        movePieceClass.movePiece(TestHelper.bitboardRepresentation(blackPawn), TestHelper.bitboardRepresentation(blackTo));
+        assertTrue(game.getTurn()); // Should be white's turn now
+        // new black pawn location after moving
+        assertEquals(TestHelper.bitboardRepresentation(blackTo), mockPresenter.pieceLocations[1][0]);
+        movePieceClass.movePiece(TestHelper.bitboardRepresentation(whitePawn), TestHelper.bitboardRepresentation(whiteTo));
+        assertFalse(game.getTurn()); // Should be black's turn now
+
+        // white pawn should have moved
+        assertEquals(TestHelper.bitboardRepresentation(whiteTo), mockPresenter.pieceLocations[0][0]);
+        // black pawn should be removed for en passant
+        assertEquals(0, mockPresenter.pieceLocations[1][0]);
+    }
 }
