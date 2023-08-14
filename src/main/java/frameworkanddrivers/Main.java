@@ -4,9 +4,7 @@ import controller.Controller;
 import entities.variouscalculators.*;
 import entities.ChessGame;
 import presenter.Presenter;
-import usecases.HighlightValid;
-import usecases.MovePiece;
-import usecases.NewGame;
+import usecases.*;
 import view.BoardUI;
 import view.MenuUI;
 

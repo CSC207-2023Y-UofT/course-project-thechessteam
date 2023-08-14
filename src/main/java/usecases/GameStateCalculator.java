@@ -1,5 +1,7 @@
-package entities.variouscalculators;
+package usecases;
 import entities.locations.LocationBitboard;
+import entities.variouscalculators.ActualValidCalculator;
+import entities.variouscalculators.CheckCalculator;
 
 /**
  * GameStateCalculator is an abstract class that provides common utility methods
