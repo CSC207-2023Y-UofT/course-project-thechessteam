@@ -1,8 +1,8 @@
 package controller;
 
 import entities.locations.LocationBitboard;
-import entities.variouscalculators.CheckmateCalculator;
-import entities.variouscalculators.StalemateCalculator;
+import usecases.CheckmateCalculator;
+import usecases.StalemateCalculator;
 import usecases.HighlightValid;
 import usecases.MovePiece;
 import usecases.NewGame;

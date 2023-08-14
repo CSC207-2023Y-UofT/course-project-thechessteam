@@ -1,6 +1,8 @@
-package entities.variouscalculators;
+package usecases;
 
 import entities.locations.LocationBitboard;
+import entities.variouscalculators.ActualValidCalculator;
+import entities.variouscalculators.CheckCalculator;
 
 /*
         * CheckmateCalculator determines if a player is in checkmate, i.e., in check and has no legal moves.

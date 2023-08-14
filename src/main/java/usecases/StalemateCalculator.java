@@ -1,7 +1,9 @@
-package entities.variouscalculators;
+package usecases;
 
 
 import entities.locations.LocationBitboard;
+import entities.variouscalculators.ActualValidCalculator;
+import entities.variouscalculators.CheckCalculator;
 
 /**
  * StalemateCalculator determines if a player is in stalemate, which means the player is not in check
