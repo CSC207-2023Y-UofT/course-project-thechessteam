@@ -1,10 +1,8 @@
 package frameworkanddrivers;
 
 import controller.Controller;
-import entities.variouscalculators.ActualValidCalculator;
-import entities.variouscalculators.Calculators;
+import entities.variouscalculators.*;
 import entities.ChessGame;
-import entities.variouscalculators.CheckCalculator;
 import presenter.Presenter;
 import usecases.HighlightValid;
 import usecases.MovePiece;
@@ -32,7 +30,8 @@ public class Main {
         Calculators calculators = new Calculators();
         CheckCalculator checkCalc = new CheckCalculator(calculators);
         ActualValidCalculator actualValidCalc = new ActualValidCalculator(calculators, checkCalc);
-
+        CheckmateCalculator checkmateCalculatorClass = new CheckmateCalculator(actualValidCalc, checkCalc);
+        StalemateCalculator stalemateCalculatorClass = new StalemateCalculator(actualValidCalc, checkCalc);
         // Use Cases.
         // Depends on ChessGame(Entity) and ActualValidCalculator(Entity)
         MovePiece movePieceClass = new MovePiece(game, actualValidCalc);
@@ -45,7 +44,10 @@ public class Main {
 
         // Controller.
         // Depends on MovePiece(Use Case), HighlightValid(Use Case), and NewGame(Use Case)
-        Controller clickController = new Controller(movePieceClass, highlightClass, newGameClass);
+
+        Controller clickController = new Controller(movePieceClass, highlightClass, newGameClass,
+                checkmateCalculatorClass, stalemateCalculatorClass);
+
 
         // view.
         // Our main UI called ChessBoardUI.
